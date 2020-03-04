@@ -25,5 +25,8 @@ Android-приложение для учёта расходов:
 9. CI (docker, heroku)
 ---
 
+#### Шаблон интерфейса проекта
+
+[![Шаблон пользовательского интерфейса](finalCount.jpg?raw=true "Шаблон пользовательского интерфейса")](https://github.com/AndVl1/Final-Count/blob/master/finalCount.jpg "Шаблон пользовательского интерфейса")
 
 
