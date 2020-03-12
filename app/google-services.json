@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "2416467229",
+    "firebase_url": "https://final-count.firebaseio.com",
+    "project_id": "final-count",
+    "storage_bucket": "final-count.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2416467229:android:033eb79d19d481faaf15f4",
+        "android_client_info": {
+          "package_name": "com.techpark.finalcount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2416467229-tirfhssu5n6j438fl6brqirlsfn09bp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOdWzdJpQLYhvoHTlWOwvAOt8cLA3RiOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2416467229-tirfhssu5n6j438fl6brqirlsfn09bp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
