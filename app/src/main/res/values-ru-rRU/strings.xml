@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Final Count</string>
+    <string name="register">Регистрация</string>
+    <string name="password_hint">Пароль</string>
+    <string name="choose_oauth">Или используйте предоставленные ниже методы</string>
+    <string name="login">Вход</string>
+    <string name="invalid">Неправильный логин или пароль</string>
+    <string name="verification">Ссылка на верификацию отправлена на вашу почту</string>
+    <string name="set_name">Установить имя пользователя</string>
+    <string name="send_verify">Отправить письмо с ссылкой на подтверждение аккаунта</string>
+    <string name="login_google">Войти с помощью Google</string>
+    <string name="login_vk">Войти с помощью VK</string>
+    <string name="login_github">Войти с помощью Github</string>
+    <string name="login_facebook">Войти с помощью Facebook</string>
+</resources>

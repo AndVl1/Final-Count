@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "2416467229-schunjf2lv6etto784nsm1smqq7gmvuc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techpark.finalcount",
+            "certificate_hash": "86dcccad854beaac2542895cd8f63a618a96e17c"
+          }
+        },
+        {
+          "client_id": "2416467229-3e5lp1d61r0gcock2fh3abrn5g992sc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techpark.finalcount",
+            "certificate_hash": "02873a3066cf539e9cb90a32cc9c25536ca5bd20"
+          }
+        },
+        {
           "client_id": "2416467229-tirfhssu5n6j438fl6brqirlsfn09bp9.apps.googleusercontent.com",
           "client_type": 3
         }

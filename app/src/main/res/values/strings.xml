@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Final Count</string>
-    <string name="skip">Skip</string>
     <string name="register">Register</string>
-    <string name="login_hint">mail@example.com</string>
-    <string name="password_hint">Your Password</string>
+    <string name="login_hint" translatable="false">mail@example.com</string>
+    <string name="password_hint">Password</string>
     <string name="choose_oauth">OR USE OTHER LOGIN METHODS</string>
     <string name="login">Login</string>
     <string name="invalid">Invalid login or password</string>
