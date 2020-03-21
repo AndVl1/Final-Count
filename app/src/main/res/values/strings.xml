@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Final Count</string>
+    <string name="skip">Skip</string>
+    <string name="register">Register</string>
+    <string name="login_hint">mail@example.com</string>
+    <string name="password_hint">Your Password</string>
+    <string name="choose_oauth">OR USE OTHER LOGIN METHODS</string>
+    <string name="login">Login</string>
+    <string name="invalid">Invalid login or password</string>
+    <string name="verification">Verification link sent to your email</string>
+    <string name="set_name">Set display name</string>
+    <string name="send_verify">Send verification email</string>
+    <string name="login_google">Login with Google</string>
+    <string name="login_vk">Login with VK</string>
+    <string name="login_github">Login with Github</string>
+    <string name="login_facebook">Login with Facebook</string>
 </resources>
