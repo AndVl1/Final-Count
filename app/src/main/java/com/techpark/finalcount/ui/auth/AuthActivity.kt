@@ -20,7 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
 import com.techpark.finalcount.MainActivity
 import com.techpark.finalcount.R
 import com.techpark.finalcount.databinding.ActivityAuthBinding
@@ -53,10 +56,8 @@ class AuthActivity : AppCompatActivity() {
         })
         loginActivityBinding.authTypeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                loginActivityBinding.displayName.visibility = View.INVISIBLE
                 loginActivityBinding.submitButton.setText(R.string.login)
             } else {
-                loginActivityBinding.displayName.visibility = View.VISIBLE
                 loginActivityBinding.submitButton.setText(R.string.register)
             }
         }
@@ -92,7 +93,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun authenticate(login: String, password: String, isLogin: Boolean): Boolean {
-        if (!checkLogin(isLogin)) {
+        if (!checkLogin()) {
             loginActivityBinding.statusView.text = getString(R.string.invalid)
             loginActivityBinding.statusView.visibility = View.VISIBLE
             return false
@@ -127,16 +128,9 @@ class AuthActivity : AppCompatActivity() {
         loginActivityBinding.progressBar.visibility = View.VISIBLE
         mAuth.createUserWithEmailAndPassword(login, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                mAuth.currentUser!!.updateProfile(
-                    UserProfileChangeRequest.Builder()
-                        .setDisplayName(loginActivityBinding.displayName.text.toString())
-                        .build())
-                mAuth.currentUser!!.sendEmailVerification()
-                    .addOnCompleteListener{
-                        Log.d("REGISTRATION", getString(R.string.verification))
-                        Toast.makeText(applicationContext, getText(R.string.verification), Toast.LENGTH_LONG).show()
-                        toMainActivity()
-                    }.addOnFailureListener { Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show() }
+                Log.d("REGISTRATION", getString(R.string.verification))
+                Toast.makeText(applicationContext, getText(R.string.verification), Toast.LENGTH_LONG).show()
+                toMainActivity()
             } else {
                 showError(task.exception!!.localizedMessage!!)
                 loginActivityBinding.progressBar.visibility = View.GONE
@@ -149,12 +143,9 @@ class AuthActivity : AppCompatActivity() {
         loginActivityBinding.statusView.visibility = View.VISIBLE
     }
 
-    private fun checkLogin(isLogin: Boolean): Boolean = if(isLogin) {
-            !loginActivityBinding.loginInput.text.isNullOrEmpty() &&
-                    !loginActivityBinding.passwordInput.text.isNullOrEmpty()
-        } else !loginActivityBinding.loginInput.text.isNullOrEmpty() &&
-                !loginActivityBinding.passwordInput.text.isNullOrEmpty() &&
-                !loginActivityBinding.displayName.text.isNullOrEmpty()
+    private fun checkLogin(): Boolean = !loginActivityBinding.loginInput.text.isNullOrEmpty() &&
+            !loginActivityBinding.passwordInput.text.isNullOrEmpty()
+
 
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -12,14 +12,6 @@
         android:visibility="gone" />
 
     <EditText
-        android:id="@+id/display_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/set_name"
-        android:inputType="textPersonName" />
-
-    <EditText
         android:id="@+id/login_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
