@@ -14,15 +14,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.techpark.finalcount.MainActivity
 import com.techpark.finalcount.R
 import com.techpark.finalcount.databinding.ActivityAuthBinding
-import com.vk.api.sdk.VK
-import com.vk.api.sdk.auth.VKAccessToken
-import com.vk.api.sdk.auth.VKAuthCallback
-import com.vk.api.sdk.auth.VKScope
-import com.vk.api.sdk.utils.VKUtils
 
 
 class AuthActivity : AppCompatActivity() {
@@ -137,10 +135,7 @@ class AuthActivity : AppCompatActivity() {
         Log.d("OAR", "onActivityResult")
         if (requestCode == RC_SIGN_IN) { //--------GOOGLE---------
             handleGoogleLogin(data)
-        } else { // --------------VK-------------
-            Log.d("VK", "onActivityResult")
-            handleVKLogin(requestCode, resultCode, data)
-        }//----------------------------
+        }
     }
 
     // ----------------- GOOGLE -----------------
@@ -220,53 +215,6 @@ class AuthActivity : AppCompatActivity() {
                 }
         }
     }
-    //-------------------------------------------
-
-    //-------------------- VK -------------------
-    fun loginWithVK(view: View){
-        VK.login(this, arrayListOf(VKScope.EMAIL))
-        val fingerprints =
-            VKUtils.getCertificateFingerprint(this, this.packageName)
-        Log.d("VK", fingerprints!![0].toString())
-        Log.d("VK", "onClick")
-
-    }
-
-    private fun handleVKLogin(requestCode: Int, resultCode: Int, data: Intent?) {
-        val callback = object: VKAuthCallback {
-            override fun onLogin(token: VKAccessToken) {
-                if (token.email != null) {
-                    token.accessToken.let {
-                        mAuth.signInWithCustomToken(it)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d("VK", "success")
-                                    toMainActivity()
-                                } else {
-                                    Log.w("VK", it, task.exception)
-                                    Toast.makeText(
-                                        applicationContext,
-                                        task.exception.toString(),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                    }
-                } else {
-                    Toast.makeText(applicationContext, "Email is empty. Please try with another account", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onLoginFailed(errorCode: Int) {
-                Log.e("VK", "Login failed $errorCode")
-            }
-        }
-        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
-
     //-------------------------------------------
 
 
