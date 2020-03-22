@@ -23,8 +23,9 @@
         android:text="Logout"
         app:layout_constraintTop_toBottomOf="@+id/main_text"
         app:layout_constraintStart_toStartOf="@+id/main_text"/>
+
     <Button
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/resend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

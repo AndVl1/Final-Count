@@ -101,17 +101,18 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/google_log"
                 android:src="@drawable/ic_vk"
-                android:contentDescription="@string/login_vk"/>
+                android:contentDescription="@string/login_vk"
+                android:onClick="loginWithVK"/>
 
             <ImageButton
-                android:visibility="gone"
                 android:id="@+id/github_log"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/vk_log"
                 android:src="@drawable/ic_github"
-                android:contentDescription="@string/login_github"/>
+                android:contentDescription="@string/login_github"
+                android:onClick="loginWithGithub"/>
 
             <ImageButton
                 android:visibility="gone"

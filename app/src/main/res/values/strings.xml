@@ -13,4 +13,6 @@
     <string name="login_vk">Login with VK</string>
     <string name="login_github">Login with Github</string>
     <string name="login_facebook">Login with Facebook</string>
+
+    <integer name="com_vk_sdk_AppId" translatable="false">7368763</integer>
 </resources>
