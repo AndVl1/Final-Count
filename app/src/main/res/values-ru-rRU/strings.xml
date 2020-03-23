@@ -13,4 +13,5 @@
     <string name="login_vk">Войти с помощью VK</string>
     <string name="login_github">Войти с помощью Github</string>
     <string name="login_facebook">Войти с помощью Facebook</string>
+    <string name="logout">Выйти</string>
 </resources>
