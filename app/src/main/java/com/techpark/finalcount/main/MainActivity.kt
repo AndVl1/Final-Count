@@ -1,4 +1,4 @@
-package com.techpark.finalcount
+package com.techpark.finalcount.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.techpark.finalcount.R
+import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
-import com.techpark.finalcount.ui.auth.AuthActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainActivityBinding: ActivityMainBinding

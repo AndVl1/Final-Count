@@ -1,10 +1,11 @@
-package com.techpark.finalcount.ui.auth
+package com.techpark.finalcount
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.techpark.finalcount.MainActivity
+import com.techpark.finalcount.auth.views.activity.AuthActivity
+import com.techpark.finalcount.main.MainActivity
 
 
 class SplashActivity: AppCompatActivity() {
