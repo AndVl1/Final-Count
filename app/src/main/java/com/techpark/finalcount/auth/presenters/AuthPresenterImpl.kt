@@ -62,35 +62,6 @@ class AuthPresenterImpl(private val mAuth: FirebaseAuth): AuthPresenter {
     }
 
     override fun authGithub() {
-//        val provider = OAuthProvider.newBuilder("github.com")
-//        val scopes = arrayListOf("user:email")
-//        provider.setScopes(scopes)
-//        val pendingResultTask = mAuth.pendingAuthResult
-//        mAuthView!!.setLoadingVisibility(true)
-//        if (pendingResultTask != null) {
-//            // There's something already here! Finish the sign-in for your user.
-//            pendingResultTask
-//                .addOnSuccessListener(
-//                    OnSuccessListener {
-//                        mAuthView!!.loginSuccess()
-//                    })
-//                .addOnFailureListener {
-//                    mAuth.signOut()
-//                    mAuthView!!.loginError()
-//                }
-//        } else {
-//            mAuth
-//                .startActivityForSignInWithProvider(this, provider.build())
-//                .addOnSuccessListener {
-//                    mAuthView!!.loginSuccess()
-//                }
-//                .addOnFailureListener {
-//                    mAuthView!!.showError(it.localizedMessage!!)
-//                    mAuth.signOut()
-//                    mAuthView!!.loginError()
-//                    Log.e("GITHUB", it.message!!)
-//                }
-//        }
     }
 
     override fun authFacebook(token: AccessToken) {
