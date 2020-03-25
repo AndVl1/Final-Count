@@ -1,6 +1,6 @@
 package com.techpark.finalcount.base
 
-interface BasePresenter<v: BaseView> {
-    fun attachView(view: v)
+interface BasePresenter<V: BaseView> {
+    fun attachView(view: V)
     fun detachView()
 }

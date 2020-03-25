@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:gravity="center"
+
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/status_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/login_input" />
 
     <EditText
         android:id="@+id/login_input"
@@ -17,7 +22,8 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/login_hint"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@id/password_input" />
 
     <EditText
         android:id="@+id/password_input"
@@ -25,12 +31,17 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@id/auth_line" />
 
     <RelativeLayout
+        android:id="@+id/auth_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password_input"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Switch
             android:id="@+id/auth_type_switch"
@@ -57,57 +68,47 @@
             android:text="@string/register" />
     </RelativeLayout>
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/other_methods_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:text="@string/choose_oauth"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@id/auth_line" />
 
-        <TextView
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/github_google_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/other_methods_text">
+
+        <ImageButton
+            android:id="@+id/google_log"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/choose_oauth"
-            android:textSize="25sp" />
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/login_google"
+            android:onClick="loginWithGoogle"
+            android:src="@drawable/ic_google" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/github_log"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/google_log"
+            android:contentDescription="@string/login_github"
+            android:onClick="loginWithGithub"
+            android:src="@drawable/ic_github" />
+    </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/google_log"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_google"
-                android:contentDescription="@string/login_google"
-                android:onClick="loginWithGoogle"/>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/github_google_btns" />
 
-            <ImageButton
-                android:id="@+id/github_log"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/google_log"
-                android:src="@drawable/ic_github"
-                android:contentDescription="@string/login_github"
-                android:onClick="loginWithGithub"/>
-
-            <ImageButton
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/github_log"
-                android:src="@drawable/ic_facebook"
-                android:contentDescription="@string/login_facebook"/>
-        </RelativeLayout>
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/facebook_login"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

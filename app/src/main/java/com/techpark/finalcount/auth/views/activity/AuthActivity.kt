@@ -1,6 +1,5 @@
 package com.techpark.finalcount.auth.views.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -30,11 +29,11 @@ import com.techpark.finalcount.utils.Utils
 
 class AuthActivity : BaseActivity(), AuthView {
 
-    private lateinit var loginActivityBinding : ActivityAuthBinding
+    private lateinit var mLoginActivityBinding : ActivityAuthBinding
     private val mAuth = FirebaseAuth.getInstance()
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private val callbackManager: CallbackManager = CallbackManager.Factory.create() // facebook
-    private val authPresenter: AuthPresenterImpl = AuthPresenterImpl(mAuth)
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val mCallbackManager: CallbackManager = CallbackManager.Factory.create() // facebook
+    private val mAuthPresenter: AuthPresenterImpl = AuthPresenterImpl(mAuth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,45 +41,45 @@ class AuthActivity : BaseActivity(), AuthView {
             toMainActivity()
             return
         }
-        loginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
-        setContentView(loginActivityBinding.root)
+        mLoginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(mLoginActivityBinding.root)
 
-        authPresenter.attachView(this)
-        authPresenter.checkLogin()
+        mAuthPresenter.attachView(this)
+        mAuthPresenter.checkLogin()
 
 
-        loginActivityBinding.loginInput.addTextChangedListener(object : TextWatcher {
+        mLoginActivityBinding.loginInput.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                loginActivityBinding.statusView.visibility = View.GONE
-                loginActivityBinding.submitButton.isEnabled = s.toString().trim{ it <= ' '}.isNotEmpty()
+                mLoginActivityBinding.statusView.visibility = View.GONE
+                mLoginActivityBinding.submitButton.isEnabled = s.toString().trim{ it <= ' '}.isNotEmpty()
             }
 
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         })
-        loginActivityBinding.authTypeSwitch.setOnCheckedChangeListener { _, isChecked ->
+        mLoginActivityBinding.authTypeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                loginActivityBinding.submitButton.setText(R.string.login)
+                mLoginActivityBinding.submitButton.setText(R.string.login)
             } else {
-                loginActivityBinding.submitButton.setText(R.string.register)
+                mLoginActivityBinding.submitButton.setText(R.string.register)
             }
         }
-        loginActivityBinding.submitButton.setOnClickListener {
+        mLoginActivityBinding.submitButton.setOnClickListener {
             Log.d("AUTH", "button click")
-            authPresenter.authenticateEmail(loginActivityBinding.loginInput.text.toString(),
-                loginActivityBinding.passwordInput.text.toString(),
-                loginActivityBinding.authTypeSwitch.isChecked)
+            mAuthPresenter.authenticateEmail(mLoginActivityBinding.loginInput.text.toString(),
+                mLoginActivityBinding.passwordInput.text.toString(),
+                mLoginActivityBinding.authTypeSwitch.isChecked)
         }
 
         //FACEBOOK
-        loginActivityBinding.facebookLogin.setReadPermissions(listOf("email"))
+        mLoginActivityBinding.facebookLogin.setReadPermissions(listOf("email"))
         Log.d("FACEBOOK", "permissions set")
-        LoginManager.getInstance().registerCallback(callbackManager, object :
+        LoginManager.getInstance().registerCallback(mCallbackManager, object :
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 Log.d("FACEBOOK", "facebook:onSuccess:$loginResult")
-                authPresenter.authFacebook(loginResult.accessToken)
-                loginActivityBinding.progressBar.visibility = View.VISIBLE
+                mAuthPresenter.authFacebook(loginResult.accessToken)
+                mLoginActivityBinding.progressBar.visibility = View.VISIBLE
             }
 
             override fun onCancel() {
@@ -99,8 +98,8 @@ class AuthActivity : BaseActivity(), AuthView {
 
 
     override fun showError(err: String) {
-        loginActivityBinding.statusView.text = err
-        loginActivityBinding.statusView.visibility = View.VISIBLE
+        mLoginActivityBinding.statusView.text = err
+        mLoginActivityBinding.statusView.visibility = View.VISIBLE
     }
 
     override fun loginSuccess() {
@@ -120,15 +119,14 @@ class AuthActivity : BaseActivity(), AuthView {
     }
 
 
-
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("OAR", "onActivityResult")
         if (requestCode == RC_SIGN_IN) { //--------GOOGLE---------
-            authPresenter.handleGoogleAuth(data)
+            mAuthPresenter.handleGoogleAuth(data)
         } else {
             Log.d("OAR", "not google")
-            callbackManager.onActivityResult(requestCode, resultCode, data)
+            mCallbackManager.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -139,8 +137,8 @@ class AuthActivity : BaseActivity(), AuthView {
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-        startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGN_IN)
     }
 
     companion object {
@@ -184,14 +182,17 @@ class AuthActivity : BaseActivity(), AuthView {
     //-------------------------------------------
 
     override fun setLoadingVisibility(vis: Boolean){
-        loginActivityBinding.progressBar.visibility = if (vis) View.VISIBLE else View.GONE
+        mLoginActivityBinding.progressBar.visibility = if (vis) View.VISIBLE else View.GONE
     }
 
     private fun toMainActivity() {
-        loginActivityBinding.progressBar.visibility = View.GONE
+        mLoginActivityBinding.progressBar.visibility = View.GONE
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
-    override fun getContext(): Context = this
+    override fun onDestroy() {
+        super.onDestroy()
+        mAuthPresenter.detachView()
+    }
 }

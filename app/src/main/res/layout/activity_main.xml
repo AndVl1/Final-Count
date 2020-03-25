@@ -24,13 +24,4 @@
         app:layout_constraintTop_toBottomOf="@+id/main_text"
         app:layout_constraintStart_toStartOf="@+id/main_text"/>
 
-    <Button
-        android:visibility="visible"
-        android:id="@+id/resend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Verify"
-        app:layout_constraintTop_toBottomOf="@+id/logout"
-        app:layout_constraintStart_toStartOf="@+id/logout"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
