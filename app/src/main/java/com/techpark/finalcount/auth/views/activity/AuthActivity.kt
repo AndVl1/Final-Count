@@ -175,7 +175,7 @@ class AuthActivity : BaseActivity(), AuthView {
                     mAuth.signOut()
                     startActivity(Intent(applicationContext, AuthActivity::class.java))
                     setLoadingVisibility(false)
-                    Log.e("GITHUB", it.message!!)
+                    Log.e("GITHUB", it.message ?: "Smth with Github")
                 }
         }
     }

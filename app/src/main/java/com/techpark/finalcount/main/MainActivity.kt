@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainActivityBinding.root)
 
         if (mAuth.currentUser != null) {
-            mainActivityBinding.mainText.text = mAuth.currentUser!!.isEmailVerified.toString()
+            mainActivityBinding.mainText.text = mAuth.currentUser?.email ?: "no email"
             mainActivityBinding.logout.setOnClickListener {
                 mAuth.signOut()
                 LoginManager.getInstance().logOut()
