@@ -1,112 +1,147 @@
 package com.techpark.finalcount.auth.presenters
 
+import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.techpark.finalcount.auth.views.AuthView
+import kotlinx.coroutines.tasks.await
 
-class AuthPresenterImpl(private val mAuth: FirebaseAuth): AuthPresenter {
+class AuthPresenterImpl(private val mAuth: FirebaseAuth) : AuthPresenter {
     private var mAuthView: AuthView? = null
-    override fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
+    override suspend fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
         Log.d("PRESENTER", "auth")
         mAuthView?.setLoadingVisibility(true)
-        if (!check(login, password)){
+        if (!check(login, password)) {
             mAuthView?.showError("Invalid login or password")
+            mAuthView?.loginError()
         } else {
-            if (isLogin){
-                login(login, password)
+            val res: AuthResult? = if (isLogin) {
+                loginEmail(login, password)
             } else {
-                register(login, password)
+                registerEmail(login, password)
+            }
+            if (res != null) {
+                mAuthView?.loginSuccess()
+            } else {
+                mAuthView?.loginError()
             }
         }
     }
 
-    override fun handleGoogleAuth(data: Intent?) {
+    override suspend fun handleGoogleAuth(data: Intent?) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-        try {
-            // Google Sign In was successful, authenticate with Firebase
-            val account = task.getResult(ApiException::class.java)
-            mAuthView?.setLoadingVisibility(true)
-            authGoogle(account!!)
-        } catch (e: ApiException) {
-            // Google Sign In failed, update UI appropriately
+        // Google Sign In was successful, authenticate with Firebase
+        val account = task.getResult(ApiException::class.java)
+        mAuthView?.setLoadingVisibility(true)
+        val e = authGoogle(account!!)
+        if (e != null) {
+            Log.d("SIGN IN", "signInWithCredential:success")
+            mAuthView?.loginSuccess()
+        } else {
             mAuthView?.setLoadingVisibility(false)
+            mAuthView?.loginError()
+        }
+    }
+
+    override suspend fun authGoogle(acct: GoogleSignInAccount): AuthResult? {
+        Log.d("GOOGLE", "firebaseAuthWithGoogle:  ${acct.id} ${acct.idToken}")
+        return try {
+            val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+            mAuth.signInWithCredential(credential)
+                .await()
+        } catch (e: Exception) {
             mAuthView?.showError(e.localizedMessage ?: "Some error occurred")
             Log.w("GOOGLE", "Google sign in failed", e)
+            null
         }
     }
 
-    override fun authGoogle(acct: GoogleSignInAccount) {
-        Log.d("GOOGLE", "firebaseAuthWithGoogle:  ${acct.id} ${acct.idToken}")
+    override suspend fun authGithub(activity: Activity) {
+        val result = handleGithub(activity)
+        if (result != null) {
+            mAuthView?.loginSuccess()
+        } else {
+            mAuth.signOut()
+            mAuthView?.loginError()
+            mAuthView?.setLoadingVisibility(false)
+        }
+    }
 
-        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("SIGN IN", "signInWithCredential:success")
-                    mAuthView?.loginSuccess()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("GOOGLE", "signInWithCredential:failure", task.exception)
-                    mAuthView?.loginError()
-                    mAuthView?.showError(task.exception.toString())
-                }
+    private suspend fun handleGithub(activity: Activity): AuthResult? {
+        val provider = OAuthProvider.newBuilder("github.com")
+        val scopes = arrayListOf("user:email")
+        provider.setScopes(scopes)
+        val pendingResultTask = mAuth.pendingAuthResult
+        mAuthView?.setLoadingVisibility(true)
+        // There's something already here! Finish the sign-in for your user.
+        return try {
+            if (pendingResultTask != null) {
+                pendingResultTask
+                    .await()
+            } else {
+                mAuth
+                    .startActivityForSignInWithProvider(activity, provider.build())
+                    .await()
             }
+        } catch (e: Exception) {
+            mAuthView?.showError(e.localizedMessage ?: "Some error occurred")
+            Log.e("GITHUB", "Sign in failed", e)
+            null
+        }
     }
 
-    override fun authGithub() {
-    }
-
-    override fun authFacebook(token: AccessToken) {
-        Log.d("FACEBOOK", "handleFacebookAccessToken:$token")
-
+    override suspend fun handleFacebook(token: AccessToken): AuthResult? {
         val credential = FacebookAuthProvider.getCredential(token.token)
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("FACEBOOK", "signInWithCredential:success")
-                    mAuthView?.loginSuccess()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("FACEBOOK", "signInWithCredential:failure", task.exception)
-                    mAuthView?.showError("Auth failed")
-                    mAuth.signOut()
-                    mAuthView?.loginError()
-                }
-            }
+        return try {
+            mAuth.signInWithCredential(credential)
+                .await()
+        } catch (e: Exception) {
+            Log.w("FACEBOOK", "signInWithCredential:failure", e)
+            mAuthView?.showError("Auth failed")
+            null
+        }
     }
 
-    private fun check(login: String, password: String):Boolean = login.isNotEmpty() && password.isNotEmpty()
-    private fun login(login: String, password: String){
+    override suspend fun authFacebook(token: AccessToken) {
+        Log.d("FACEBOOK", "handleFacebookAccessToken:$token")
+        val res = handleFacebook(token)
+        if (res != null) {
+            Log.d("FACEBOOK", "signInWithCredential:success")
+            mAuthView?.loginSuccess()
+
+        } else {
+            mAuth.signOut()
+            mAuthView?.loginError()
+        }
+    }
+
+    private fun check(login: String, password: String): Boolean =
+        login.isNotEmpty() && password.isNotEmpty()
+
+    private suspend fun loginEmail(login: String, password: String): AuthResult? {
         Log.d("PRESENTER", "login")
-        mAuth.signInWithEmailAndPassword(login, password)
-            .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        mAuthView?.loginSuccess()
-                    } else {
-                        mAuthView?.showError(task.exception?.localizedMessage ?: "Some error occurred")
-                        mAuthView?.loginError()
-                    }
-            }
+        return try {
+            mAuth
+                .signInWithEmailAndPassword(login, password)
+                .await()
+        } catch (e: Exception) {
+            mAuthView?.showError(e.localizedMessage ?: "Some error occurred")
+            null
+        }
     }
 
-    private fun register(login: String, password: String){
-        mAuth.createUserWithEmailAndPassword(login, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    mAuthView?.loginSuccess()
-                } else {
-                    mAuthView?.showError(task.exception?.localizedMessage ?: "Some error occurred")
-                    mAuthView?.loginError()
-                }
+    private suspend fun registerEmail(login: String, password: String): AuthResult? {
+        return try {
+            mAuth.createUserWithEmailAndPassword(login, password)
+                .await()
+        } catch (e: Exception) {
+            mAuthView?.showError(e.localizedMessage ?: "Some error occurred")
+            null
         }
     }
 
@@ -121,7 +156,7 @@ class AuthPresenterImpl(private val mAuth: FirebaseAuth): AuthPresenter {
     override fun checkLogin() {
         if (mAuth.currentUser != null) {
             mAuthView?.isLogin(true)
-        }else{
+        } else {
             mAuthView?.isLogin(false)
         }
     }

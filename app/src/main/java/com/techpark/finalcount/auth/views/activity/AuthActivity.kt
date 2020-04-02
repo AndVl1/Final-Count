@@ -6,7 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -15,9 +15,7 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.OAuthProvider
 import com.techpark.finalcount.R
 import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.auth.views.AuthView
@@ -25,6 +23,7 @@ import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
 import com.techpark.finalcount.main.MainActivity
 import com.techpark.finalcount.utils.Utils
+import kotlinx.coroutines.launch
 
 
 class AuthActivity : BaseActivity(), AuthView {
@@ -66,9 +65,13 @@ class AuthActivity : BaseActivity(), AuthView {
         }
         mLoginActivityBinding.submitButton.setOnClickListener {
             Log.d("AUTH", "button click")
-            mAuthPresenter.authenticateEmail(mLoginActivityBinding.loginInput.text.toString(),
-                mLoginActivityBinding.passwordInput.text.toString(),
-                mLoginActivityBinding.authTypeSwitch.isChecked)
+            lifecycleScope.launch {
+                mAuthPresenter.authenticateEmail(
+                    mLoginActivityBinding.loginInput.text.toString(),
+                    mLoginActivityBinding.passwordInput.text.toString(),
+                    mLoginActivityBinding.authTypeSwitch.isChecked
+                )
+            }
         }
 
         //FACEBOOK
@@ -78,8 +81,10 @@ class AuthActivity : BaseActivity(), AuthView {
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 Log.d("FACEBOOK", "facebook:onSuccess:$loginResult")
-                mAuthPresenter.authFacebook(loginResult.accessToken)
-                mLoginActivityBinding.progressBar.visibility = View.VISIBLE
+                lifecycleScope.launch {
+                    mAuthPresenter.authFacebook(loginResult.accessToken)
+                    mLoginActivityBinding.progressBar.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancel() {
@@ -123,7 +128,9 @@ class AuthActivity : BaseActivity(), AuthView {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("OAR", "onActivityResult")
         if (requestCode == RC_SIGN_IN) { //--------GOOGLE---------
-            mAuthPresenter.handleGoogleAuth(data)
+            lifecycleScope.launch {
+                mAuthPresenter.handleGoogleAuth(data)
+            }
         } else {
             Log.d("OAR", "not google")
             mCallbackManager.onActivityResult(requestCode, resultCode, data)
@@ -148,36 +155,39 @@ class AuthActivity : BaseActivity(), AuthView {
 
     //------------------ GITHUB -----------------
     fun loginWithGithub(view: View) {
-        val provider = OAuthProvider.newBuilder("github.com")
-        val scopes = arrayListOf("user:email")
-        provider.setScopes(scopes)
-        val pendingResultTask = mAuth.pendingAuthResult
-        setLoadingVisibility(true)
-        if (pendingResultTask != null) {
-            // There's something already here! Finish the sign-in for your user.
-            pendingResultTask
-                .addOnSuccessListener(
-                    OnSuccessListener {
-                        toMainActivity()
-                    })
-                .addOnFailureListener {
-                    mAuth.signOut()
-                    startActivity(Intent(applicationContext, AuthActivity::class.java))
-                }
-        } else {
-            mAuth
-                .startActivityForSignInWithProvider(this, provider.build())
-                .addOnSuccessListener {
-                    toMainActivity()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
-                    mAuth.signOut()
-                    startActivity(Intent(applicationContext, AuthActivity::class.java))
-                    setLoadingVisibility(false)
-                    Log.e("GITHUB", it.message ?: "Smth with Github")
-                }
+        lifecycleScope.launch {
+            mAuthPresenter.authGithub(this@AuthActivity)
         }
+//        val provider = OAuthProvider.newBuilder("github.com")
+//        val scopes = arrayListOf("user:email")
+//        provider.setScopes(scopes)
+//        val pendingResultTask = mAuth.pendingAuthResult
+//        setLoadingVisibility(true)
+//        if (pendingResultTask != null) {
+//            // There's something already here! Finish the sign-in for your user.
+//            pendingResultTask
+//                .addOnSuccessListener(
+//                    OnSuccessListener {
+//                        toMainActivity()
+//                    })
+//                .addOnFailureListener {
+//                    mAuth.signOut()
+//                    startActivity(Intent(applicationContext, AuthActivity::class.java))
+//                }
+//        } else {
+//            mAuth
+//                .startActivityForSignInWithProvider(this, provider.build())
+//                .addOnSuccessListener {
+//                    toMainActivity()
+//                }
+//                .addOnFailureListener {
+//                    Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
+//                    mAuth.signOut()
+//                    startActivity(Intent(applicationContext, AuthActivity::class.java))
+//                    setLoadingVisibility(false)
+//                    Log.e("GITHUB", it.message ?: "Smth with Github")
+//                }
+//        }
     }
     //-------------------------------------------
 
