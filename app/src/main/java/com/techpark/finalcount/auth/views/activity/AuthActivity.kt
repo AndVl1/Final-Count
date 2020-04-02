@@ -158,36 +158,6 @@ class AuthActivity : BaseActivity(), AuthView {
         lifecycleScope.launch {
             mAuthPresenter.authGithub(this@AuthActivity)
         }
-//        val provider = OAuthProvider.newBuilder("github.com")
-//        val scopes = arrayListOf("user:email")
-//        provider.setScopes(scopes)
-//        val pendingResultTask = mAuth.pendingAuthResult
-//        setLoadingVisibility(true)
-//        if (pendingResultTask != null) {
-//            // There's something already here! Finish the sign-in for your user.
-//            pendingResultTask
-//                .addOnSuccessListener(
-//                    OnSuccessListener {
-//                        toMainActivity()
-//                    })
-//                .addOnFailureListener {
-//                    mAuth.signOut()
-//                    startActivity(Intent(applicationContext, AuthActivity::class.java))
-//                }
-//        } else {
-//            mAuth
-//                .startActivityForSignInWithProvider(this, provider.build())
-//                .addOnSuccessListener {
-//                    toMainActivity()
-//                }
-//                .addOnFailureListener {
-//                    Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
-//                    mAuth.signOut()
-//                    startActivity(Intent(applicationContext, AuthActivity::class.java))
-//                    setLoadingVisibility(false)
-//                    Log.e("GITHUB", it.message ?: "Smth with Github")
-//                }
-//        }
     }
     //-------------------------------------------
 
