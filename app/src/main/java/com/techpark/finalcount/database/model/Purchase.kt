@@ -9,7 +9,7 @@ data class Purchase (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long,
-    /** Всегда ставим 0, так он будет создавать уникальный номер !!! */
+    /** Always set 0 so that it will generate unique id */
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "cost")

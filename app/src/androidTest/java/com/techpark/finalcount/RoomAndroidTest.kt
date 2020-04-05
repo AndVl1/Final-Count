@@ -52,7 +52,6 @@ class RoomAndroidTest {
     }
 
     @Test
-    @Throws(Exception::class)
     fun create(): Unit = runBlocking {
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
         dao.insert(p1)

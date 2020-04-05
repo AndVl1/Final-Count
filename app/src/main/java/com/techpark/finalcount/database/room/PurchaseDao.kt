@@ -24,16 +24,16 @@ interface PurchaseDao {
     suspend fun clear()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(p: Purchase)
+    suspend fun insert(purchase: Purchase)
 
     @Update
-    suspend fun update(p: Purchase)
+    suspend fun update(purchase: Purchase)
 
     @Delete
-    suspend fun delete(p: Purchase)
+    suspend fun delete(purchase: Purchase)
 
     @Delete
-    suspend fun delete(p: List<Purchase>)
+    suspend fun delete(purchases: List<Purchase>)
 
 
 }
