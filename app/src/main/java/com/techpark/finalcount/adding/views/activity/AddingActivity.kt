@@ -10,6 +10,7 @@ import com.techpark.finalcount.utils.Utils
 class AddingActivity : AppCompatActivity(), AddingView {
 
     private lateinit var mAddingBinding: ActivityAddingBinding
+//    private val mAddingPresenter = AddingPresenterImplementation()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +25,12 @@ class AddingActivity : AppCompatActivity(), AddingView {
 
     override fun addSuccess() {
         Utils.showMessage(this, "success")
+        setLoadingVisibility(false)
     }
 
     override fun addFailed() {
         Utils.showMessage(this, "error")
+        setLoadingVisibility(false)
     }
 
     override fun setLoadingVisibility(visibility: Boolean) {
