@@ -35,7 +35,7 @@ buildscript {
                 //COROUTINES
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version",
                 "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version",
-                "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_android_version"
+                "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_android_version",
                 //ROOM
                 "android.arch.persistence.room:runtime:$room_version",
                 "androidx.room:room-coroutines:$room_version",

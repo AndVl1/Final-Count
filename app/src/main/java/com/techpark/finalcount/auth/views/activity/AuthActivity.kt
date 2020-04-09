@@ -167,7 +167,9 @@ class AuthActivity : BaseActivity(), AuthView {
 
     private fun toMainActivity() {
         mLoginActivityBinding.progressBar.visibility = View.GONE
+//        val intent = Intent().setClassName(applicationContext, "com.techpark.addition.MainActivity")
         startActivity(Intent(applicationContext, MainActivity::class.java))
+        startActivity(intent)
         finish()
     }
 
