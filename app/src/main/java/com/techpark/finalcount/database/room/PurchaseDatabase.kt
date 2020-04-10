@@ -5,8 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.techpark.finalcount.database.model.Purchase
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.internal.synchronized
 
 @Database(entities = [Purchase::class], version = 1)
 abstract class PurchaseDatabase: RoomDatabase() {
@@ -16,7 +14,7 @@ abstract class PurchaseDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: PurchaseDatabase? = null
 
-        @InternalCoroutinesApi
+
         fun getInstance(context: Context): PurchaseDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: bindDatabase(context).also { INSTANCE = it }

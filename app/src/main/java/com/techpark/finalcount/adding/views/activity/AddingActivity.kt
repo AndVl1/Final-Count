@@ -3,6 +3,7 @@ package com.techpark.finalcount.adding.views.activity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.techpark.finalcount.adding.presenters.AddingPresenterImplementation
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.databinding.ActivityAddingBinding
 import com.techpark.finalcount.utils.Utils
@@ -10,12 +11,14 @@ import com.techpark.finalcount.utils.Utils
 class AddingActivity : AppCompatActivity(), AddingView {
 
     private lateinit var mAddingBinding: ActivityAddingBinding
-//    private val mAddingPresenter = AddingPresenterImplementation()
+    private lateinit var mAddingPresenter: AddingPresenterImplementation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
         setContentView(mAddingBinding.root)
+
+//        mAddingPresenter =
     }
 
     override fun showError(error: String) {
