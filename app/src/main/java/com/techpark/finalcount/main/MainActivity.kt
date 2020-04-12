@@ -5,11 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
+import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mainActivityBinding: ActivityMainBinding
+    private lateinit var mainActivityBinding: ActivityMainBinding
     private val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
                 mAuth.signOut()
                 LoginManager.getInstance().logOut()
                 toAuthActivity()
+            }
+            mainActivityBinding.toAddActivity.setOnClickListener {
+                startActivity(Intent(applicationContext, AddingActivity::class.java))
             }
         } else {
             toAuthActivity()

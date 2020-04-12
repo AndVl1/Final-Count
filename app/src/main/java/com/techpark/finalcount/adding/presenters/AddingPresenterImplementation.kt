@@ -1,22 +1,46 @@
 package com.techpark.finalcount.adding.presenters
 
+import android.util.Log
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.database.DataSource
 import com.techpark.finalcount.database.model.Purchase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddingPresenterImplementation @Inject constructor(private val dataSource: DataSource): AddingPresenter {
     private var addingView: AddingView? = null
+    private val presenterJob = Job()
+    private val scope = CoroutineScope(IO + presenterJob)
 
-    override suspend fun add(name: String, cost: Int, currency: Int, date: Long) {
+    override fun add(name: String, cost: Int, currency: Int) {
         addingView?.setLoadingVisibility(true)
-        val purchase = Purchase(0, name, cost, currency, date)
+        val purchase = Purchase(0, name, cost, currency, System.currentTimeMillis())
         try {
-            dataSource.database.purchaseDao().insert(purchase)
+            scope.launch {
+                dataSource.database.purchaseDao().insert(purchase)
+            }
             addingView?.addSuccess()
         } catch (e: Exception) {
             addingView?.addFailed()
             addingView?.showError(e.localizedMessage ?: "Unresolved error")
+        }
+    }
+
+    override fun check(): String {
+        return try {
+            Log.d("PR", "check")
+            scope.launch {
+                val list = dataSource.database.purchaseDao().loadAll()
+                for (p in list) {
+                    addingView?.addDebugText("${p.name} - ${p.cost}\n")
+                }
+            }
+            ""
+        } catch (e: Exception) {
+            "error"
         }
     }
 

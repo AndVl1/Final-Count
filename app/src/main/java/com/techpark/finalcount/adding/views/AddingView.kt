@@ -7,4 +7,5 @@ interface AddingView: BaseView {
     fun addSuccess()
     fun addFailed()
     fun setLoadingVisibility(visibility: Boolean)
+    fun addDebugText(string: String)
 }

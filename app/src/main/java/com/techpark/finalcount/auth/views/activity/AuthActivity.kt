@@ -17,11 +17,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.R
+import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
-import com.techpark.finalcount.main.MainActivity
 import com.techpark.finalcount.utils.Utils
 import kotlinx.coroutines.launch
 
@@ -36,11 +36,11 @@ class AuthActivity : BaseActivity(), AuthView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mLoginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
         if(mAuth.currentUser != null) {
             toMainActivity()
             return
         }
-        mLoginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(mLoginActivityBinding.root)
 
         mAuthPresenter.attachView(this)
@@ -167,9 +167,8 @@ class AuthActivity : BaseActivity(), AuthView {
 
     private fun toMainActivity() {
         mLoginActivityBinding.progressBar.visibility = View.GONE
-//        val intent = Intent().setClassName(applicationContext, "com.techpark.addition.MainActivity")
-        startActivity(Intent(applicationContext, MainActivity::class.java))
-        startActivity(intent)
+        startActivity(Intent(applicationContext, AddingActivity::class.java))
+//        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
