@@ -5,13 +5,13 @@ import com.techpark.finalcount.database.model.Purchase
 
 @Dao
 interface PurchaseDao {
-    @Query("SELECT * FROM purchases")
+    @Query("SELECT * FROM purchases ORDER BY date")
     suspend fun loadAll(): List<Purchase>
 
     @Query("SELECT * FROM purchases WHERE id = :id")
     suspend fun getById(id: Long): Purchase
 
-    @Query("SELECT * FROM purchases WHERE date BETWEEN :date1 AND :date2")
+    @Query("SELECT * FROM purchases WHERE date BETWEEN :date1 AND :date2 ORDER BY date")
     suspend fun getByMonth(date1: Long, date2: Long): List<Purchase>
 
     @Query("SELECT * FROM purchases WHERE cost > :cost")
