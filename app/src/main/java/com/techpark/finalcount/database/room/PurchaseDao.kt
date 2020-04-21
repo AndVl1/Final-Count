@@ -11,8 +11,8 @@ interface PurchaseDao {
     @Query("SELECT * FROM purchases WHERE id = :id")
     suspend fun getById(id: Long): Purchase
 
-    @Query("SELECT * FROM purchases WHERE date = :date")
-    suspend fun getByMonth(date: Long): List<Purchase>
+    @Query("SELECT * FROM purchases WHERE date BETWEEN :date1 AND :date2")
+    suspend fun getByMonth(date1: Long, date2: Long): List<Purchase>
 
     @Query("SELECT * FROM purchases WHERE cost > :cost")
     suspend fun getWhereCostsMore(cost: Int): List<Purchase>
