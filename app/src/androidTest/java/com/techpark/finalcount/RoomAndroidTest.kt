@@ -28,13 +28,13 @@ class RoomAndroidTest {
         var p1 = Purchase(1,
             "Test",
             1000,
-            Currency.getInstance("USD").numericCode,
+            "EUR",
             System.currentTimeMillis()
         )
         var p2 = Purchase(2,
             "Test2",
             3000,
-            Currency.getInstance("RUB").numericCode,
+            "RUB",
             System.currentTimeMillis()
         )
     }
@@ -57,10 +57,10 @@ class RoomAndroidTest {
         dao.insert(p1)
         Truth.assertThat(db.purchaseDao().loadAll()).isNotEmpty()
         dao.insert(p2)
-        Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2))
-        p1 = Purchase(1, "change", 200, Currency.getInstance("EUR").numericCode, System.currentTimeMillis())
+        Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
+        p1 = Purchase(1, "change", 200, "EUR", System.currentTimeMillis())
         dao.update(p1)
-        Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2))
+        Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
         dao.delete(p2)
         Truth.assertThat(db.purchaseDao().loadAll()).hasSize(1)
         dao.clear()
