@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class AddingPresenterImplementation @Inject constructor(private val dataSource: DataSource): AddingPresenter {
@@ -15,7 +16,7 @@ class AddingPresenterImplementation @Inject constructor(private val dataSource: 
     private val presenterJob = Job()
     private val scope = CoroutineScope(IO + presenterJob)
 
-    override fun add(name: String, cost: Int, currency: Int) {
+    override fun add(name: String, cost: Int, currency: String) {
         addingView?.setLoadingVisibility(true)
         val purchase = Purchase(0, name, cost, currency, System.currentTimeMillis())
         try {
@@ -35,7 +36,7 @@ class AddingPresenterImplementation @Inject constructor(private val dataSource: 
             scope.launch {
                 val list = dataSource.database.purchaseDao().loadAll()
                 for (p in list) {
-                    addingView?.addDebugText("${p.name} - ${p.cost}\n")
+                    addingView?.addDebugText("${p.name} - ${p.cost} ${p.currency} (${Date(p.date)})\n")
                 }
             }
             ""

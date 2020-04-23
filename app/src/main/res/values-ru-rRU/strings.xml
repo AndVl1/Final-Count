@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Final Count</string>
+    <!--  auth  -->
     <string name="register">Регистрация</string>
     <string name="password_hint">Пароль</string>
     <string name="choose_oauth">Или используйте предоставленные ниже методы</string>
@@ -14,4 +15,7 @@
     <string name="login_github">Войти с помощью Github</string>
     <string name="login_facebook">Войти с помощью Facebook</string>
     <string name="logout">Выйти</string>
+
+    <!--  adding  -->
+    <string name="choose_currency">Выбрать валюту</string>
 </resources>

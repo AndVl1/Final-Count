@@ -1,10 +1,13 @@
 package com.techpark.finalcount.adding.views.activity
 
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.presenters.AddingPresenterImplementation
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.databinding.ActivityAddingBinding
@@ -13,17 +16,19 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
+
 class AddingActivity : DaggerAppCompatActivity(), AddingView {
 
     private lateinit var mAddingBinding: ActivityAddingBinding
     private val activityJob = Job()
     private val scope = CoroutineScope(Dispatchers.Main + activityJob)
     private val s = StringBuilder()
+    private val currencies = arrayOf("RUB", "EUR", "USD") // TODO вынести в strings
+    private lateinit var currency: String
 
     @Inject
     lateinit var mAddingPresenter: AddingPresenterImplementation
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
@@ -35,8 +40,10 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
             mAddingPresenter.add(
                 mAddingBinding.name.text.toString(),
                 mAddingBinding.price.text.toString().toInt(),
-                java.util.Currency.getInstance(mAddingBinding.currency.text.toString()).numericCode
+                currency
             )
+            mAddingBinding.name.text.clear()
+            mAddingBinding.price.text.clear()
         }
 
         mAddingBinding.check.setOnClickListener {
@@ -46,6 +53,26 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
                 mAddingBinding.list.text = s
                 s.clear()
             }
+        }
+
+
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currencies)
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item)
+        mAddingBinding.spinner.adapter = adapter
+        mAddingBinding.spinner.prompt = getString(R.string.choose_currency)
+        mAddingBinding.spinner.setSelection(1)
+        mAddingBinding.spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View,
+                position: Int, id: Long
+            ) { // показываем позиция нажатого элемента
+                Toast.makeText(baseContext, "Position = $position", Toast.LENGTH_SHORT)
+                    .show()
+                currency = currencies[position]
+                mAddingBinding.currency.text = currency
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
         }
     }
 
