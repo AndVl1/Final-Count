@@ -1,4 +1,4 @@
-package com.techpark.finalcount.ui.profile
+package com.techpark.finalcount.main.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class ProfileFragment : Fragment() {
+
+class DashboardFragment : Fragment() {
 
     private var root: View? = null
 
@@ -18,7 +19,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         if (root == null) {
             root = TextView(activity)
-            (root as TextView).text = "Profile"
+            (root as TextView).text = "Dashboard"
         }
         return root
     }

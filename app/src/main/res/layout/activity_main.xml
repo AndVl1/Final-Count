@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -18,5 +18,19 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+        app:layout_anchor="@id/bottom_navigation"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin_vertical"
+        android:layout_marginEnd="@dimen/fab_margin_horizontal"
+        android:src="@drawable/ic_add"
+        android:tint="@color/white"
+        android:background="@color/colorAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

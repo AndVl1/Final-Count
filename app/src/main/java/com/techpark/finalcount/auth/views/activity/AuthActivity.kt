@@ -22,6 +22,7 @@ import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
+import com.techpark.finalcount.main.MainActivity
 import com.techpark.finalcount.utils.Utils
 import kotlinx.coroutines.launch
 
@@ -167,8 +168,8 @@ class AuthActivity : BaseActivity(), AuthView {
 
     private fun toMainActivity() {
         mLoginActivityBinding.progressBar.visibility = View.GONE
-        startActivity(Intent(applicationContext, AddingActivity::class.java))
-//        startActivity(Intent(applicationContext, MainActivity::class.java))
+//        startActivity(Intent(applicationContext, AddingActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 

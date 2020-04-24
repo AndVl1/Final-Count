@@ -1,4 +1,4 @@
-package com.techpark.finalcount.ui.home
+package com.techpark.finalcount.main.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class HomeFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
     private var root: View? = null
 
@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
     ): View? {
         if (root == null) {
             root = TextView(activity)
-            (root as TextView).text = "Home"
+            (root as TextView).text = "Profile"
         }
         return root
     }

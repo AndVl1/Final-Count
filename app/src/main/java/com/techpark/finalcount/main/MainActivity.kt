@@ -1,12 +1,15 @@
-package com.techpark.finalcount
+package com.techpark.finalcount.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.techpark.finalcount.R
+import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
-import com.techpark.finalcount.ui.dashboard.DashboardFragment
-import com.techpark.finalcount.ui.home.HomeFragment
-import com.techpark.finalcount.ui.profile.ProfileFragment
+import com.techpark.finalcount.main.ui.dashboard.DashboardFragment
+import com.techpark.finalcount.main.ui.home.HomeFragment
+import com.techpark.finalcount.main.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +33,10 @@ class MainActivity : AppCompatActivity() {
             true
         }
         replaceScreen(0)
+
+        mainBinding.fab.setOnClickListener {
+            startActivity(Intent(applicationContext, AddingActivity::class.java))
+        }
     }
 
     private fun replaceScreen(position: Int) {
