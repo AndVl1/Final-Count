@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.auth.views.activity.AuthActivity
-import com.techpark.finalcount.main.MainActivity
+import com.techpark.finalcount.main.MainActivityDebug
 
 
 class SplashActivity: AppCompatActivity() {
@@ -15,7 +15,7 @@ class SplashActivity: AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(applicationContext,  AuthActivity::class.java))
         } else {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            startActivity(Intent(applicationContext, MainActivityDebug::class.java))
         }
     }
 }

@@ -7,15 +7,15 @@ import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.auth.views.activity.AuthActivity
-import com.techpark.finalcount.databinding.ActivityMainBinding
+import com.techpark.finalcount.databinding.ActivityMainDebugBinding
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var mainActivityBinding: ActivityMainBinding
+class MainActivityDebug : AppCompatActivity() {
+    private lateinit var mainActivityBinding: ActivityMainDebugBinding
     private val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
+        mainActivityBinding = ActivityMainDebugBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
 
         if (mAuth.currentUser != null) {
