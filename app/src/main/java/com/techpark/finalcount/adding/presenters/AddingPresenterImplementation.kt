@@ -12,31 +12,31 @@ import java.util.*
 import javax.inject.Inject
 
 class AddingPresenterImplementation @Inject constructor(private val dataSource: DataSource): AddingPresenter {
-    private var addingView: AddingView? = null
-    private val presenterJob = Job()
-    private val scope = CoroutineScope(IO + presenterJob)
+    private var mAddingView: AddingView? = null
+    private val mPresenterJob = Job()
+    private val mScope = CoroutineScope(IO + mPresenterJob)
 
     override fun add(name: String, cost: Int, currency: String) {
-        addingView?.setLoadingVisibility(true)
+        mAddingView?.setLoadingVisibility(true)
         val purchase = Purchase(0, name, cost, currency, System.currentTimeMillis())
         try {
-            scope.launch {
+            mScope.launch {
                 dataSource.database.purchaseDao().insert(purchase)
             }
-            addingView?.addSuccess()
+            mAddingView?.addSuccess()
         } catch (e: Exception) {
-            addingView?.addFailed()
-            addingView?.showError(e.localizedMessage ?: "Unresolved error")
+            mAddingView?.addFailed()
+            mAddingView?.showError(e.localizedMessage ?: "Unresolved error")
         }
     }
 
     override fun check(): String {
         return try {
             Log.d("PR", "check")
-            scope.launch {
+            mScope.launch {
                 val list = dataSource.database.purchaseDao().loadAll()
                 for (p in list) {
-                    addingView?.addDebugText("${p.name} - ${p.cost} ${p.currency} (${Date(p.date)})\n")
+                    mAddingView?.addDebugText("${p.name} - ${p.cost} ${p.currency} (${Date(p.date)})\n")
                 }
             }
             ""
@@ -46,10 +46,10 @@ class AddingPresenterImplementation @Inject constructor(private val dataSource: 
     }
 
     override fun attachView(view: AddingView) {
-        addingView = view
+        mAddingView = view
     }
 
     override fun detachView() {
-        addingView = null
+        mAddingView = null
     }
 }
