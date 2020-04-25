@@ -3,6 +3,7 @@ package com.techpark.finalcount.history.presenters
 import com.techpark.finalcount.database.DataSource
 import com.techpark.finalcount.history.views.HistoryView
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ class HistoryPresenterImplementation @Inject constructor(private val dataSource:
     HistoryPresenter {
     private var mHistoryView: HistoryView? = null
     private val mPresenterJob = Job()
-    private val mScope = CoroutineScope(Main + mPresenterJob)
+    private val mScope = CoroutineScope(IO + mPresenterJob)
 
     override fun getPurchases() {
         try {

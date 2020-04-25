@@ -38,4 +38,11 @@ class HistoryFragment : DaggerFragment(), HistoryView {
         tv?.append(s.name + "(" + s.currency + ", " + s.date + ") - " + s.cost + "\n")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mHistoryPresenter.detachView()
+        tv = null
+    }
+
 }
