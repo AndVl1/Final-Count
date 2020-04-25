@@ -4,13 +4,13 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_history" />
 <!--  Покупки за текущий календарный месяц  -->
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_plans" />
 <!--  История (список месяцев с общей суммой трат в каждом месяце)  -->
 <!--  нормальную иконку не смог найти. Кто будет реализовывать - TODO -->
     <item

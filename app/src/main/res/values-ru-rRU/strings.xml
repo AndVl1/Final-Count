@@ -18,4 +18,8 @@
 
     <!--  adding  -->
     <string name="choose_currency">Выбрать валюту</string>
+
+    <string name="title_history">История</string>
+    <string name="title_plans">Планирование</string>
+    <string name="title_profile">Профиль</string>
 </resources>

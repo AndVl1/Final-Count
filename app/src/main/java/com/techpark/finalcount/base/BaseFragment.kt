@@ -1,26 +1,23 @@
-package com.techpark.finalcount.main.ui.dashboard
+package com.techpark.finalcount.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-
-class DashboardFragment : Fragment() {
-
-    private var root: View? = null
+abstract class BaseFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (root == null) {
-            root = TextView(activity)
-            (root as TextView).text = "Dashboard"
+        savedInstanceState?.let {
+            Log.i("ANIL", it.toString())
         }
-        return root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
 }

@@ -7,16 +7,16 @@ import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
-import com.techpark.finalcount.main.ui.dashboard.DashboardFragment
-import com.techpark.finalcount.main.ui.home.HomeFragment
+import com.techpark.finalcount.main.ui.plans.PlansFragment
+import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import com.techpark.finalcount.main.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
     private val screens: Array<Fragment> = arrayOf(
-        HomeFragment(),
-        DashboardFragment(),
+        HistoryFragment(),
+        PlansFragment(),
         ProfileFragment()
     )
 
