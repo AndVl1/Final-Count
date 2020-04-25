@@ -2,6 +2,8 @@ package com.techpark.finalcount.di
 
 import com.techpark.finalcount.adding.AddingModule
 import com.techpark.finalcount.adding.views.activity.AddingActivity
+import com.techpark.finalcount.history.HistoryModule
+import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -16,5 +18,9 @@ abstract class ActivityBindingModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [AddingModule::class])
     internal abstract fun addingActivity(): AddingActivity
+
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [HistoryModule::class])
+    internal abstract fun historyFragment(): HistoryFragment
 
 }

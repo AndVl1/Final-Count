@@ -1,6 +1,8 @@
 package com.techpark.finalcount.adding.presenters
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.database.DataSource
 import com.techpark.finalcount.database.model.Purchase
@@ -15,6 +17,8 @@ class AddingPresenterImplementation @Inject constructor(private val dataSource: 
     private var mAddingView: AddingView? = null
     private val mPresenterJob = Job()
     private val mScope = CoroutineScope(IO + mPresenterJob)
+    private val mAuth = FirebaseAuth.getInstance()
+    private val mFirebaseStorage = FirebaseStorage.getInstance()
 
     override fun add(name: String, cost: Int, currency: String) {
         mAddingView?.setLoadingVisibility(true)

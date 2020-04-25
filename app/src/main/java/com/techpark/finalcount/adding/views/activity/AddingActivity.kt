@@ -2,6 +2,7 @@ package com.techpark.finalcount.adding.views.activity
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -48,11 +49,17 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
 
         mAddingBinding.check.setOnClickListener {
             scope.launch {
-                mAddingPresenter.check()
-                delay(1000)
+                Log.d("CHECK", "mother")
+                val job = launch {
+                    Log.d("CHECK", "child")
+                    mAddingPresenter.check()
+                }
+                job.join()
+                Log.d("CHECK", s.toString())
                 mAddingBinding.list.text = s
                 s.clear()
             }
+
         }
 
 

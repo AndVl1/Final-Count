@@ -29,6 +29,7 @@ class HistoryFragment : DaggerFragment(), HistoryView {
             root = inflater.inflate(R.layout.fragment_history, container, false)
             tv = root?.findViewById(R.id.purchases)
         }
+        mHistoryPresenter.attachView(this)
         mHistoryPresenter.getPurchases()
         return root
     }

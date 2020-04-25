@@ -1,4 +1,4 @@
-package com.techpark.finalcount.history.views
+package com.techpark.finalcount.history
 
 import com.techpark.finalcount.di.FragmentScope
 import com.techpark.finalcount.history.presenters.HistoryPresenter

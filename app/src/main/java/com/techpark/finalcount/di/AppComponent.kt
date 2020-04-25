@@ -1,8 +1,9 @@
-package com.gobinda.mvp.sample.di
+package com.techpark.finalcount.di
 
 import com.techpark.finalcount.App
 import com.techpark.finalcount.di.ActivityBindingModule
 import com.techpark.finalcount.di.AppModule
+import com.techpark.finalcount.history.HistoryModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -20,7 +21,8 @@ import javax.inject.Singleton
     modules = [
         AppModule::class,
         ActivityBindingModule::class,
-        AndroidSupportInjectionModule::class
+        AndroidSupportInjectionModule::class,
+        HistoryModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

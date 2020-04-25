@@ -1,7 +1,7 @@
 package com.techpark.finalcount
 
 
-import com.gobinda.mvp.sample.di.DaggerAppComponent
+import com.techpark.finalcount.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
