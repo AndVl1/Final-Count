@@ -1,9 +1,8 @@
 package com.techpark.finalcount.di
 
 import com.techpark.finalcount.App
-import com.techpark.finalcount.di.ActivityBindingModule
-import com.techpark.finalcount.di.AppModule
 import com.techpark.finalcount.history.HistoryModule
+import com.techpark.finalcount.purchase.PurchaseModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -22,7 +21,8 @@ import javax.inject.Singleton
         AppModule::class,
         ActivityBindingModule::class,
         AndroidSupportInjectionModule::class,
-        HistoryModule::class
+        HistoryModule::class,
+        PurchaseModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

@@ -22,4 +22,6 @@
     <string name="title_history">История</string>
     <string name="title_plans">Планирование</string>
     <string name="title_profile">Профиль</string>
+
+    <string name="delete">Удалить</string>
 </resources>

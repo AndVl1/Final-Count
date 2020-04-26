@@ -54,7 +54,7 @@ class HistoryFragment : DaggerFragment(), HistoryView {
 
     override fun setupViewContent(list: ArrayList<ListElement>) {
         Log.d("FRAGMENT", "setup adapter")
-        val adapter = HistoryAdapter(this.context, list)
+        val adapter = HistoryAdapter(activity?.applicationContext, list)
         Log.d("FRAGMENT", "${adapter.itemCount}")
         mRecyclerView?.adapter = adapter
     }

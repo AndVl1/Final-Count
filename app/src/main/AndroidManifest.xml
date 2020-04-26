@@ -26,6 +26,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".purchase.view.activity.PurchaseActivity"/>
+
         <activity
             android:name=".main.MainActivity"
             android:label="@string/title_activity_main">

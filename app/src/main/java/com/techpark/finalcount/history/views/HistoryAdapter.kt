@@ -1,14 +1,12 @@
 package com.techpark.finalcount.history.views
 
 import android.content.Context
-import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
 import com.techpark.finalcount.history.ListElement
-import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import kotlinx.android.synthetic.main.history_list_elem.view.*
 
 class HistoryAdapter(): RecyclerView.Adapter<HistoryHolder>() {
@@ -34,5 +32,6 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryHolder>() {
         holder.element.purchase_name.text = list[position].name
         holder.element.purchase_cost.text = context
             ?.getString(R.string.history_element_price, list[position].price, list[position].currency)
+        holder.id = position.toLong() + 1
     }
 }
