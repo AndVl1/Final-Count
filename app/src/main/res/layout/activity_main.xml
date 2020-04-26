@@ -11,13 +11,14 @@
         android:background="?android:attr/windowBackground"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         app:menu="@menu/bottom_nav_menu" />
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="54dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -30,7 +31,8 @@
         android:tint="@color/white"
         android:background="@color/colorAccent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/fab_description"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -34,6 +34,7 @@ class HistoryFragment : DaggerFragment(), HistoryView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("FRAGMENT", "onCreateView")
         if (mRoot == null) {
             mRoot = inflater.inflate(R.layout.fragment_history, container, false)
             mRecyclerView = mRoot?.findViewById(R.id.purchasesList)
@@ -41,8 +42,14 @@ class HistoryFragment : DaggerFragment(), HistoryView {
             mRecyclerView?.layoutManager = mLinearLayoutManager
         }
         mHistoryPresenter.attachView(this)
-        mHistoryPresenter.getPurchases()
+//        mHistoryPresenter.getPurchases()
         return mRoot
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("FRAGMENT", "onResume")
+        mHistoryPresenter.getPurchases()
     }
 
     override fun setupViewContent(list: ArrayList<ListElement>) {
@@ -54,6 +61,7 @@ class HistoryFragment : DaggerFragment(), HistoryView {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("FRAGMENT", "onDestroy")
 
         mHistoryPresenter.detachView()
         mRecyclerView = null

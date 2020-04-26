@@ -25,4 +25,6 @@
     <string name="title_profile">Profile</string>
 
     <string name="history_element_price" translatable="false"> %1$d %2$s </string>
+
+    <string name="fab_description" translatable="false">open adding activity</string>
 </resources>

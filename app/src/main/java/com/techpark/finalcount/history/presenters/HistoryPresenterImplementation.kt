@@ -26,6 +26,7 @@ class HistoryPresenterImplementation @Inject constructor(private val dataSource:
         try {
             MainScope().launch {
                 val job = mScope.launch {
+                    mPurchaseArray.clear()
                     for (s in dataSource.database.purchaseDao().loadAll()) {
                         mPurchaseArray.add(ListElement(s.id, s.name, s.cost, s.currency))
                     }
