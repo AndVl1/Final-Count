@@ -5,20 +5,17 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
-import com.techpark.finalcount.database.dbexpimp.JsonDbExportImportApiImpl
+import com.techpark.finalcount.database.dbexpimp.JsonDbExportImportApiImplKt
 import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.database.room.PurchaseDao
 import com.techpark.finalcount.database.room.PurchaseDatabase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.json.JSONArray
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
-@ExperimentalCoroutinesApi
+//@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class RoomAndroidTest {
 //    private val testDispatcher = TestCoroutineDispatcher()
@@ -79,7 +76,8 @@ class RoomAndroidTest {
 
         //TODO:27.04.20_09:30: isEqualTo json string(:)
 //        Truth.assertThat(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString().isEqualTo();
-        println(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString());
+        val json = JsonDbExportImportApiImplKt.exportPurchaseDbToJson(dao)
+        println(json.toString())
         dao.clear()
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
     }
