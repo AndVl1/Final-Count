@@ -14,7 +14,10 @@ import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.databinding.ActivityAddingBinding
 import com.techpark.finalcount.utils.Utils
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -24,7 +27,7 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
     private val activityJob = Job()
     private val scope = CoroutineScope(Dispatchers.Main + activityJob)
     private val s = StringBuilder()
-    private val currencies = arrayOf("RUB", "EUR", "USD") // TODO вынести в strings
+    private lateinit var currencies: Array<String>
     private lateinit var currency: String
 
     @Inject
@@ -34,6 +37,8 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
         super.onCreate(savedInstanceState)
         mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
         setContentView(mAddingBinding.root)
+
+        currencies = resources.getStringArray(R.array.currencies)
 
         mAddingPresenter.attachView(this)
 

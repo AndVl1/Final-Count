@@ -28,4 +28,12 @@
 
     <string name="fab_description" translatable="false">open adding activity</string>
     <string name="delete">Delete</string>
+    <string name="redact">Redact</string>
+    <string name="new_name">New name</string>
+    <string name="new_price">New price</string>
+    <string-array name="currencies">
+        <item>RUB</item>
+        <item>EUR</item>
+        <item>USD</item>
+    </string-array>
 </resources>

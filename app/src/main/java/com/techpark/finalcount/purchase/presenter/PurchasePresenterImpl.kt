@@ -14,11 +14,13 @@ class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSour
     private var mMainScope = CoroutineScope(Dispatchers.Main + mJob)
     private val mIOScope = CoroutineScope(Dispatchers.IO + mJob)
 
-    override fun init(id: Long){
-        Log.d(TAG, "init")
+    override fun getPurchase(id: Long){
+        Log.d(TAG, "init $id")
         mMainScope.launch {
             Log.d(TAG, "Main")
-            getData(id)
+            mIOScope.launch {
+                getData(id)
+            }.join()
             Log.d(TAG, mPurchase.name)
             mPurchaseView?.setParams(mPurchase)
         }
@@ -26,6 +28,7 @@ class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSour
 
     private suspend fun getData(id: Long) {
         mPurchase = dataSource.database.purchaseDao().getById(id)
+        Log.d(TAG, mPurchase.name)
     }
 
     override fun delete() {
@@ -35,7 +38,12 @@ class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSour
     }
 
     override fun update(name: String, price: Int, currency: String) {
-        mPurchase = Purchase(mPurchase.id, name, price, currency, mPurchase.date)
+        mPurchase = Purchase(mPurchase.id,
+            if (name.isNotEmpty()) name else mPurchase.name,
+            if (price != -1) price else mPurchase.cost,
+            currency,
+            mPurchase.date
+        )
         mIOScope.launch {
             dataSource.database.purchaseDao().update(mPurchase)
         }

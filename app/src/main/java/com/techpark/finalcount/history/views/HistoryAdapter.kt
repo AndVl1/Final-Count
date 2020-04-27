@@ -32,6 +32,6 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryHolder>() {
         holder.element.purchase_name.text = list[position].name
         holder.element.purchase_cost.text = context
             ?.getString(R.string.history_element_price, list[position].price, list[position].currency)
-        holder.id = position.toLong() + 1
+        holder.id = list[position].id
     }
 }

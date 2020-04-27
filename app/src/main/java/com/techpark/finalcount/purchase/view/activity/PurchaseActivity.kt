@@ -1,6 +1,11 @@
 package com.techpark.finalcount.purchase.view.activity
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.techpark.finalcount.R
 import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.databinding.ActivityPurchaseBinding
 import com.techpark.finalcount.purchase.presenter.PurchasePresenterImpl
@@ -11,6 +16,8 @@ import javax.inject.Inject
 
 class PurchaseActivity: DaggerAppCompatActivity(), PurchaseView {
     private lateinit var mPurchaseBinding: ActivityPurchaseBinding
+    private lateinit var currencies: Array<String>
+    private lateinit var currency : String
 
     @Inject
     lateinit var mPurchasePresenter: PurchasePresenterImpl
@@ -22,17 +29,47 @@ class PurchaseActivity: DaggerAppCompatActivity(), PurchaseView {
         mPurchasePresenter.attachView(this)
         val intent = intent
         val id = intent.getLongExtra("id", 0)
-        mPurchasePresenter.init(id)
+        mPurchasePresenter.getPurchase(id)
+
+        currencies =  resources.getStringArray(R.array.currencies)
 
         mPurchaseBinding.delete.setOnClickListener {
             mPurchasePresenter.delete()
             onBackPressed()
         }
 
-//        mPurchaseBinding.name.text = mPurchasePresenter.getName()
-//        mPurchaseBinding.price.text = mPurchasePresenter.getPrice().toString()
-//        mPurchaseBinding.currency.text = mPurchasePresenter.getCurrency()
-//        mPurchaseBinding.date.text = Date(mPurchasePresenter.getDate()).toString()
+        mPurchaseBinding.redact.setOnClickListener {
+            mPurchaseBinding.redactLayout.visibility = View.VISIBLE
+        }
+
+        mPurchaseBinding.updateBtn.setOnClickListener {
+            mPurchasePresenter.update(mPurchaseBinding.newName.text.toString(),
+                    mPurchaseBinding.newPrice.text.toString().toInt(), currency)
+            mPurchasePresenter.getPurchase(id)
+            mPurchaseBinding.redactLayout.visibility = View.GONE
+            mPurchaseBinding.newName.text.clear()
+            mPurchaseBinding.newPrice.text.clear()
+        }
+
+
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currencies)
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item)
+        mPurchaseBinding.spinner.adapter = adapter
+        mPurchaseBinding.spinner.prompt = getString(R.string.choose_currency)
+        mPurchaseBinding.spinner.setSelection(1)
+        mPurchaseBinding.spinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View,
+                position: Int, id: Long
+            ) { // показываем позиция нажатого элемента
+                Toast.makeText(baseContext, "Position = $position", Toast.LENGTH_SHORT)
+                    .show()
+                currency = currencies[position]
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        }
     }
 
     override fun setParams(purchase: Purchase) {
