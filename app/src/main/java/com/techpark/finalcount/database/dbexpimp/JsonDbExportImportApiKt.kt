@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 
-class JsonDbExportImportApiImplKt: JsonDbExportImportApi {
+interface JsonDbExportImportApiKt {
     companion object{
         suspend fun exportPurchaseDbToJson(dao: PurchaseDao): JSONArray {
             var resultSet: JSONArray? = null
@@ -29,6 +29,6 @@ class JsonDbExportImportApiImplKt: JsonDbExportImportApi {
             return resultSet!!
         }
 
-        const val TAG = "JsonDbExportImportApi"
+        private const val TAG = "JsonDbExportImportApi"
     }
 }

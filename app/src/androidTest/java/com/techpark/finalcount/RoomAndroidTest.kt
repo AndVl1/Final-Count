@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
-import com.techpark.finalcount.database.dbexpimp.JsonDbExportImportApiImplKt
+import com.techpark.finalcount.database.dbexpimp.JsonDbExportImportApiKt
 import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.database.room.PurchaseDao
 import com.techpark.finalcount.database.room.PurchaseDatabase
@@ -76,7 +76,7 @@ class RoomAndroidTest {
 
         //TODO:27.04.20_09:30: isEqualTo json string(:)
 //        Truth.assertThat(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString().isEqualTo();
-        val json = JsonDbExportImportApiImplKt.exportPurchaseDbToJson(dao)
+        val json = JsonDbExportImportApiKt.exportPurchaseDbToJson(dao)
         println(json.toString())
         dao.clear()
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
