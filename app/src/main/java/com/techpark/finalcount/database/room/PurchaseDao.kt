@@ -2,11 +2,19 @@ package com.techpark.finalcount.database.room
 
 import androidx.room.*
 import com.techpark.finalcount.database.model.Purchase
+//import kotlinx.coroutines.GlobalScope
+//import kotlinx.coroutines.future.future
+//import java.util.concurrent.CompletableFuture
 
 @Dao
 interface PurchaseDao {
     @Query("SELECT * FROM purchases ORDER BY date")
     suspend fun loadAll(): List<Purchase>
+
+//    //https://stackoverflow.com/questions/52869672/call-kotlin-suspend-function-in-java-class
+//    @Query("SELECT * FROM purchases ORDER BY date")
+//    fun loadAllAsync(): CompletableFuture<List<Purchase>> =
+//        GlobalScope.future { loadAll() }
 
     @Query("SELECT * FROM purchases WHERE id = :id")
     suspend fun getById(id: Long): Purchase

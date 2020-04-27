@@ -5,11 +5,13 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
+import com.techpark.finalcount.database.dbexpimp.JsonDbExportImportApiImpl
 import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.database.room.PurchaseDao
 import com.techpark.finalcount.database.room.PurchaseDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import org.json.JSONArray
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -63,6 +65,21 @@ class RoomAndroidTest {
         Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
         dao.delete(p2)
         Truth.assertThat(db.purchaseDao().loadAll()).hasSize(1)
+        dao.clear()
+        Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
+    }
+
+    @Test
+    fun testExportDbToJson(): Unit = runBlocking {
+        Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
+        dao.insert(p1)
+        Truth.assertThat(db.purchaseDao().loadAll()).isNotEmpty()
+        dao.insert(p2)
+        Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
+
+        //TODO:27.04.20_09:30: isEqualTo json string(:)
+//        Truth.assertThat(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString().isEqualTo();
+        println(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString());
         dao.clear()
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
     }
