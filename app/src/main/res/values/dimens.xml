@@ -5,4 +5,7 @@
 
     <dimen name="fab_margin_vertical">70dp</dimen>
     <dimen name="fab_margin_horizontal">10dp</dimen>
+
+    <dimen name="pin_code_number">48sp</dimen>
+    <dimen name="pin_code_margin">48dp</dimen>
 </resources>

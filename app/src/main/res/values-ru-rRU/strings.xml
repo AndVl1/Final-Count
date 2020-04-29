@@ -27,4 +27,6 @@
     <string name="redact">Редарктировать</string>
     <string name="new_name">Новое имя</string>
     <string name="new_price">Новая стоимость</string>
+
+    <string name="enter_pin">Введите пин-код</string>
 </resources>
