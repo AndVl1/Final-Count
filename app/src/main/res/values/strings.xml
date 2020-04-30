@@ -39,6 +39,7 @@
 
     <string name="finger_unlock" translatable="false">Fingerprint Unlock</string>
     <string name="enter_pin">Enter Pin Code</string>
+    <string name="repeat_pin">Enter your pin again</string>
 
     <string name="pin_attr" translatable="false">Image showing how many symbols are entered</string>
 

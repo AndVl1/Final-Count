@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/pin_main_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -36,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:src="@drawable/circle_border"
+                android:src="@drawable/circle_border_green"
                 android:contentDescription="@string/pin_attr" />
 
             <ImageView
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:src="@drawable/circle_border"
+                android:src="@drawable/circle_border_green"
                 android:contentDescription="@string/pin_attr"/>
 
             <ImageView
@@ -52,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:src="@drawable/circle_border"
+                android:src="@drawable/circle_border_green"
                 android:contentDescription="@string/pin_attr"/>
 
             <ImageView
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:src="@drawable/circle_border"
+                android:src="@drawable/circle_border_green"
                 android:contentDescription="@string/pin_attr"/>
         </LinearLayout>
     </LinearLayout>

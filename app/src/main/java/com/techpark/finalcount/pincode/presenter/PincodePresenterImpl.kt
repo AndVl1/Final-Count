@@ -1,6 +1,7 @@
 package com.techpark.finalcount.pincode.presenter
 
 import android.content.SharedPreferences
+import android.util.Base64
 import android.util.Log
 import com.techpark.finalcount.pincode.views.PincodeView
 import kotlinx.coroutines.MainScope
@@ -11,7 +12,7 @@ import java.lang.StringBuilder
 class PincodePresenterImpl(sharedPrefs: SharedPreferences): PincodePresenter {
     var mView : PincodeView? = null
     var mCurrentInput = StringBuilder()
-    private val mPin =  sharedPrefs.getString("pincode", "1234")
+    private val mPin = sharedPrefs.getString("PIN", "1234")
     override fun addNumber(num: String) {
         Log.d(TAG, "$num $mCurrentInput")
         if (mCurrentInput.length < 4) {
@@ -25,6 +26,7 @@ class PincodePresenterImpl(sharedPrefs: SharedPreferences): PincodePresenter {
     }
 
     private fun check() {
+        Log.d(TAG, mPin)
         MainScope().launch {
             delay(500)
             if (mCurrentInput.toString() == mPin) {
@@ -53,6 +55,8 @@ class PincodePresenterImpl(sharedPrefs: SharedPreferences): PincodePresenter {
     override fun detachView() {
         mView = null
     }
+
+    override fun isLogin(): Boolean = true
 
     companion object {
         const val TAG = "PIN PRESENTER"

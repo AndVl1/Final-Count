@@ -7,4 +7,5 @@ interface PincodeView: BaseView {
     fun pinFailed()
     fun addInput(position: Int)
     fun clear()
+    fun showMessage(msg: String)
 }

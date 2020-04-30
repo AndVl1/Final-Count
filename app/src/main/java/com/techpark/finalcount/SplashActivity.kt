@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.main.MainActivity
+import com.techpark.finalcount.main.MainActivityDebug
 import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 
 
@@ -17,14 +18,12 @@ class SplashActivity: AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(applicationContext,  AuthActivity::class.java))
         } else {
-            if (!getPreferences(Context.MODE_PRIVATE).getBoolean("hasPin", true)) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+            if (!getSharedPreferences("MyPref", Context.MODE_PRIVATE).getBoolean("HAS_PIN", false)) {
+                startActivity(Intent(applicationContext, MainActivityDebug::class.java))
             }
             else {
                 val intent = Intent(applicationContext, PincodeActivity::class.java)
                 intent.putExtra("login", true)
-                intent.putExtra("create", false)
-                intent.putExtra("repeat", false)
                 startActivity(intent)
             }
         }

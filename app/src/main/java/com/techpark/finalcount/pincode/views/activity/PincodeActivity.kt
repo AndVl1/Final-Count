@@ -1,6 +1,7 @@
 package com.techpark.finalcount.pincode.views.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.Animation
@@ -11,6 +12,9 @@ import android.widget.Toast
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityPincodeBinding
+import com.techpark.finalcount.main.MainActivity
+import com.techpark.finalcount.main.MainActivityDebug
+import com.techpark.finalcount.pincode.presenter.PincodeAddingPresenterImpl
 import com.techpark.finalcount.pincode.presenter.PincodePresenter
 import com.techpark.finalcount.pincode.presenter.PincodePresenterImpl
 import com.techpark.finalcount.pincode.views.PincodeView
@@ -19,8 +23,9 @@ import com.techpark.finalcount.pincode.views.PincodeView
 class PincodeActivity : BaseActivity(), PincodeView {
     private lateinit var mPincodeBinding: ActivityPincodeBinding
     private lateinit var mPincodePresenter : PincodePresenter
-    private var circleBorder = R.drawable.circle_border
-    private var circleEntered = R.drawable.circle_entered
+    private val circleBorderGreen = R.drawable.circle_border_green
+    private val circleBorderRed = R.drawable.circle_border_red
+    private val circleEntered = R.drawable.circle_entered
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,12 @@ class PincodeActivity : BaseActivity(), PincodeView {
 //            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
 //            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
 //        ) // TODO find encrypted prefs impl for api 21
+        val intent = intent
+        mPincodePresenter = if (intent.getBooleanExtra("login", true)) {
+            PincodePresenterImpl(getSharedPreferences("MyPref", Context.MODE_PRIVATE))
+        } else
+            PincodeAddingPresenterImpl(getSharedPreferences("MyPref", Context.MODE_PRIVATE))
 
-        mPincodePresenter = PincodePresenterImpl(getPreferences(Context.MODE_PRIVATE))
         mPincodePresenter.attachView(this)
 
         // click listeners
@@ -86,18 +95,10 @@ class PincodeActivity : BaseActivity(), PincodeView {
     override fun addInput(position: Int) {
         Log.d(TAG, "add $position")
         when (position) {
-            1 -> {
-                imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, circleEntered)
-            }
-            2 -> {
-                imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, circleEntered)
-            }
-            3 -> {
-                imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, circleEntered)
-            }
-            4 -> {
-                imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, circleEntered)
-            }
+            1 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, circleEntered)
+            2 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, circleEntered)
+            3 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, circleEntered)
+            4 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, circleEntered)
         }
     }
 
@@ -122,22 +123,34 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
     override fun pinSuccess() {
         Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
+        if (mPincodePresenter.isLogin()) {
+            startActivity(Intent(applicationContext, MainActivityDebug::class.java))
+            finish()
+        }
+        //TODO("ask about fingerprint")
+    }
+
+    override fun showMessage(msg: String) {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun clear() {
-        cancel()
+        if (!mPincodePresenter.isLogin()) {
+            mPincodeBinding.pinMainText.text = getString(R.string.repeat_pin)
+        }
+        cancel(circleBorderGreen)
     }
 
-    private fun cancel() {
-        imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, circleBorder)
-        imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, circleBorder)
-        imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, circleBorder)
-        imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, circleBorder)
+    private fun cancel(mode: Int) {
+        imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, mode)
+        imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, mode)
+        imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, mode)
+        imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, mode)
     }
 
     override fun pinFailed() {
-        cancel()
-        Toast.makeText(applicationContext, "fail", Toast.LENGTH_SHORT).show()
+        mPincodeBinding.pinMainText.text = getString(R.string.enter_pin)
+        cancel(circleBorderRed)
     }
 
     companion object {

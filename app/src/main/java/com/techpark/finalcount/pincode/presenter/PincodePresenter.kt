@@ -7,4 +7,5 @@ interface PincodePresenter: BasePresenter<PincodeView> {
     fun addNumber(num: String)
     fun clear()
     fun handleScanner()
+    fun isLogin(): Boolean
 }

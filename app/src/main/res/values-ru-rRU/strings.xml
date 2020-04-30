@@ -29,4 +29,5 @@
     <string name="new_price">Новая стоимость</string>
 
     <string name="enter_pin">Введите пин-код</string>
+    <string name="repeat_pin">Повторите введённый пин-код</string>
 </resources>
