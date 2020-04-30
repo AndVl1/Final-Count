@@ -71,6 +71,7 @@
         android:background="@color/lighterGrey" />
 
     <LinearLayout
+        android:id="@+id/numPad"
         android:layout_marginBottom="48dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
