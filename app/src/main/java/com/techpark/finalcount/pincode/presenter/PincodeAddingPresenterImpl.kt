@@ -1,10 +1,8 @@
 package com.techpark.finalcount.pincode.presenter
 
 import android.content.SharedPreferences
-import android.util.Base64
 import android.util.Log
 import com.techpark.finalcount.pincode.views.PincodeView
-import java.lang.StringBuilder
 
 class PincodeAddingPresenterImpl(var sharedPreferences: SharedPreferences): PincodePresenter {
     private var mView: PincodeView? = null
@@ -51,7 +49,8 @@ class PincodeAddingPresenterImpl(var sharedPreferences: SharedPreferences): Pinc
     }
 
     override fun clear() {
-        TODO("Not yet implemented")
+        mCurrentInput.clear()
+        mView?.clear()
     }
 
     override fun handleScanner() {

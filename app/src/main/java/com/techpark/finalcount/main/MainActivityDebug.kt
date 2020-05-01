@@ -35,6 +35,12 @@ class MainActivityDebug : AppCompatActivity() {
             intent.putExtra("login", false)
             startActivity(intent)
         }
+        mainActivityBinding.cancelPin.setOnClickListener {
+            val sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+            val ed = sp.edit()
+            ed.putBoolean("HAS_PIN", false)
+            ed.apply()
+        }
     }
 
     private fun toAuthActivity() {

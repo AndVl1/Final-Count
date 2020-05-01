@@ -1,7 +1,13 @@
 package com.techpark.finalcount.pincode.views.activity
 
+import android.R.attr.*
+import android.annotation.TargetApi
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.hardware.biometrics.BiometricManager
+import android.hardware.biometrics.BiometricPrompt
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.Animation
@@ -12,8 +18,8 @@ import android.widget.Toast
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityPincodeBinding
-import com.techpark.finalcount.main.MainActivity
 import com.techpark.finalcount.main.MainActivityDebug
+import com.techpark.finalcount.pincode.BiometricUtils
 import com.techpark.finalcount.pincode.presenter.PincodeAddingPresenterImpl
 import com.techpark.finalcount.pincode.presenter.PincodePresenter
 import com.techpark.finalcount.pincode.presenter.PincodePresenterImpl
@@ -49,42 +55,7 @@ class PincodeActivity : BaseActivity(), PincodeView {
         mPincodePresenter.attachView(this)
 
         // click listeners
-        mPincodeBinding.pinOne.setOnClickListener {
-            mPincodePresenter.addNumber("1")
-        }
-        mPincodeBinding.pinTwo.setOnClickListener {
-            mPincodePresenter.addNumber("2")
-        }
-        mPincodeBinding.pinThree.setOnClickListener {
-            mPincodePresenter.addNumber("3")
-        }
-        mPincodeBinding.pinFour.setOnClickListener {
-            mPincodePresenter.addNumber("4")
-        }
-        mPincodeBinding.pinFive.setOnClickListener {
-            mPincodePresenter.addNumber("5")
-        }
-        mPincodeBinding.pinSix.setOnClickListener {
-            mPincodePresenter.addNumber("6")
-        }
-        mPincodeBinding.pinSeven.setOnClickListener {
-            mPincodePresenter.addNumber("7")
-        }
-        mPincodeBinding.pinEight.setOnClickListener {
-            mPincodePresenter.addNumber("7")
-        }
-        mPincodeBinding.pinNine.setOnClickListener {
-            mPincodePresenter.addNumber("9")
-        }
-        mPincodeBinding.pinZero.setOnClickListener {
-            mPincodePresenter.addNumber("0")
-        }
-        mPincodeBinding.pinFinger.setOnClickListener {
-            mPincodePresenter.handleScanner()
-        }
-        mPincodeBinding.pinCancel.setOnClickListener {
-            mPincodePresenter.clear()
-        }
+        KeyboardHandler()
     }
 
     override fun onDestroy() {
@@ -127,8 +98,11 @@ class PincodeActivity : BaseActivity(), PincodeView {
             startActivity(Intent(applicationContext, MainActivityDebug::class.java))
             finish()
         }
-        //TODO("ask about fingerprint")
+        if (BiometricUtils.isSdkVersionSupported()) {
+
+        }
     }
+
 
     override fun showMessage(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
@@ -151,6 +125,47 @@ class PincodeActivity : BaseActivity(), PincodeView {
     override fun pinFailed() {
         mPincodeBinding.pinMainText.text = getString(R.string.enter_pin)
         cancel(circleBorderRed)
+    }
+
+    inner class KeyboardHandler {
+        init {
+            mPincodeBinding.pinOne.setOnClickListener {
+                mPincodePresenter.addNumber("1")
+            }
+            mPincodeBinding.pinTwo.setOnClickListener {
+                mPincodePresenter.addNumber("2")
+            }
+            mPincodeBinding.pinThree.setOnClickListener {
+                mPincodePresenter.addNumber("3")
+            }
+            mPincodeBinding.pinFour.setOnClickListener {
+                mPincodePresenter.addNumber("4")
+            }
+            mPincodeBinding.pinFive.setOnClickListener {
+                mPincodePresenter.addNumber("5")
+            }
+            mPincodeBinding.pinSix.setOnClickListener {
+                mPincodePresenter.addNumber("6")
+            }
+            mPincodeBinding.pinSeven.setOnClickListener {
+                mPincodePresenter.addNumber("7")
+            }
+            mPincodeBinding.pinEight.setOnClickListener {
+                mPincodePresenter.addNumber("7")
+            }
+            mPincodeBinding.pinNine.setOnClickListener {
+                mPincodePresenter.addNumber("9")
+            }
+            mPincodeBinding.pinZero.setOnClickListener {
+                mPincodePresenter.addNumber("0")
+            }
+            mPincodeBinding.pinFinger.setOnClickListener {
+                mPincodePresenter.handleScanner()
+            }
+            mPincodeBinding.pinCancel.setOnClickListener {
+                mPincodePresenter.clear()
+            }
+        }
     }
 
     companion object {
