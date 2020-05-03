@@ -1,13 +1,11 @@
 package com.techpark.finalcount.pincode.presenter
 
 import android.content.SharedPreferences
-import android.util.Base64
 import android.util.Log
 import com.techpark.finalcount.pincode.views.PincodeView
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 class PincodePresenterImpl(sharedPrefs: SharedPreferences): PincodePresenter {
     var mView : PincodeView? = null
@@ -44,8 +42,10 @@ class PincodePresenterImpl(sharedPrefs: SharedPreferences): PincodePresenter {
         mView?.clear()
     }
 
-    override fun handleScanner() {
-        //TODO("Not yet implemented")
+    override fun handleScanner(success: Boolean) {
+        if (success) {
+            mView?.pinSuccess()
+        }
     }
 
     override fun attachView(view: PincodeView) {

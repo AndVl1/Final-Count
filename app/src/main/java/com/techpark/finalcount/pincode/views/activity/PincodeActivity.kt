@@ -1,20 +1,23 @@
 package com.techpark.finalcount.pincode.views.activity
 
-import android.R.attr.*
 import android.annotation.TargetApi
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.hardware.biometrics.BiometricManager
-import android.hardware.biometrics.BiometricPrompt
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityPincodeBinding
@@ -24,20 +27,28 @@ import com.techpark.finalcount.pincode.presenter.PincodeAddingPresenterImpl
 import com.techpark.finalcount.pincode.presenter.PincodePresenter
 import com.techpark.finalcount.pincode.presenter.PincodePresenterImpl
 import com.techpark.finalcount.pincode.views.PincodeView
+import java.util.concurrent.Executor
 
 
 class PincodeActivity : BaseActivity(), PincodeView {
     private lateinit var mPincodeBinding: ActivityPincodeBinding
-    private lateinit var mPincodePresenter : PincodePresenter
+    private lateinit var mPincodePresenter: PincodePresenter
     private val circleBorderGreen = R.drawable.circle_border_green
     private val circleBorderRed = R.drawable.circle_border_red
     private val circleEntered = R.drawable.circle_entered
+
+    /** Biometric */
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var mSharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mPincodeBinding = ActivityPincodeBinding.inflate(layoutInflater)
         setContentView(mPincodeBinding.root)
 
+        mSharedPreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
 //        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 //        val sharedPrefs = SharedPreferences.create(
 //            "PasswordPref",
@@ -54,7 +65,78 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
         mPincodePresenter.attachView(this)
 
-        // click listeners
+        if (!BiometricUtils.isSdkVersionSupported()
+            || !mPincodePresenter.isLogin()
+            || !mSharedPreferences.getBoolean("HAS_SCANNER", false)
+        ) {
+            mPincodeBinding.pinFinger.visibility = View.INVISIBLE
+        }
+
+        /** Biometric*/
+        executor = ContextCompat.getMainExecutor(this)
+
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication error: $errString", Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult
+                ) {
+                    super.onAuthenticationSucceeded(result)
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication succeeded!", Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    if (!mPincodePresenter.isLogin()) {
+                        mPincodePresenter.handleScanner(true)
+                        onBackPressed()
+                    } else {
+                        mPincodePresenter.handleScanner(true)
+                    }
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(
+                        applicationContext, "Authentication failed",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            })
+
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.use_biometric))
+            .setSubtitle(
+                if (mPincodePresenter.isLogin())
+                    getString(R.string.use_biometric_login)
+                else
+                    getString(R.string.use_biometric_add)
+            )
+            .setNegativeButtonText(getString(R.string.cancel))
+            .build()
+
+        mPincodeBinding.pinFinger.setOnClickListener {
+            displayBiometricPrompt()
+        }
+
+        if (mPincodePresenter.isLogin()) {
+            displayBiometricPrompt()
+        }
+
+
+        /** Click listeners*/
         KeyboardHandler()
     }
 
@@ -74,8 +156,10 @@ class PincodeActivity : BaseActivity(), PincodeView {
     }
 
     private fun imageViewAnimatedChange(v: ImageView, res: Int) {
-        val animOut: Animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-        val animIn: Animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
+        val animOut: Animation =
+            AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+        val animIn: Animation =
+            AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
         animOut.setAnimationListener(object : AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationRepeat(animation: Animation) {}
@@ -97,12 +181,23 @@ class PincodeActivity : BaseActivity(), PincodeView {
         if (mPincodePresenter.isLogin()) {
             startActivity(Intent(applicationContext, MainActivityDebug::class.java))
             finish()
-        }
-        if (BiometricUtils.isSdkVersionSupported()) {
-
+            return
+        } else {
+            if (BiometricUtils.isSdkVersionSupported()) {
+                if (BiometricUtils.isBiometricPromptEnabled()) {
+                    ScannerDialog().show(supportFragmentManager, "dialog")
+                }
+            } else {
+                onBackPressed()
+            }
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.P)
+    private fun displayBiometricPrompt() {
+        Log.d(TAG, "prompt")
+        biometricPrompt.authenticate(promptInfo)
+    }
 
     override fun showMessage(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
@@ -160,7 +255,7 @@ class PincodeActivity : BaseActivity(), PincodeView {
                 mPincodePresenter.addNumber("0")
             }
             mPincodeBinding.pinFinger.setOnClickListener {
-                mPincodePresenter.handleScanner()
+                displayBiometricPrompt()
             }
             mPincodeBinding.pinCancel.setOnClickListener {
                 mPincodePresenter.clear()
@@ -170,5 +265,24 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
     companion object {
         const val TAG = "PINCODE ACTIVITY"
+    }
+
+    fun dialogYesClicked() {
+        displayBiometricPrompt()
+    }
+}
+
+class ScannerDialog : DialogFragment() {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage(R.string.scanner_ask)
+            .setPositiveButton(R.string.yes) { _, _ ->
+                (activity as PincodeActivity).dialogYesClicked()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.cancel()
+            }
+
+        return builder.create()
     }
 }

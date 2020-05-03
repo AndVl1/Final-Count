@@ -53,8 +53,12 @@ class PincodeAddingPresenterImpl(var sharedPreferences: SharedPreferences): Pinc
         mView?.clear()
     }
 
-    override fun handleScanner() {
-        TODO("Not yet implemented")
+    override fun handleScanner(success: Boolean) {
+        if (success) {
+            val ed = sharedPreferences.edit()
+            ed.putBoolean("HAS_SCANNER", true)
+            ed.apply()
+        }
     }
 
     override fun attachView(view: PincodeView) {
