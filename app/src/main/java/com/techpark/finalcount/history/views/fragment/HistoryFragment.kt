@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.techpark.finalcount.App
 import com.techpark.finalcount.R
+import com.techpark.finalcount.base.BaseFragment
 import com.techpark.finalcount.history.ListElement
 import com.techpark.finalcount.history.presenters.HistoryPresenterImplementation
 import com.techpark.finalcount.history.views.HistoryAdapter
 import com.techpark.finalcount.history.views.HistoryView
-import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class HistoryFragment : DaggerFragment(), HistoryView {
+class HistoryFragment : BaseFragment(), HistoryView {
 
     private var mRoot: View? = null
     private var mRecyclerView: RecyclerView? = null
@@ -27,6 +28,7 @@ class HistoryFragment : DaggerFragment(), HistoryView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        (activity?.applicationContext as App).appComponent.inject(this)
     }
 
     override fun onCreateView(

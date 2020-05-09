@@ -1,11 +1,12 @@
 package com.techpark.finalcount.di
 
+import android.content.Context
 import com.techpark.finalcount.App
+import com.techpark.finalcount.base.BaseActivity
+import com.techpark.finalcount.history.HistoryComponent
 import com.techpark.finalcount.history.HistoryModule
-import com.techpark.finalcount.purchase.PurchaseModule
+import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
@@ -18,17 +19,25 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class,
-        ActivityBindingModule::class,
-        AndroidSupportInjectionModule::class,
-        HistoryModule::class,
-        PurchaseModule::class
+        AppModule::class
+//        ActivityBindingModule::class
+//        AndroidSupportInjectionModule::class
+//        HistoryModule::class,
+//        PurchaseModule::class
     ]
 )
-interface AppComponent : AndroidInjector<App> {
+interface AppComponent /*: AndroidInjector<App>*/ {
 
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<App>()
+//    @Component.Builder
+//    abstract class Builder : AndroidInjector.Builder<App>()
 
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance context: Context): AppComponent
+    }
 
+    fun inject(app: App)
+    fun inject(activity: BaseActivity)
+
+    fun historyComponent(historyModule: HistoryModule): HistoryComponent
 }

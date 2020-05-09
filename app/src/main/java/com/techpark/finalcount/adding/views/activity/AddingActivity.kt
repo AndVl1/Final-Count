@@ -8,12 +8,13 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.techpark.finalcount.App
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.presenters.AddingPresenterImplementation
 import com.techpark.finalcount.adding.views.AddingView
+import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAddingBinding
 import com.techpark.finalcount.utils.Utils
-import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class AddingActivity : DaggerAppCompatActivity(), AddingView {
+class AddingActivity : BaseActivity(), AddingView {
 
     private lateinit var mAddingBinding: ActivityAddingBinding
     private val activityJob = Job()
@@ -37,6 +38,8 @@ class AddingActivity : DaggerAppCompatActivity(), AddingView {
         super.onCreate(savedInstanceState)
         mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
         setContentView(mAddingBinding.root)
+
+        (applicationContext as App).appComponent.inject(this)
 
         currencies = resources.getStringArray(R.array.currencies)
 
