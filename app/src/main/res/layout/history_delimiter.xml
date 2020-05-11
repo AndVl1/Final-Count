@@ -17,7 +17,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="abc"
-        android:textSize="32sp"
-        android:textColor="@color/colorPrimaryText"/>
+        android:textSize="32sp"/>
 
 </RelativeLayout>

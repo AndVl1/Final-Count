@@ -19,7 +19,6 @@
         android:layout_marginStart="8dp"
         android:gravity="center"
         android:text="abc"
-        android:textColor="@color/colorPrimaryText"
         android:textSize="32sp" />
 
     <TextView
@@ -32,6 +31,5 @@
         android:layout_marginEnd="8dp"
         android:ems="4"
         android:text="150 RUB"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimaryText"/>
+        android:textSize="16sp"/>
 </RelativeLayout>
