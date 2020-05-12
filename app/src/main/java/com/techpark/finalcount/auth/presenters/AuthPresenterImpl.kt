@@ -9,46 +9,58 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 import com.techpark.finalcount.auth.views.AuthView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class AuthPresenterImpl(private val mAuth: FirebaseAuth) : AuthPresenter {
+class AuthPresenterImpl : AuthPresenter {
+    private val mAuth = FirebaseAuth.getInstance()
     private var mAuthView: AuthView? = null
-    override suspend fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
+    private val job = Job()
+    private val mScope = CoroutineScope(job + Dispatchers.Main)
+
+    override fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
         Log.d("PRESENTER", "auth")
         mAuthView?.setLoadingVisibility(true)
         if (!check(login, password)) {
             mAuthView?.showError("Invalid login or password")
             mAuthView?.loginError()
         } else {
-            val res: AuthResult? = if (isLogin) {
-                loginEmail(login, password)
-            } else {
-                registerEmail(login, password)
+            mScope.launch {
+                val res: AuthResult? = if (isLogin) {
+                    loginEmail(login, password)
+                } else {
+                    registerEmail(login, password)
+                }
+                if (res != null) {
+                    mAuthView?.loginSuccess()
+                } else {
+                    mAuthView?.loginError()
+                }
             }
-            if (res != null) {
+        }
+    }
+
+    override fun handleGoogleAuth(data: Intent?) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        // Google Sign In was successful, authenticate with Firebase
+        val account = task.getResult(ApiException::class.java)
+        mAuthView?.setLoadingVisibility(true)
+        mScope.launch {
+            val e = authGoogle(account!!)
+            if (e != null) {
+                Log.d("SIGN IN", "signInWithCredential:success")
                 mAuthView?.loginSuccess()
             } else {
+                mAuthView?.setLoadingVisibility(false)
                 mAuthView?.loginError()
             }
         }
     }
 
-    override suspend fun handleGoogleAuth(data: Intent?) {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-        // Google Sign In was successful, authenticate with Firebase
-        val account = task.getResult(ApiException::class.java)
-        mAuthView?.setLoadingVisibility(true)
-        val e = authGoogle(account!!)
-        if (e != null) {
-            Log.d("SIGN IN", "signInWithCredential:success")
-            mAuthView?.loginSuccess()
-        } else {
-            mAuthView?.setLoadingVisibility(false)
-            mAuthView?.loginError()
-        }
-    }
-
-    override suspend fun authGoogle(acct: GoogleSignInAccount): AuthResult? {
+    private suspend fun authGoogle(acct: GoogleSignInAccount): AuthResult? {
         Log.d("GOOGLE", "firebaseAuthWithGoogle:  ${acct.id} ${acct.idToken}")
         return try {
             val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
@@ -61,14 +73,16 @@ class AuthPresenterImpl(private val mAuth: FirebaseAuth) : AuthPresenter {
         }
     }
 
-    override suspend fun authGithub(activity: Activity) {
-        val result = handleGithub(activity)
-        if (result != null) {
-            mAuthView?.loginSuccess()
-        } else {
-            mAuth.signOut()
-            mAuthView?.loginError()
-            mAuthView?.setLoadingVisibility(false)
+    override fun authGithub(activity: Activity) {
+        mScope.launch {
+            val result = handleGithub(activity)
+            if (result != null) {
+                mAuthView?.loginSuccess()
+            } else {
+                mAuth.signOut()
+                mAuthView?.loginError()
+                mAuthView?.setLoadingVisibility(false)
+            }
         }
     }
 
@@ -95,7 +109,7 @@ class AuthPresenterImpl(private val mAuth: FirebaseAuth) : AuthPresenter {
         }
     }
 
-    override suspend fun handleFacebook(token: AccessToken): AuthResult? {
+    private suspend fun handleFacebook(token: AccessToken): AuthResult? {
         val credential = FacebookAuthProvider.getCredential(token.token)
         return try {
             mAuth.signInWithCredential(credential)
@@ -107,16 +121,18 @@ class AuthPresenterImpl(private val mAuth: FirebaseAuth) : AuthPresenter {
         }
     }
 
-    override suspend fun authFacebook(token: AccessToken) {
+    override fun authFacebook(token: AccessToken) {
         Log.d("FACEBOOK", "handleFacebookAccessToken:$token")
-        val res = handleFacebook(token)
-        if (res != null) {
-            Log.d("FACEBOOK", "signInWithCredential:success")
-            mAuthView?.loginSuccess()
+        mScope.launch {
+            val res = handleFacebook(token)
+            if (res != null) {
+                Log.d("FACEBOOK", "signInWithCredential:success")
+                mAuthView?.loginSuccess()
 
-        } else {
-            mAuth.signOut()
-            mAuthView?.loginError()
+            } else {
+                mAuth.signOut()
+                mAuthView?.loginError()
+            }
         }
     }
 
