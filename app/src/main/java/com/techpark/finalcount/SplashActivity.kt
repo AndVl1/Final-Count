@@ -9,13 +9,13 @@ import com.techpark.finalcount.main.MainActivity
 
 
 class SplashActivity: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            startActivity(Intent(applicationContext,  AuthActivity::class.java))
-        } else {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
-        }
-    }
+		if (FirebaseAuth.getInstance().currentUser == null) {
+			startActivity(Intent(applicationContext,  AuthActivity::class.java))
+		} else {
+			startActivity(Intent(applicationContext, MainActivity::class.java))
+		}
+	}
 }

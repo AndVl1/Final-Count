@@ -12,4 +12,20 @@ abstract class FragmentModule {
 	@ContributesAndroidInjector(modules = [HistoryModule::class])
 	internal abstract fun historyFragment(): HistoryFragment
 
+	/**
+	 * To create new fragment where you can inject:
+	 *
+	 * Step 1: create Module and Component file line
+	 * in "history" package
+	 *
+	 * Step 2: add your module here
+	 *
+	 * Step 3: AndroidSupportInjection.inject(this) in
+	 * onAttach() method before super.onAttach()
+	 *
+	 * ... ?
+	 *
+	 * profit!
+	 *
+	 * */
 }
