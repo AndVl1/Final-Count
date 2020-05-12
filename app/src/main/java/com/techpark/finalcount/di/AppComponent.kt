@@ -4,7 +4,7 @@ import android.content.Context
 import com.techpark.finalcount.App
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.support.AndroidSupportInjectionModule
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 /**
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-	    AndroidSupportInjectionModule::class,
+	    AndroidInjectionModule::class,
         ActivityBindingModule::class,
 	    FragmentModule::class
 //        HistoryModule::class,
