@@ -8,13 +8,13 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.techpark.finalcount.App
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.presenters.AddingPresenterImplementation
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAddingBinding
 import com.techpark.finalcount.utils.Utils
+import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,11 +35,10 @@ class AddingActivity : BaseActivity(), AddingView {
     lateinit var mAddingPresenter: AddingPresenterImplementation
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
         setContentView(mAddingBinding.root)
-
-        (applicationContext as App).appComponent.inject(this)
 
         currencies = resources.getStringArray(R.array.currencies)
 

@@ -2,11 +2,9 @@ package com.techpark.finalcount.di
 
 import android.content.Context
 import com.techpark.finalcount.App
-import com.techpark.finalcount.base.BaseActivity
-import com.techpark.finalcount.history.HistoryComponent
-import com.techpark.finalcount.history.HistoryModule
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 /**
@@ -19,9 +17,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        AppModule::class
-//        ActivityBindingModule::class
-//        AndroidSupportInjectionModule::class
+	    AndroidSupportInjectionModule::class,
+        ActivityBindingModule::class,
+	    FragmentModule::class
 //        HistoryModule::class,
 //        PurchaseModule::class
     ]
@@ -37,7 +35,5 @@ interface AppComponent /*: AndroidInjector<App>*/ {
     }
 
     fun inject(app: App)
-    fun inject(activity: BaseActivity)
 
-    fun historyComponent(historyModule: HistoryModule): HistoryComponent
 }
