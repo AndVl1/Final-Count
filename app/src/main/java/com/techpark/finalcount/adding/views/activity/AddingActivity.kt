@@ -8,7 +8,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.techpark.finalcount.R
-import com.techpark.finalcount.adding.presenters.AddingPresenterImplementation
+import com.techpark.finalcount.adding.presenters.AddingPresenterImpl
 import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAddingBinding
@@ -25,7 +25,7 @@ class AddingActivity : BaseActivity(), AddingView {
 	private lateinit var currency: String
 
 	@Inject
-	lateinit var mAddingPresenter: AddingPresenterImplementation
+	lateinit var mAddingPresenter: AddingPresenterImpl
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		AndroidInjection.inject(this)

@@ -9,7 +9,7 @@ import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.databinding.ActivityPurchaseBinding
-import com.techpark.finalcount.purchase.presenter.PurchasePresenterImplementation
+import com.techpark.finalcount.purchase.presenter.PurchasePresenterImpl
 import com.techpark.finalcount.purchase.view.PurchaseView
 import dagger.android.AndroidInjection
 import java.util.*
@@ -21,7 +21,7 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 	private lateinit var currency : String
 
 	@Inject
-	lateinit var mPurchasePresenter: PurchasePresenterImplementation
+	lateinit var mPurchasePresenter: PurchasePresenterImpl
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		AndroidInjection.inject(this)

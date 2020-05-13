@@ -10,31 +10,31 @@ import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.databinding.ActivityMainDebugBinding
 
 class MainActivityDebug : AppCompatActivity() {
-    private lateinit var mainActivityBinding: ActivityMainDebugBinding
-    private val mAuth = FirebaseAuth.getInstance()
+	private lateinit var mainActivityBinding: ActivityMainDebugBinding
+	private val mAuth = FirebaseAuth.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainActivityBinding = ActivityMainDebugBinding.inflate(layoutInflater)
-        setContentView(mainActivityBinding.root)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		mainActivityBinding = ActivityMainDebugBinding.inflate(layoutInflater)
+		setContentView(mainActivityBinding.root)
 
-        if (mAuth.currentUser != null) {
-            mainActivityBinding.mainText.text = mAuth.currentUser?.email ?: "no email"
-            mainActivityBinding.logout.setOnClickListener {
-                mAuth.signOut()
-                LoginManager.getInstance().logOut()
-                toAuthActivity()
-            }
-            mainActivityBinding.toAddActivity.setOnClickListener {
-                startActivity(Intent(applicationContext, AddingActivity::class.java))
-            }
-        } else {
-            toAuthActivity()
-        }
-    }
+		if (mAuth.currentUser != null) {
+			mainActivityBinding.mainText.text = mAuth.currentUser?.email ?: "no email"
+			mainActivityBinding.logout.setOnClickListener {
+				mAuth.signOut()
+				LoginManager.getInstance().logOut()
+				toAuthActivity()
+			}
+			mainActivityBinding.toAddActivity.setOnClickListener {
+				startActivity(Intent(applicationContext, AddingActivity::class.java))
+			}
+		} else {
+			toAuthActivity()
+		}
+	}
 
-    private fun toAuthActivity() {
-        startActivity(Intent(applicationContext, AuthActivity::class.java))
-        finish()
-    }
+	private fun toAuthActivity() {
+		startActivity(Intent(applicationContext, AuthActivity::class.java))
+		finish()
+	}
 }

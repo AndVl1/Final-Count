@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseFragment
 import com.techpark.finalcount.history.ListElement
-import com.techpark.finalcount.history.presenters.HistoryPresenterImplementation
+import com.techpark.finalcount.history.presenters.HistoryPresenterImpl
 import com.techpark.finalcount.history.views.HistoryAdapter
 import com.techpark.finalcount.history.views.HistoryView
 import dagger.android.support.AndroidSupportInjection
@@ -24,7 +24,7 @@ class HistoryFragment : BaseFragment(), HistoryView {
 	var mLinearLayoutManager : LinearLayoutManager? = null
 
 	@Inject
-	lateinit var mHistoryPresenter: HistoryPresenterImplementation
+	lateinit var mHistoryPresenter: HistoryPresenterImpl
 
 
 	override fun onCreateView(

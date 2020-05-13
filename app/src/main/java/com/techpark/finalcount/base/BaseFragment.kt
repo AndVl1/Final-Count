@@ -9,15 +9,15 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment: Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        savedInstanceState?.let {
-            Log.i("ANIL", it.toString())
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		savedInstanceState?.let {
+			Log.i("ANIL", it.toString())
+		}
+		return super.onCreateView(inflater, container, savedInstanceState)
+	}
 
 }
