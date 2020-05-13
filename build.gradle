@@ -5,17 +5,20 @@ buildscript {
         kotlin_version = '1.3.72'
         def android_junit_version = '1.1.1'
         def appcompat_version = '1.1.0'
+        def androidx_navigation = '2.2.2'
         def annotation_version = '1.1.0'
         def constraint_layout_version = '1.1.3'
         def core_ctx_version = '1.2.0'
         def coroutines_android_version = '1.3.2'
         def dagger_version = '2.25.2'
+        def gson_version = '2.8.6'
         def espresso_version = '3.2.0'
         def facebook_sdk = '5.15.3'
-        def firebase_auth = '19.3.0'
+        def firebase_version = '19.3.0'
+        def firebase_storage = '19.1.1'
         def junit_version = '4.13'
         def lifecycle_version = '2.2.0'
-        def material_version = '1.0.0'
+        def material_version = '1.1.0'
         def play_auth = '18.0.0'
         def truth_version = '1.0'
         def room_version = '2.1.0-alpha04'
@@ -29,13 +32,15 @@ buildscript {
                 "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
                 "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
                 //AUTH
-                "com.google.firebase:firebase-auth:$firebase_auth",
+                "com.google.firebase:firebase-auth:$firebase_version",
                 "com.google.android.gms:play-services-auth:$play_auth",
                 "com.facebook.android:facebook-android-sdk:$facebook_sdk",
                 //COROUTINES
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version",
                 "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version",
                 "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_android_version",
+                //https://stackoverflow.com/questions/52869672/call-kotlin-suspend-function-in-java-class (:)
+                "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.0.1",
                 //ROOM
                 "android.arch.persistence.room:runtime:$room_version",
                 "androidx.room:room-coroutines:$room_version",
@@ -43,6 +48,16 @@ buildscript {
                 "com.google.dagger:dagger:$dagger_version",
                 "com.google.dagger:dagger-android:$dagger_version",
                 "com.google.dagger:dagger-android-support:$dagger_version",
+                //GSON
+                "com.google.code.gson:gson:$gson_version",
+                //FIREBASE
+                "com.google.firebase:firebase-database:$firebase_version",
+                "com.google.firebase:firebase-storage:$firebase_storage",
+                //FRAGMENTS, NAVIGATION
+                "androidx.navigation:navigation-fragment:$androidx_navigation",
+                "androidx.navigation:navigation-ui:$androidx_navigation",
+                "androidx.navigation:navigation-fragment-ktx:$androidx_navigation",
+                "androidx.navigation:navigation-ui-ktx:$androidx_navigation",
         ]
         kaptLibraries = [
                 "androidx.room:room-compiler:$room_version",
