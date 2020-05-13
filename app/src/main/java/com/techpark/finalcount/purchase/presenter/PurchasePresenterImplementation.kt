@@ -7,7 +7,7 @@ import com.techpark.finalcount.purchase.view.PurchaseView
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSource): PurchasePresenter {
+class PurchasePresenterImplementation @Inject constructor(private val dataSource: DataSource): PurchasePresenter {
     private var mPurchaseView: PurchaseView? = null
     private lateinit var mPurchase: Purchase
     private val mJob = Job()

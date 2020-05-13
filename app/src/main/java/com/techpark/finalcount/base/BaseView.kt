@@ -1,3 +1,3 @@
 package com.techpark.finalcount.base
 
-interface BaseView {}
+interface BaseView
