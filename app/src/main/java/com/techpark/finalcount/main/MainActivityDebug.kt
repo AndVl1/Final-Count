@@ -11,13 +11,13 @@ import com.techpark.finalcount.databinding.ActivityMainDebugBinding
 import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 
 class MainActivityDebug : AppCompatActivity() {
-    private lateinit var mainActivityBinding: ActivityMainDebugBinding
-    private val mAuth = FirebaseAuth.getInstance()
+	private lateinit var mainActivityBinding: ActivityMainDebugBinding
+	private val mAuth = FirebaseAuth.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mainActivityBinding = ActivityMainDebugBinding.inflate(layoutInflater)
-        setContentView(mainActivityBinding.root)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		mainActivityBinding = ActivityMainDebugBinding.inflate(layoutInflater)
+		setContentView(mainActivityBinding.root)
 
         if (mAuth.currentUser == null) {
             toAuthActivity()
@@ -46,8 +46,8 @@ class MainActivityDebug : AppCompatActivity() {
         }
     }
 
-    private fun toAuthActivity() {
-        startActivity(Intent(applicationContext, AuthActivity::class.java))
-        finish()
-    }
+	private fun toAuthActivity() {
+		startActivity(Intent(applicationContext, AuthActivity::class.java))
+		finish()
+	}
 }

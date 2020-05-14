@@ -1,33 +1,31 @@
 package com.techpark.finalcount
 
 
+import android.app.Application
 import com.techpark.finalcount.di.DaggerAppComponent
 import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
 /**
  * Application Class
  *
  */
-class App : DaggerApplication() {
+class App : Application(), HasAndroidInjector {
 
-    private val appComponent: AndroidInjector<App> by lazy {
-        DaggerAppComponent
-            .builder()
-            .create(this)
-    }
+	@Inject
+	lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
+	override fun onCreate() {
+		super.onCreate()
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = appComponent
+		DaggerAppComponent
+			.factory()
+			.create(this)
+			.inject(this)
+	}
 
-
-//    override fun onCreate() {
-//        super.onCreate()
-//        // Used Timber for logs
-////        if (BuildConfig.DEBUG) {
-//////            Timber.plant(Timber.DebugTree())
-////        }
-//
-//    }
+	override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
 }

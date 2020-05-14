@@ -1,7 +1,6 @@
 package com.techpark.finalcount.history.views
 
 import com.techpark.finalcount.base.BaseView
-import com.techpark.finalcount.database.model.Purchase
 import com.techpark.finalcount.history.ListElement
 
 interface HistoryView: BaseView {

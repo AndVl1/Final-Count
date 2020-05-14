@@ -12,8 +12,8 @@ import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 
 
 class SplashActivity: AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(applicationContext,  AuthActivity::class.java))

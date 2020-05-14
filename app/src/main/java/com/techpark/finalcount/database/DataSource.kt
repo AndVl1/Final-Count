@@ -7,5 +7,5 @@ import javax.inject.Singleton
 
 @Singleton
 class DataSource @Inject constructor(ctx: Context) {
-    val database = PurchaseDatabase.getInstance(ctx)
+	val database = PurchaseDatabase.getInstance(ctx)
 }
