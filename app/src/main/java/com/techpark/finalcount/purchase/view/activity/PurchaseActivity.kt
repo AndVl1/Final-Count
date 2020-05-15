@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
-import com.techpark.finalcount.database.model.Purchase
+import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.databinding.ActivityPurchaseBinding
 import com.techpark.finalcount.purchase.presenter.PurchasePresenterImpl
 import com.techpark.finalcount.purchase.view.PurchaseView

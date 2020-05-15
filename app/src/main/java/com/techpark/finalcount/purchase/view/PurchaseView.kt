@@ -1,7 +1,7 @@
 package com.techpark.finalcount.purchase.view
 
 import com.techpark.finalcount.base.BaseView
-import com.techpark.finalcount.database.model.Purchase
+import com.techpark.finalcount.data.room.model.Purchase
 
 interface PurchaseView: BaseView {
 //    fun initPresenter(id: Long)

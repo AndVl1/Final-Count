@@ -2,8 +2,8 @@ package com.techpark.finalcount.purchase.presenter
 
 import android.util.Log
 import com.techpark.finalcount.base.BasePresenterImpl
-import com.techpark.finalcount.database.DataSource
-import com.techpark.finalcount.database.model.Purchase
+import com.techpark.finalcount.data.DataSource
+import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.purchase.view.PurchaseView
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch

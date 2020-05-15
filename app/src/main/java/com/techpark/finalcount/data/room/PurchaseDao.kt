@@ -1,7 +1,7 @@
-package com.techpark.finalcount.database.room
+package com.techpark.finalcount.data.room
 
 import androidx.room.*
-import com.techpark.finalcount.database.model.Purchase
+import com.techpark.finalcount.data.room.model.Purchase
 //import kotlinx.coroutines.GlobalScope
 //import kotlinx.coroutines.future.future
 //import java.util.concurrent.CompletableFuture

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.auth.views.activity.AuthActivity
+import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.databinding.ActivityMainDebugBinding
 import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 
@@ -27,10 +28,7 @@ class MainActivityDebug : AppCompatActivity() {
         mainActivityBinding.logout.setOnClickListener {
             mAuth.signOut()
             LoginManager.getInstance().logOut()
-            val sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
-            val ed = sp.edit()
-            ed.putBoolean("HAS_PIN", false)
-            ed.apply()
+            PinPreferences(this).removePin()
             toAuthActivity()
         }
         mainActivityBinding.addPin.setOnClickListener {
@@ -39,10 +37,7 @@ class MainActivityDebug : AppCompatActivity() {
             startActivity(intent)
         }
         mainActivityBinding.cancelPin.setOnClickListener {
-            val sp = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
-            val ed = sp.edit()
-            ed.putBoolean("HAS_PIN", false)
-            ed.apply()
+            PinPreferences(this).removePin()
         }
     }
 

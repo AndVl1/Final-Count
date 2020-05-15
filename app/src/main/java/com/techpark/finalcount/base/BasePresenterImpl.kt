@@ -8,7 +8,7 @@ open class BasePresenterImpl<V: BaseView>: BasePresenter<V> {
 	var mView : V? = null
 
 	val mJob = Job()
-	var mMainScope = CoroutineScope(Dispatchers.Main + mJob)
+	val mMainScope = CoroutineScope(Dispatchers.Main + mJob)
 	val mIOScope = CoroutineScope(Dispatchers.IO + mJob)
 
 	override fun attachView(view: V) {

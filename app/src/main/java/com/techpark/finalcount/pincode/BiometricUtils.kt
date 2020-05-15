@@ -10,30 +10,33 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 
 
 class BiometricUtils {
-    companion object {
-        fun isBiometricPromptEnabled(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+	companion object {
+		fun isBiometricPromptEnabled(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
 
-        fun isSdkVersionSupported(): Boolean = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+		fun isSdkVersionSupported(): Boolean = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
 
-        fun isHardwareSupported(context: Context): Boolean {
-            val fingerprintManager =
-                FingerprintManagerCompat.from(context)
-            return fingerprintManager.isHardwareDetected
-        }
+		fun isBiometricAvailable(): Boolean {
+			return false
+		}
 
-        fun isFingerprintAvailable(context: Context): Boolean {
-            val fingerprintManager = FingerprintManagerCompat.from(context)
-            return fingerprintManager.hasEnrolledFingerprints()
-        }
+		fun isHardwareSupported(context: Context): Boolean {
+			val fingerprintManager =
+				FingerprintManagerCompat.from(context)
+			return fingerprintManager.isHardwareDetected
+		}
 
-        @RequiresApi(Build.VERSION_CODES.M)
-        fun isPermissionGranted(context: Context): Boolean {
-            return ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) ==
-                    PackageManager.PERMISSION_GRANTED
-        }
-    }
+		fun isFingerprintAvailable(context: Context): Boolean {
+			val fingerprintManager = FingerprintManagerCompat.from(context)
+			return fingerprintManager.hasEnrolledFingerprints()
+		}
 
+		@RequiresApi(Build.VERSION_CODES.M)
+		fun isPermissionGranted(context: Context): Boolean {
+			return ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) ==
+					PackageManager.PERMISSION_GRANTED
+		}
+	}
 
-    /** https://proandroiddev.com/5-steps-to-implement-biometric-authentication-in-android-dbeb825aeee8 */
+	/* https://proandroiddev.com/5-steps-to-implement-biometric-authentication-in-android-dbeb825aeee8 */
 
 }

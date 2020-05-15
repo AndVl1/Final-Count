@@ -1,4 +1,4 @@
-package com.techpark.finalcount.database.dbexpimp;
+package com.techpark.finalcount.data.dbexpimp;
 
 //import android.content.Context;
 import android.util.Log;
@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 //import java.util.List;
-//import com.techpark.finalcount.database.model.Purchase;
-import com.techpark.finalcount.database.room.PurchaseDao;
+//import com.techpark.finalcount.database.room.model.Purchase;
+import com.techpark.finalcount.data.room.PurchaseDao;
 //import com.techpark.finalcount.database.room.PurchaseDatabase;
 
 public class JsonDbExportImportApiImpl implements JsonDbExportImportApi {

@@ -1,10 +1,10 @@
-package com.techpark.finalcount.database.room
+package com.techpark.finalcount.data.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.techpark.finalcount.database.model.Purchase
+import com.techpark.finalcount.data.room.model.Purchase
 
 @Database(entities = [Purchase::class], version = 1)
 abstract class PurchaseDatabase: RoomDatabase() {

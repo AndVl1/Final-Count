@@ -1,8 +1,8 @@
-package com.techpark.finalcount.database.dbexpimp
+package com.techpark.finalcount.data.dbexpimp
 
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.techpark.finalcount.database.room.PurchaseDao
+import com.techpark.finalcount.data.room.PurchaseDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
