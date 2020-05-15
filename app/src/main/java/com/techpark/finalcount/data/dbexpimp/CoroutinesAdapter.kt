@@ -1,4 +1,4 @@
-package com.techpark.finalcount.database.dbexpimp
+package com.techpark.finalcount.data.dbexpimp
 
 import android.os.Build
 import androidx.annotation.RequiresApi

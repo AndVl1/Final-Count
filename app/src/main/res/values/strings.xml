@@ -36,4 +36,31 @@
         <item>EUR</item>
         <item>USD</item>
     </string-array>
+
+    <string name="finger_unlock" translatable="false">Fingerprint Unlock</string>
+    <string name="enter_pin">Enter Pin Code</string>
+    <string name="repeat_pin">Enter your pin again</string>
+    <string name="scanner_ask">Do you want to use biometric auth?</string>
+
+    <string name="pin_attr" translatable="false">Image showing how many symbols are entered</string>
+
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="six" translatable="false">6</string>
+    <string name="seven" translatable="false">7</string>
+    <string name="eight" translatable="false">8</string>
+    <string name="nine" translatable="false">9</string>
+    <string name="zero" translatable="false">0</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="use_biometric">Use biometric scanner</string>
+    <string name="use_biometric_login">To login</string>
+    <string name="use_biometric_add">To confirm your biometric</string>
 </resources>

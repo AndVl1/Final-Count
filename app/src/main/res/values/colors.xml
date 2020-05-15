@@ -10,4 +10,10 @@
     <color name="divider">#BDBDBD</color>
 
     <color name="white">#ffffff</color>
+    <color name="grey">#505253</color>
+    <color name="lightGrey">#C8C8C8</color>
+    <color name="lighterGrey">#DDDDDD</color>
+
+    <color name="black">#000000</color>
+    <color name="greyDarker">#2C2C2C</color>
 </resources>

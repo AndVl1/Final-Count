@@ -1,4 +1,4 @@
-package com.techpark.finalcount.database.model
+package com.techpark.finalcount.data.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
