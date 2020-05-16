@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class HistoryPresenterImpl @Inject constructor(private val dataSource: DataSource): HistoryPresenter, BasePresenterImpl<HistoryView>() {
 
-	private var mPurchaseArray = ArrayList<ListElement>()
+	private val mPurchaseArray = ArrayList<ListElement>()
 
 	override fun getPurchases() {
 		try {

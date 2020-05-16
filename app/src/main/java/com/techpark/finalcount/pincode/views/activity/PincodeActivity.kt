@@ -12,9 +12,11 @@ import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
@@ -211,36 +213,12 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
 	inner class KeyboardHandler {
 		init {
-			mPincodeBinding.pinOne.setOnClickListener {
-				mPincodePresenter.addNumber("1")
+			for (number in mPincodeBinding.numPad.children) {
+				number.setOnClickListener {
+					mPincodePresenter.addNumber((number as TextView).text.toString())
+				}
 			}
-			mPincodeBinding.pinTwo.setOnClickListener {
-				mPincodePresenter.addNumber("2")
-			}
-			mPincodeBinding.pinThree.setOnClickListener {
-				mPincodePresenter.addNumber("3")
-			}
-			mPincodeBinding.pinFour.setOnClickListener {
-				mPincodePresenter.addNumber("4")
-			}
-			mPincodeBinding.pinFive.setOnClickListener {
-				mPincodePresenter.addNumber("5")
-			}
-			mPincodeBinding.pinSix.setOnClickListener {
-				mPincodePresenter.addNumber("6")
-			}
-			mPincodeBinding.pinSeven.setOnClickListener {
-				mPincodePresenter.addNumber("7")
-			}
-			mPincodeBinding.pinEight.setOnClickListener {
-				mPincodePresenter.addNumber("7")
-			}
-			mPincodeBinding.pinNine.setOnClickListener {
-				mPincodePresenter.addNumber("9")
-			}
-			mPincodeBinding.pinZero.setOnClickListener {
-				mPincodePresenter.addNumber("0")
-			}
+
 			mPincodeBinding.pinFinger.setOnClickListener {
 				displayBiometricPrompt(true)
 			}
