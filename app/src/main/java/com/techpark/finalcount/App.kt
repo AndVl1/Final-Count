@@ -14,7 +14,6 @@ import javax.inject.Inject
  *
  */
 class App : Application(), HasAndroidInjector {
-	val mPinPrefs = PinPreferences(this)
 
 	@Inject
 	lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
