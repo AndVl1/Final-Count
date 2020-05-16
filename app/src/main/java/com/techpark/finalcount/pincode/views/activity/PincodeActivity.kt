@@ -48,6 +48,7 @@ class PincodeActivity : BaseActivity(), PincodeView {
 		mPincodeBinding = ActivityPincodeBinding.inflate(layoutInflater)
 		setContentView(mPincodeBinding.root)
 
+		supportActionBar?.hide()
 //        mSharedPreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE)
 
 		val intent = intent
