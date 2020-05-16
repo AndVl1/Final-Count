@@ -53,9 +53,9 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
 		val intent = intent
 		mPincodePresenter = if (intent.getBooleanExtra("login", true)) {
-			PincodePresenterImpl(this)
+			PincodePresenterImpl(PinPreferences(this))
 		} else
-			PincodeAddingPresenterImpl(this)
+			PincodeAddingPresenterImpl(PinPreferences(this))
 
 		mPincodePresenter.attachView(this)
 

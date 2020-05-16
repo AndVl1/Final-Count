@@ -7,10 +7,9 @@ import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.pincode.views.PincodeView
 
-class PincodeAddingPresenterImpl(var context: Context): PincodePresenter, BasePresenterImpl<PincodeView>() {
+class PincodeAddingPresenterImpl(private var mPrefs: PinPreferences): PincodePresenter, BasePresenterImpl<PincodeView>() {
 	private var mCurrentInput = StringBuilder()
 	private var mFirstInput = StringBuilder()
-	private val mPrefs = PinPreferences(context)
 
 	override fun addNumber(num: String) {
 		Log.d(PincodePresenterImpl.TAG, "$num $mCurrentInput")

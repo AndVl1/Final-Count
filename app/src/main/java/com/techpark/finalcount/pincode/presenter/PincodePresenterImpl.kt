@@ -11,10 +11,8 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PincodePresenterImpl(context: Context): PincodePresenter, BasePresenterImpl<PincodeView>() {
+class PincodePresenterImpl(private val mPrefs: PinPreferences): PincodePresenter, BasePresenterImpl<PincodeView>() {
 	var mCurrentInput = StringBuilder()
-	private val mPrefs = PinPreferences(context)
-//	private val mPin = mPrefs.getPin()
 	override fun addNumber(num: String) {
 		Log.d(TAG, "$num $mCurrentInput")
 		if (mCurrentInput.length < 4) {
