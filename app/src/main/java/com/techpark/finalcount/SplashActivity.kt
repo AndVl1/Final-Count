@@ -20,7 +20,7 @@ class SplashActivity: AppCompatActivity() {
 			startActivity(Intent(applicationContext,  AuthActivity::class.java))
 		} else {
 			if (!PinPreferences(this).hasPin()) {
-				startActivity(Intent(applicationContext, MainActivityDebug::class.java))
+				startActivity(Intent(applicationContext, MainActivity::class.java))
 			}
 			else {
 				val intent = Intent(applicationContext, PincodeActivity::class.java)
