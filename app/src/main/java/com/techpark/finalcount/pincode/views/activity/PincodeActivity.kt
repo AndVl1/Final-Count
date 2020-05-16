@@ -80,10 +80,10 @@ class PincodeActivity : BaseActivity(), PincodeView {
 	override fun addInput(position: Int) {
 		Log.d(TAG, "add $position")
 		when (position) {
-			1 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, circleEntered)
-			2 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, circleEntered)
-			3 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, circleEntered)
-			4 -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, circleEntered)
+			CIRCLE_FIRST -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle1, circleEntered)
+			CIRCLE_SECOND -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle2, circleEntered)
+			CIRCLE_THIRD -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle3, circleEntered)
+			CIRCLE_FOURTH -> imageViewAnimatedChange(mPincodeBinding.imageviewCircle4, circleEntered)
 		}
 	}
 
@@ -231,6 +231,10 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
 	companion object {
 		const val TAG = "PINCODE ACTIVITY"
+		private const val CIRCLE_FIRST = 1
+		private const val CIRCLE_SECOND = 2
+		private const val CIRCLE_THIRD = 3
+		private const val CIRCLE_FOURTH = 4
 	}
 
 	fun dialogYesClicked() {
