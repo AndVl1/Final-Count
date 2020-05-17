@@ -2,6 +2,8 @@ package com.techpark.finalcount.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
@@ -36,6 +38,21 @@ class MainActivity : AppCompatActivity() {
 
 		mainBinding.fab.setOnClickListener {
 			startActivity(Intent(applicationContext, AddingActivity::class.java))
+		}
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+		val inflater = menuInflater
+		inflater.inflate(R.menu.main_menu, menu)
+		return true
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			R.id.save_csv -> {
+				
+				return true
+			}
 		}
 	}
 

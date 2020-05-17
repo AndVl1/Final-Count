@@ -40,4 +40,6 @@
     <string name="use_biometric">Используйте биометрический сканер</string>
     <string name="use_biometric_login">Для авторищации</string>
     <string name="use_biometric_add">Чтобы подтвердите, что вы владелец</string>
+
+    <string name="save_csv">Сохранить всё в формате CSV</string>
 </resources>

@@ -19,7 +19,7 @@ import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
-import com.techpark.finalcount.main.MainActivity
+import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.utils.Utils
 
 

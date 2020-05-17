@@ -63,4 +63,6 @@
     <string name="use_biometric">Use biometric scanner</string>
     <string name="use_biometric_login">To login</string>
     <string name="use_biometric_add">To confirm your biometric</string>
+
+    <string name="save_csv">Save all to csv</string>
 </resources>

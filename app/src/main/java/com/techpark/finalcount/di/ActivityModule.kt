@@ -2,6 +2,8 @@ package com.techpark.finalcount.di
 
 import com.techpark.finalcount.adding.AddingModule
 import com.techpark.finalcount.adding.views.activity.AddingActivity
+import com.techpark.finalcount.main.MainModule
+import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.purchase.PurchaseModule
 import com.techpark.finalcount.purchase.view.activity.PurchaseActivity
 import dagger.Module
@@ -22,6 +24,10 @@ abstract class ActivityModule {
 	@ActivityScope
 	@ContributesAndroidInjector(modules = [PurchaseModule::class])
 	internal abstract fun purchaseActivity(): PurchaseActivity
+
+	@ActivityScope
+	@ContributesAndroidInjector(modules = [MainModule::class])
+	internal abstract fun mainActivity(): MainActivity
 
 
 	/**
