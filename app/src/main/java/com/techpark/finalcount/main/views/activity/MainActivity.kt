@@ -11,10 +11,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.views.activity.AddingActivity
+import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
 import com.techpark.finalcount.history.views.fragment.HistoryFragment
@@ -83,6 +86,10 @@ class MainActivity : BaseActivity(), MainView {
 				}
 				true
 			}
+			R.id.logout -> {
+				mMainPresenter.logOut()
+				true
+			}
 			else -> true
 		}
 
@@ -115,9 +122,13 @@ class MainActivity : BaseActivity(), MainView {
 	override fun showMsg(string: String) {
 		Toast.makeText(applicationContext, string, Toast.LENGTH_SHORT).show()
 		Log.d(TAG, string)
-//		Snackbar.make(mMainBinding.root, string, Snackbar.LENGTH_SHORT)
-//			.show()
 	}
+
+	override fun toAuthActivity() {
+		startActivity(Intent(applicationContext, AuthActivity::class.java))
+		finish()
+	}
+
 	companion object {
 		const val TAG = "MAIN"
 		const val WRITE_STORAGE = 1

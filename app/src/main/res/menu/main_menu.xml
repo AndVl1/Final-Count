@@ -3,4 +3,8 @@
     <item
         android:id="@+id/save_csv"
         android:title="@string/save_csv" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout"/>
 </menu>
