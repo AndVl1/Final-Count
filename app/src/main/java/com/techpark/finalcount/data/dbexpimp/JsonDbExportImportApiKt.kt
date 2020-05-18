@@ -36,26 +36,28 @@ object JsonDbExportImportApiKt {
 		return resultSet!!
 	}
 
-	fun saveCsv(root: String, jsonArray: JSONArray) {
-		val date = Date(System.currentTimeMillis())
-		val fileDir = "FinalCount"
-		val dir = File(root, fileDir)
-		if (!dir.exists())
-			dir.mkdir()
-		val file = File(dir, "${date.day}-${date.month}-${date.year}.csv")
+	fun saveCsv(root: String, jsonArray: JSONArray): String {
+		val calendar = Calendar.getInstance()
+		val day = calendar.get(Calendar.DAY_OF_WEEK)
+		val month = calendar.get(Calendar.MONTH)
+		val year = calendar.get(Calendar.YEAR)
+		val second = calendar.get(Calendar.SECOND)
+		val file = File(root, "$day-$month-$year-$second.csv")
 		file.createNewFile()
 
 		val fileWriter = FileWriter(file)
 
+		var next = "\"id\", \"name\", \"price\", \"date\"\n"
+		fileWriter.write(next)
 		for (i in 0 until jsonArray.length()) {
 			val obj = jsonArray[i] as JSONObject
-			val next =
+			next =
 				"\"${obj["id"]}\", \"${obj["name"]}\", \"${obj["cost"]}\", \"${Date(obj["date"] as Long)}\"\n"
 			fileWriter.write(next)
 		}
 		fileWriter.flush()
 		fileWriter.close()
-
+		return file.absolutePath
 	}
 
 

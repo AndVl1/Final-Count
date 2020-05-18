@@ -42,4 +42,6 @@
     <string name="use_biometric_add">Чтобы подтвердите, что вы владелец</string>
 
     <string name="save_csv">Сохранить всё в формате CSV</string>
+
+    <string name="adding_empty">Поля не должны быть пустыми</string>
 </resources>

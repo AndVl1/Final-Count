@@ -11,10 +11,13 @@ import javax.inject.Inject
 class MainPresenterImpl @Inject constructor(private val dataSource: DataSource): MainPresenter, BasePresenterImpl<MainView>() {
 	override fun saveAll(root: String) {
 		mMainScope.launch {
+			var path = ""
 			val jsonArray = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dataSource.database.purchaseDao())
-			JsonDbExportImportApiKt.saveCsv(root, jsonArray)
+			mIOScope.launch {
+				path = JsonDbExportImportApiKt.saveCsv(root, jsonArray)
+			}.join()
 			Log.d(TAG, jsonArray.toString())
-			mView?.showMsg("saved i hope")
+			mView?.showMsg("saved at $path")
 		}
 	}
 

@@ -76,7 +76,7 @@ class MainActivity : BaseActivity(), MainView {
 				if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 					val root = getExternalFilesDir(null)?.absolutePath
 					if (!root.isNullOrEmpty())
-						mMainPresenter.saveAll(getExternalFilesDir(null)!!.absolutePath)
+						mMainPresenter.saveAll(root)
 					else showMsg("error")
 				} else {
 					ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_STORAGE)
