@@ -1,25 +1,20 @@
 package com.techpark.finalcount.data.dbexpimp
 
-import android.Manifest
-import android.content.Context
 import android.util.Log
 import com.google.gson.GsonBuilder
-import com.opencsv.CSVWriter
 import com.techpark.finalcount.data.room.PurchaseDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.io.FileWriter
 import java.util.*
 
 object JsonDbExportImportApiKt {
-	suspend fun exportPurchaseDbToJsonArray(dao: PurchaseDao): JSONArray {
+	suspend fun exportPurchaseDbToJsonArray(dao: PurchaseDao): JSONArray? {
 		var resultSet: JSONArray? = null
-		val ioScope = CoroutineScope(Dispatchers.IO)
+		val job = Job()
+		val ioScope = CoroutineScope(job + Dispatchers.IO)
 		try {
 			val gson = GsonBuilder()
 				.setPrettyPrinting()
@@ -33,7 +28,7 @@ object JsonDbExportImportApiKt {
 		} catch (ex: Exception) {
 			Log.e(TAG, ex.toString())
 		}
-		return resultSet!!
+		return resultSet
 	}
 
 	fun saveCsv(root: String, jsonArray: JSONArray): String {

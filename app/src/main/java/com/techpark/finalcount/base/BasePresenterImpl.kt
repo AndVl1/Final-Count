@@ -17,6 +17,7 @@ open class BasePresenterImpl<V: BaseView>: BasePresenter<V> {
 
 	override fun detachView() {
 		this.mView = null
-		mJob.cancel()
+		if (mJob.isActive)
+			mJob.cancel()
 	}
 }

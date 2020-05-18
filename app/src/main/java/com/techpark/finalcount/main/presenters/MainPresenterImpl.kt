@@ -13,11 +13,15 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource):
 		mMainScope.launch {
 			var path = ""
 			val jsonArray = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dataSource.database.purchaseDao())
-			mIOScope.launch {
-				path = JsonDbExportImportApiKt.saveCsv(root, jsonArray)
-			}.join()
-			Log.d(TAG, jsonArray.toString())
-			mView?.showMsg("saved at $path")
+			if (jsonArray != null) {
+				mIOScope.launch {
+					path = JsonDbExportImportApiKt.saveCsv(root, jsonArray)
+				}.join()
+				Log.d(TAG, jsonArray.toString())
+				mView?.showMsg("saved at $path")
+			} else {
+				mView?.showMsg("error occurred while saving")
+			}
 		}
 	}
 

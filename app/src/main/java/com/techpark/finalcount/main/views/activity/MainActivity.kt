@@ -70,8 +70,8 @@ class MainActivity : BaseActivity(), MainView {
 	}
 
 	@RequiresApi(Build.VERSION_CODES.M)
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		return when (item.itemId) {
+	override fun onOptionsItemSelected(item: MenuItem): Boolean =
+		when (item.itemId) {
 			R.id.save_csv -> {
 				if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 					val root = getExternalFilesDir(null)?.absolutePath
@@ -81,12 +81,10 @@ class MainActivity : BaseActivity(), MainView {
 				} else {
 					ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_STORAGE)
 				}
-
 				true
 			}
 			else -> true
 		}
-	}
 
 	override fun onRequestPermissionsResult(
 		requestCode: Int,

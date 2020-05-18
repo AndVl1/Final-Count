@@ -14,6 +14,7 @@
     <string name="login_github">Login with Github</string>
     <string name="login_facebook">Login with Facebook</string>
     <string name="logout">Logout</string>
+    <string name="login_error">Login error!</string>
 
     <string name="facebook_app_id" translatable="false">222181982176177</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb222181982176177</string>

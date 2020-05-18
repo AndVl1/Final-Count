@@ -101,13 +101,12 @@ class AuthActivity : BaseActivity(), AuthView {
 	}
 
 	override fun loginSuccess() {
-		Utils.showMessage(applicationContext, "Login success!")
 		toMainActivity()
 	}
 
 	override fun loginError() {
 		setLoadingVisibility(false)
-		Utils.showMessage(applicationContext, "Login error!")
+		Utils.showMessage(applicationContext, getString(R.string.login_error))
 	}
 
 	override fun isLogin(isLogin: Boolean) {
