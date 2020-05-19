@@ -16,7 +16,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AuthPresenterImpl @Inject constructor(val mResourceManager: AndroidResourceManager) : AuthPresenter, BasePresenterImpl<AuthView>() {
+class AuthPresenterImpl @Inject constructor(private val mResourceManager: AndroidResourceManager) : AuthPresenter, BasePresenterImpl<AuthView>() {
 	private val mAuth = FirebaseAuth.getInstance()
 	private var mError : String? = null
 

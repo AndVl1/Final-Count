@@ -32,9 +32,9 @@ class MainActivity : BaseActivity(), MainView {
 
 	private lateinit var mMainBinding: ActivityMainBinding
 	private val mScreens: Array<Fragment> = arrayOf(
-		HistoryFragment(),
-		PlansFragment(),
-		ProfileFragment()
+		HistoryFragment.newInstance(),
+		PlansFragment(), // TODO after creating make newInstance() method in companion object
+		ProfileFragment() // TODO after creating make newInstance() method in companion object
 	)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
