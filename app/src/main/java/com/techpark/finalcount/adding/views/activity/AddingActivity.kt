@@ -47,8 +47,9 @@ class AddingActivity : BaseActivity(), AddingView {
 				mAddingBinding.name.text.clear()
 				mAddingBinding.price.text.clear()
 				onBackPressed()
-			} else Toast.makeText(applicationContext, R.string.adding_empty, Toast.LENGTH_SHORT).show()
-
+			} else {
+				Toast.makeText(applicationContext, R.string.adding_empty, Toast.LENGTH_SHORT).show()
+			}
 		}
 
 

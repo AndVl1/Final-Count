@@ -12,6 +12,7 @@ import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BasePresenterImpl
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 	private val mAuth = FirebaseAuth.getInstance()
@@ -46,10 +47,12 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		val account = task.getResult(ApiException::class.java)
 		mView?.setLoadingVisibility(true)
 		mMainScope.launch {
-			var e: AuthResult? = null
-			mIOScope.launch {
-				e = authGoogle(account!!)
-			}.join()
+			val e: AuthResult? = withContext(mIOScope.coroutineContext) {
+				authGoogle(account!!)
+			}
+//			mIOScope.launch {
+//				e = authGoogle(account!!)
+//			}.join()
 			if (e != null) {
 				Log.d("SIGN IN", "signInWithCredential:success")
 				mView?.loginSuccess()
@@ -95,21 +98,16 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		mView?.setLoadingVisibility(true)
 		// There's something already here! Finish the sign-in for your user.
 		try {
-			if (pendingResultTask != null) {
-				var result: AuthResult? = null
-				mIOScope.launch {
-					result = pendingResultTask
-						.await()
-				}.join()
-				return result
+			return if (pendingResultTask != null) {
+				withContext(mIOScope.coroutineContext) {
+					pendingResultTask.await()
+				}
 			} else {
-				var result: AuthResult? = null
-				mIOScope.launch {
-					result = mAuth
+				withContext(mIOScope.coroutineContext) {
+					mAuth
 						.startActivityForSignInWithProvider(activity, provider.build())
 						.await()
-				}.join()
-				return result
+				}
 			}
 		} catch (e: Exception) {
 			mView?.showError(e.localizedMessage ?: "Some error occurred")
@@ -133,10 +131,9 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 	override fun authFacebook(token: AccessToken) {
 		Log.d("FACEBOOK", "handleFacebookAccessToken:$token")
 		mMainScope.launch {
-			var res : AuthResult? = null
-			mIOScope.launch {
-				res = handleFacebook(token)
-			}.join()
+			val res : AuthResult? = withContext(mIOScope.coroutineContext) {
+				handleFacebook(token)
+			}
 			if (res != null) {
 				Log.d("FACEBOOK", "signInWithCredential:success")
 				mView?.loginSuccess()
@@ -163,9 +160,8 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 
 	private suspend fun loginEmail(login: String, password: String): AuthResult? {
 		Log.d("PRESENTER", "login")
-		var result : AuthResult? = null
-		mIOScope.launch {
-			result = try {
+		return withContext(mIOScope.coroutineContext) {
+			try {
 				mAuth
 					.signInWithEmailAndPassword(login, password)
 					.await()
@@ -173,22 +169,19 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				mError = e.localizedMessage
 				null
 			}
-		}.join()
-		return result
+		}
 	}
 
 	private suspend fun registerEmail(login: String, password: String): AuthResult? {
-		var result : AuthResult? = null
-		mIOScope.launch {
-			result = try {
+		return withContext(mIOScope.coroutineContext) {
+			try {
 				mAuth.createUserWithEmailAndPassword(login, password)
 					.await()
 			} catch (e: Exception) {
 				mError = e.localizedMessage
 				null
 			}
-		}.join()
-		return result
+		}
 	}
 
 	override fun checkLogin() {

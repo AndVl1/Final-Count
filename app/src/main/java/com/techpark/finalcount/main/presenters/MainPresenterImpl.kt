@@ -6,7 +6,9 @@ import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.DataSource
 import com.techpark.finalcount.data.dbexpimp.JsonDbExportImportApiKt
 import com.techpark.finalcount.main.views.MainView
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainPresenterImpl @Inject constructor(private val dataSource: DataSource): MainPresenter, BasePresenterImpl<MainView>() {
@@ -15,9 +17,9 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource):
 			var path = ""
 			val jsonArray = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dataSource.database.purchaseDao())
 			if (jsonArray != null) {
-				mIOScope.launch {
-					path = JsonDbExportImportApiKt.saveCsv(root, jsonArray)
-				}.join()
+				path = withContext(mIOScope.coroutineContext) {
+					JsonDbExportImportApiKt.saveCsv(root, jsonArray)
+				}
 				Log.d(TAG, jsonArray.toString())
 				mView?.showMsg("saved at $path")
 			} else {

@@ -4,7 +4,7 @@ import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseView
 
 interface AuthView: BaseView {
-	fun showError(err: String  = "")
+	fun showError(err: String)
 	fun loginSuccess()
 	fun loginError()
 	fun setLoadingVisibility(vis: Boolean)
