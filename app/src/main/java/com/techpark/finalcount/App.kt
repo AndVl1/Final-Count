@@ -2,7 +2,6 @@ package com.techpark.finalcount
 
 
 import android.app.Application
-import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

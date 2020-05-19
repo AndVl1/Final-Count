@@ -21,6 +21,8 @@ import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
 import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.utils.Utils
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 /**
  *
@@ -36,13 +38,17 @@ class AuthActivity : BaseActivity(), AuthView {
 	private lateinit var mLoginActivityBinding : ActivityAuthBinding
 	private lateinit var mGoogleSignInClient: GoogleSignInClient
 	private val mCallbackManager: CallbackManager = CallbackManager.Factory.create() // facebook
-	private val mAuthPresenter: AuthPresenterImpl = AuthPresenterImpl()
+
+	@Inject
+	lateinit var mAuthPresenter : AuthPresenterImpl
 
 	override fun onCreate(savedInstanceState: Bundle?) {
+		AndroidInjection.inject(this)
 		super.onCreate(savedInstanceState)
 		mLoginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
 
 		setContentView(mLoginActivityBinding.root)
+
 
 		mAuthPresenter.attachView(this)
 		mAuthPresenter.checkLogin()
@@ -106,10 +112,7 @@ class AuthActivity : BaseActivity(), AuthView {
 
 
 	override fun showError(err: String) {
-		if (err == EMPTY_ERROR)
-			mLoginActivityBinding.statusView.text = getString(R.string.invalid)
-		else
-			mLoginActivityBinding.statusView.text = err
+		mLoginActivityBinding.statusView.text = err
 		mLoginActivityBinding.statusView.visibility = View.VISIBLE
 	}
 
@@ -179,6 +182,5 @@ class AuthActivity : BaseActivity(), AuthView {
 
 	companion object {
 		private const val RC_SIGN_IN = 9001
-		const val EMPTY_ERROR = "Invalid login or password"
 	}
 }

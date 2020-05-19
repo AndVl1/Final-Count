@@ -10,11 +10,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BasePresenterImpl
+import com.techpark.finalcount.data.AndroidResourceManager
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
+class AuthPresenterImpl @Inject constructor(val mResourceManager: AndroidResourceManager) : AuthPresenter, BasePresenterImpl<AuthView>() {
 	private val mAuth = FirebaseAuth.getInstance()
 	private var mError : String? = null
 
@@ -50,9 +52,6 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			val e: AuthResult? = withContext(mIOScope.coroutineContext) {
 				authGoogle(account!!)
 			}
-//			mIOScope.launch {
-//				e = authGoogle(account!!)
-//			}.join()
 			if (e != null) {
 				Log.d("SIGN IN", "signInWithCredential:success")
 				mView?.loginSuccess()
@@ -141,14 +140,18 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				mAuth.signOut()
 				mView?.loginError()
 				showError(mError)
-				mError = null
 			}
 		}
 	}
 
 	private fun showError(err: String?) {
 		err?.let {
-			mView?.showError(it)
+			if (err == EMPTY_ERROR) {
+				mView?.showError(mResourceManager.getStringInvalidError())
+			} else {
+				mView?.showError(it)
+//				mView?.showError(mResourceProvider.getStrings().getInvalid())
+			}
 			mError = null
 		} ?: run {
 			mView?.showError(STANDARD_ERROR_MSG)
@@ -194,5 +197,6 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 
 	companion object {
 		const val STANDARD_ERROR_MSG = "Some error occurred"
+		const val EMPTY_ERROR = "Invalid login or password"
 	}
 }

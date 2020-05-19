@@ -9,11 +9,10 @@ import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.filters.LargeTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.google.firebase.auth.FirebaseAuth
-import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
 import org.hamcrest.Description
 import org.hamcrest.Matcher
