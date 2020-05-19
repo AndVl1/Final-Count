@@ -3,7 +3,6 @@ package com.techpark.finalcount
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.IdlingResource
@@ -11,10 +10,11 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.auth.views.activity.AuthActivity
+import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -36,14 +36,15 @@ class AuthTests {
 
 	@Rule
 	@JvmField
-	var mActivityTestRule = ActivityTestRule(AuthActivity::class.java)
+	var mActivityTestRule = ActivityTestRule(AuthActivityTesting::class.java)
 
 	@Before
 	fun setUp() {
+		FirebaseAuth.getInstance().signOut()
 		if (mIdlingResource != null) {
 			mIdlingRegistry.unregister(mIdlingResource)
 		}
-		mIdlingResource = BaseActivityIdlingResource(mActivityTestRule.activity);
+		mIdlingResource = BaseActivityIdlingResource(mActivityTestRule.activity)
 		mIdlingRegistry.register(mIdlingResource)
 	}
 
@@ -58,136 +59,34 @@ class AuthTests {
 
 		setPassword("123456")
 
-		val appCompatButton = onView(
-			allOf(
-				withId(R.id.submit_button), withText(mActivityTestRule.activity.getString(R.string.register)),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					2
-				),
-				isDisplayed()
-			)
-		)
-		appCompatButton.perform(click())
+		clickAuthButton(R.string.register)
 
-		val textView = onView(
-			allOf(
-				withId(R.id.status_view),
-				withText("The email address is already in use by another account."),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					0
-				),
-				isDisplayed()
-			)
-		)
-		textView.check(matches(withText("The email address is already in use by another account.")))
+
+		checkStatusText(ALREADY_IN_USE)
 	}
 
 	@Test
 	fun loginFailTest() {
-
-		val switch_ = onView(
-			allOf(
-				withId(R.id.auth_type_switch),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					0
-				),
-				isDisplayed()
-			)
-		)
-		switch_.perform(click())
-
+		clickSwitch()
 		setEmail("aaa${Random.nextInt()}@bbb.cc")
-		setPassword("123456")
-
-		val appCompatButton = onView(
-			allOf(
-				withId(R.id.submit_button), withText(mActivityTestRule.activity.getString(R.string.login)),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					2
-				),
-				isDisplayed()
-			)
-		)
-		appCompatButton.perform(click())
-
-		val textView = onView(
-			allOf(
-				withId(R.id.status_view),
-				withText("There is no user record corresponding to this identifier. The user may have been deleted."),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					0
-				),
-				isDisplayed()
-			)
-		)
-		textView.check(matches(withText("There is no user record corresponding to this identifier. The user may have been deleted.")))
+		setPassword("${Random.nextInt(100000, 999999)}")
+		clickAuthButton(R.string.login)
+		checkStatusText(DOES_NOT_EXIST)
 	}
 
 	@Test
 	fun emptyLoginTest() {
+		clickAuthButton(R.string.register)
+		checkStatusText(mActivityTestRule.activity.getString(R.string.invalid))
+	}
 
-		val appCompatButton = onView(
-			allOf(
-				withId(R.id.submit_button), withText(mActivityTestRule.activity.getString(R.string.register)),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					2
-				),
-				isDisplayed()
-			)
-		)
-		appCompatButton.perform(click())
+	@Test
+	fun registerTest() {
+		setEmail("aaa${Random.nextInt()}@bbb.cc")
+		setPassword("${Random.nextInt(100000, 999999)}")
+		clickAuthButton(R.string.register)
 
-		val textView = onView(
-			allOf(
-				withId(R.id.status_view),
-				withText(mActivityTestRule.activity.getString(R.string.invalid)),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					0
-				),
-				isDisplayed()
-			)
-		)
-		textView.check(matches(withText(mActivityTestRule.activity.getString(R.string.invalid))))
+		checkStatusText(mActivityTestRule.activity.getString(R.string.success))
 	}
 
 	private fun setEmail(email: String) {
@@ -224,6 +123,64 @@ class AuthTests {
 		appCompatEditText2.perform(replaceText(pwd), closeSoftKeyboard())
 	}
 
+	private fun checkStatusText(text: String) {
+		val textView = onView(
+			allOf(
+				withId(R.id.status_view),
+				withText(text),
+				childAtPosition(
+					childAtPosition(
+						withId(android.R.id.content),
+						0
+					),
+					0
+				),
+				isDisplayed()
+			)
+		)
+		textView.check(matches(withText(text)))
+	}
+
+	private fun clickSwitch() {
+		val switch = onView(
+			allOf(
+				withId(R.id.auth_type_switch),
+				childAtPosition(
+					allOf(
+						withId(R.id.auth_line),
+						childAtPosition(
+							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+							3
+						)
+					),
+					0
+				),
+				isDisplayed()
+			)
+		)
+		switch.perform(click())
+	}
+
+	private fun clickAuthButton(id: Int) {
+		val appCompatButton = onView(
+			allOf(
+				withId(R.id.submit_button), withText(mActivityTestRule.activity.getString(id)),
+				childAtPosition(
+					allOf(
+						withId(R.id.auth_line),
+						childAtPosition(
+							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+							3
+						)
+					),
+					2
+				),
+				isDisplayed()
+			)
+		)
+		appCompatButton.perform(click())
+	}
+
 	private fun childAtPosition(
 		parentMatcher: Matcher<View>, position: Int
 	): Matcher<View> {
@@ -240,6 +197,11 @@ class AuthTests {
 						&& view == parent.getChildAt(position)
 			}
 		}
+	}
+
+	companion object {
+		const val ALREADY_IN_USE = "The email address is already in use by another account."
+		const val DOES_NOT_EXIST = "There is no user record corresponding to this identifier. The user may have been deleted."
 	}
 }
 

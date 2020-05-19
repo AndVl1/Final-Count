@@ -4,11 +4,11 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.IdlingResource.ResourceCallback
-import com.techpark.finalcount.auth.views.activity.AuthActivity
+import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
 import com.techpark.finalcount.base.BaseActivity
 
 
-class BaseActivityIdlingResource(activity: AuthActivity) : IdlingResource {
+class BaseActivityIdlingResource(activity: AuthActivityTesting) : IdlingResource {
 	private var mActivity: BaseActivity = activity
 	private var mCallback: ResourceCallback? = null
 
