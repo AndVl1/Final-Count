@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -96,7 +97,10 @@ class AuthActivity : BaseActivity(), AuthView {
 
 
 	override fun showError(err: String) {
-		mLoginActivityBinding.statusView.text = err
+		if (err == EMPTY_ERROR)
+			mLoginActivityBinding.statusView.text = getString(R.string.invalid)
+		else
+			mLoginActivityBinding.statusView.text = err
 		mLoginActivityBinding.statusView.visibility = View.VISIBLE
 	}
 
@@ -138,9 +142,6 @@ class AuthActivity : BaseActivity(), AuthView {
 		startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGN_IN)
 	}
 
-	companion object {
-		private const val RC_SIGN_IN = 9001
-	}
 	//-------------------------------------------
 
 	//------------------ GITHUB -----------------
@@ -163,5 +164,10 @@ class AuthActivity : BaseActivity(), AuthView {
 	override fun onDestroy() {
 		super.onDestroy()
 		mAuthPresenter.detachView()
+	}
+
+	companion object {
+		private const val RC_SIGN_IN = 9001
+		const val EMPTY_ERROR = "Invalid login or password"
 	}
 }

@@ -15,6 +15,7 @@ import kotlinx.coroutines.tasks.await
 
 class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 	private val mAuth = FirebaseAuth.getInstance()
+	private var mError : String? = null
 
 	override fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
 		Log.d("PRESENTER", "auth")
@@ -32,6 +33,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				if (res != null) {
 					mView?.loginSuccess()
 				} else {
+					showError(mError)
 					mView?.loginError()
 				}
 			}
@@ -54,6 +56,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			} else {
 				mView?.setLoadingVisibility(false)
 				mView?.loginError()
+				showError(mError)
 			}
 		}
 	}
@@ -65,7 +68,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			mAuth.signInWithCredential(credential)
 				.await()
 		} catch (e: Exception) {
-			mView?.showError(e.localizedMessage ?: "Some error occurred")
+			mError = e.localizedMessage
 			Log.w("GOOGLE", "Google sign in failed", e)
 			null
 		}
@@ -122,7 +125,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				.await()
 		} catch (e: Exception) {
 			Log.w("FACEBOOK", "signInWithCredential:failure", e)
-			mView?.showError("Auth failed")
+			mError = e.localizedMessage
 			null
 		}
 	}
@@ -137,11 +140,21 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			if (res != null) {
 				Log.d("FACEBOOK", "signInWithCredential:success")
 				mView?.loginSuccess()
-
 			} else {
 				mAuth.signOut()
 				mView?.loginError()
+				showError(mError)
+				mError = null
 			}
+		}
+	}
+
+	private fun showError(err: String?) {
+		err?.let {
+			mView?.showError(it)
+			mError = null
+		} ?: run {
+			mView?.showError(STANDARD_ERROR_MSG)
 		}
 	}
 
@@ -157,7 +170,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 					.signInWithEmailAndPassword(login, password)
 					.await()
 			} catch (e: Exception) {
-				mView?.showError(e.localizedMessage ?: "Some error occurred")
+				mError = e.localizedMessage
 				null
 			}
 		}.join()
@@ -165,13 +178,17 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 	}
 
 	private suspend fun registerEmail(login: String, password: String): AuthResult? {
-		return try {
-			mAuth.createUserWithEmailAndPassword(login, password)
-				.await()
-		} catch (e: Exception) {
-			mView?.showError(e.localizedMessage ?: "Some error occurred")
-			null
-		}
+		var result : AuthResult? = null
+		mIOScope.launch {
+			result = try {
+				mAuth.createUserWithEmailAndPassword(login, password)
+					.await()
+			} catch (e: Exception) {
+				mError = e.localizedMessage
+				null
+			}
+		}.join()
+		return result
 	}
 
 	override fun checkLogin() {
@@ -180,5 +197,9 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		} else {
 			mView?.isLogin(false)
 		}
+	}
+
+	companion object {
+		const val STANDARD_ERROR_MSG = "Some error occurred"
 	}
 }
