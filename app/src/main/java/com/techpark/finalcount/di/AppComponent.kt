@@ -24,10 +24,7 @@ import javax.inject.Singleton
 //        PurchaseModule::class
     ]
 )
-interface AppComponent /*: AndroidInjector<App>*/ {
-
-//    @Component.Builder
-//    abstract class Builder : AndroidInjector.Builder<App>()
+interface AppComponent {
 
     @Component.Factory
     interface Factory {

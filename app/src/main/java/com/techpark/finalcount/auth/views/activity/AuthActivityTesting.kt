@@ -19,28 +19,18 @@ import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAuthBinding
-import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.utils.Utils
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-/**
- *
- * Have to copy all new
- * code to AuthActivityTesting
- * until I have no idea how
- * to test successful auth cases
- *
- * */
-
-class AuthActivity : BaseActivity(), AuthView {
+class AuthActivityTesting: BaseActivity(), AuthView {
 
 	private lateinit var mLoginActivityBinding : ActivityAuthBinding
 	private lateinit var mGoogleSignInClient: GoogleSignInClient
 	private val mCallbackManager: CallbackManager = CallbackManager.Factory.create() // facebook
 
 	@Inject
-	lateinit var mAuthPresenter : AuthPresenterImpl
+	lateinit var mAuthPresenter: AuthPresenterImpl
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		AndroidInjection.inject(this)
@@ -48,7 +38,6 @@ class AuthActivity : BaseActivity(), AuthView {
 		mLoginActivityBinding = ActivityAuthBinding.inflate(layoutInflater)
 
 		setContentView(mLoginActivityBinding.root)
-
 
 		mAuthPresenter.attachView(this)
 		mAuthPresenter.checkLogin()
@@ -119,7 +108,7 @@ class AuthActivity : BaseActivity(), AuthView {
 	override fun loginSuccess() {
 		mLoginActivityBinding.statusView.text = getString(R.string.success) // For testing
 		mLoginActivityBinding.statusView.visibility = View.VISIBLE // For testing
-		toMainActivity()
+		mLoginActivityBinding.progressBar.visibility = View.GONE
 	}
 
 	override fun loginError() {
@@ -128,9 +117,7 @@ class AuthActivity : BaseActivity(), AuthView {
 	}
 
 	override fun isLogin(isLogin: Boolean) {
-		if (isLogin) {
-			toMainActivity()
-		}
+		// don't need it here, on original activity moves you to main activity
 	}
 
 
@@ -160,19 +147,12 @@ class AuthActivity : BaseActivity(), AuthView {
 
 	//------------------ GITHUB -----------------
 	fun loginWithGithub(view: View) {
-		mAuthPresenter.authGithub(this@AuthActivity)
+		mAuthPresenter.authGithub(this@AuthActivityTesting)
 	}
 	//-------------------------------------------
 
 	override fun setLoadingVisibility(vis: Boolean){
 		mLoginActivityBinding.progressBar.visibility = if (vis) View.VISIBLE else View.GONE
-	}
-
-	private fun toMainActivity() {
-		mLoginActivityBinding.progressBar.visibility = View.GONE
-//        startActivity(Intent(applicationContext, AddingActivity::class.java))
-		startActivity(Intent(applicationContext, MainActivity::class.java))
-		finish()
 	}
 
 	override fun onDestroy() {
@@ -182,5 +162,6 @@ class AuthActivity : BaseActivity(), AuthView {
 
 	companion object {
 		private const val RC_SIGN_IN = 9001
+		const val EMPTY_ERROR = "Invalid login or password"
 	}
 }

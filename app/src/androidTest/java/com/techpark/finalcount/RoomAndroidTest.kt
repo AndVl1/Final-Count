@@ -78,11 +78,12 @@ class RoomAndroidTest {
 
         //TODO:27.04.20_09:30: isEqualTo json string(:)
 //        Truth.assertThat(JsonDbExportImportApiImpl.exportPurchaseDbToJson(dao).toString().isEqualTo();
-        val json = JsonDbExportImportApiKt.exportPurchaseDbToJson(dao)
+        val json = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dao)
         Log.d(TAG, json.toString())
         Truth.assertThat(json.toString())
             .isEqualTo("[{\"cost\":${p1.cost},\"currency\":\"${p1.currency}\",\"date\":${p1.date},\"id\":${p1.id},\"name\":\"${p1.name}\"}," +
                 "{\"cost\":${p2.cost},\"currency\":\"${p2.currency}\",\"date\":${p2.date},\"id\":${p2.id},\"name\":\"${p2.name}\"}]")
+
         dao.clear()
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()
     }

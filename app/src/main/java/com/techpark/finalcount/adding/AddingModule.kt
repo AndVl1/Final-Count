@@ -9,8 +9,8 @@ import dagger.Module
 @Module
 abstract class AddingModule {
 
-    @ActivityScope
-    @Binds
-    internal abstract fun addingPresenter(presenter: AddingPresenterImpl): AddingPresenter
+	@ActivityScope
+	@Binds
+	internal abstract fun addingPresenter(presenter: AddingPresenterImpl): AddingPresenter
 
 }

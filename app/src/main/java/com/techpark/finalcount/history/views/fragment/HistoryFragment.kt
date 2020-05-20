@@ -71,4 +71,7 @@ class HistoryFragment : BaseFragment(), HistoryView {
 		mRecyclerView = null
 	}
 
+	companion object {
+		fun newInstance(): BaseFragment = HistoryFragment()
+	}
 }

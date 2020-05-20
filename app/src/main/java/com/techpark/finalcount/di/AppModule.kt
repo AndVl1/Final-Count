@@ -1,6 +1,7 @@
 package com.techpark.finalcount.di
 
 import android.content.Context
+import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
 
@@ -19,5 +20,9 @@ class AppModule (private val context: Context) {
 
     @Provides
     fun providesAppContext() = context
+
+    @Provides
+    fun providesResources(): Resources = context.resources
+
 
 }

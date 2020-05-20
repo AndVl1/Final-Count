@@ -1,7 +1,5 @@
 package com.techpark.finalcount.pincode.presenter
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.PinPreferences

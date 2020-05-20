@@ -38,17 +38,22 @@ class AddingActivity : BaseActivity(), AddingView {
 		mAddingPresenter.attachView(this)
 
 		mAddingBinding.submit.setOnClickListener {
-			mAddingPresenter.add(
-				mAddingBinding.name.text.toString(),
-				mAddingBinding.price.text.toString().toInt(),
-				currency
-			)
-			mAddingBinding.name.text.clear()
-			mAddingBinding.price.text.clear()
+			if (areInputFieldsFilled()) {
+				mAddingPresenter.add(
+					mAddingBinding.name.text.toString(),
+					mAddingBinding.price.text.toString().toInt(),
+					currency
+				)
+				mAddingBinding.name.text.clear()
+				mAddingBinding.price.text.clear()
+				onBackPressed()
+			} else {
+				Toast.makeText(applicationContext, R.string.adding_empty, Toast.LENGTH_SHORT).show()
+			}
 		}
 
 
-		val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currencies)
+		val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, currencies)
 		adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item)
 		mAddingBinding.spinner.adapter = adapter
 		mAddingBinding.spinner.prompt = getString(R.string.choose_currency)
@@ -58,8 +63,6 @@ class AddingActivity : BaseActivity(), AddingView {
 				parent: AdapterView<*>?, view: View,
 				position: Int, id: Long
 			) { // показываем позиция нажатого элемента
-				Toast.makeText(baseContext, "Position = $position", Toast.LENGTH_SHORT)
-					.show()
 				currency = currencies[position]
 				mAddingBinding.currency.text = currency
 			}
@@ -67,6 +70,10 @@ class AddingActivity : BaseActivity(), AddingView {
 			override fun onNothingSelected(arg0: AdapterView<*>?) {}
 		}
 	}
+
+	private fun areInputFieldsFilled(): Boolean =
+		mAddingBinding.name.text.isNotEmpty() &&
+				mAddingBinding.price.text.isNotEmpty()
 
 	override fun addDebugText(string: String) {
 		s.append(string)

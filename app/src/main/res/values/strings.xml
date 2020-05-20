@@ -14,6 +14,8 @@
     <string name="login_github">Login with Github</string>
     <string name="login_facebook">Login with Facebook</string>
     <string name="logout">Logout</string>
+    <string name="login_error">Login error!</string>
+    <string name="success">Success</string>
 
     <string name="facebook_app_id" translatable="false">222181982176177</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb222181982176177</string>
@@ -63,4 +65,8 @@
     <string name="use_biometric">Use biometric scanner</string>
     <string name="use_biometric_login">To login</string>
     <string name="use_biometric_add">To confirm your biometric</string>
+
+    <string name="save_csv">Save all to csv</string>
+
+    <string name="adding_empty">Fields should not be empty</string>
 </resources>

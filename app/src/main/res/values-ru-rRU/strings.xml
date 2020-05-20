@@ -15,6 +15,8 @@
     <string name="login_github">Войти с помощью Github</string>
     <string name="login_facebook">Войти с помощью Facebook</string>
     <string name="logout">Выйти</string>
+    <string name="login_error">Ошибка авторизации</string>
+    <string name="success">Успех</string>
 
     <!--  adding  -->
     <string name="choose_currency">Выбрать валюту</string>
@@ -40,4 +42,8 @@
     <string name="use_biometric">Используйте биометрический сканер</string>
     <string name="use_biometric_login">Для авторищации</string>
     <string name="use_biometric_add">Чтобы подтвердите, что вы владелец</string>
+
+    <string name="save_csv">Сохранить всё в формате CSV</string>
+
+    <string name="adding_empty">Поля не должны быть пустыми</string>
 </resources>

@@ -10,11 +10,15 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BasePresenterImpl
+import com.techpark.finalcount.data.AndroidResourceManager
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
+class AuthPresenterImpl @Inject constructor(private val mResourceManager: AndroidResourceManager) : AuthPresenter, BasePresenterImpl<AuthView>() {
 	private val mAuth = FirebaseAuth.getInstance()
+	private var mError : String? = null
 
 	override fun authenticateEmail(login: String, password: String, isLogin: Boolean) {
 		Log.d("PRESENTER", "auth")
@@ -23,7 +27,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			mView?.showError("Invalid login or password")
 			mView?.loginError()
 		} else {
-			mIOScope.launch {
+			mMainScope.launch {
 				val res: AuthResult? = if (isLogin) {
 					loginEmail(login, password)
 				} else {
@@ -32,6 +36,7 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				if (res != null) {
 					mView?.loginSuccess()
 				} else {
+					showError(mError)
 					mView?.loginError()
 				}
 			}
@@ -43,14 +48,17 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		// Google Sign In was successful, authenticate with Firebase
 		val account = task.getResult(ApiException::class.java)
 		mView?.setLoadingVisibility(true)
-		mIOScope.launch {
-			val e = authGoogle(account!!)
+		mMainScope.launch {
+			val e: AuthResult? = withContext(mIOScope.coroutineContext) {
+				authGoogle(account!!)
+			}
 			if (e != null) {
 				Log.d("SIGN IN", "signInWithCredential:success")
 				mView?.loginSuccess()
 			} else {
 				mView?.setLoadingVisibility(false)
 				mView?.loginError()
+				showError(mError)
 			}
 		}
 	}
@@ -62,14 +70,14 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 			mAuth.signInWithCredential(credential)
 				.await()
 		} catch (e: Exception) {
-			mView?.showError(e.localizedMessage ?: "Some error occurred")
+			mError = e.localizedMessage
 			Log.w("GOOGLE", "Google sign in failed", e)
 			null
 		}
 	}
 
 	override fun authGithub(activity: Activity) {
-		mIOScope.launch {
+		mMainScope.launch {
 			val result = handleGithub(activity)
 			if (result != null) {
 				mView?.loginSuccess()
@@ -88,19 +96,22 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		val pendingResultTask = mAuth.pendingAuthResult
 		mView?.setLoadingVisibility(true)
 		// There's something already here! Finish the sign-in for your user.
-		return try {
-			if (pendingResultTask != null) {
-				pendingResultTask
-					.await()
+		try {
+			return if (pendingResultTask != null) {
+				withContext(mIOScope.coroutineContext) {
+					pendingResultTask.await()
+				}
 			} else {
-				mAuth
-					.startActivityForSignInWithProvider(activity, provider.build())
-					.await()
+				withContext(mIOScope.coroutineContext) {
+					mAuth
+						.startActivityForSignInWithProvider(activity, provider.build())
+						.await()
+				}
 			}
 		} catch (e: Exception) {
 			mView?.showError(e.localizedMessage ?: "Some error occurred")
 			Log.e("GITHUB", "Sign in failed", e)
-			null
+			return null
 		}
 	}
 
@@ -111,23 +122,39 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 				.await()
 		} catch (e: Exception) {
 			Log.w("FACEBOOK", "signInWithCredential:failure", e)
-			mView?.showError("Auth failed")
+			mError = e.localizedMessage
 			null
 		}
 	}
 
 	override fun authFacebook(token: AccessToken) {
 		Log.d("FACEBOOK", "handleFacebookAccessToken:$token")
-		mIOScope.launch {
-			val res = handleFacebook(token)
+		mMainScope.launch {
+			val res : AuthResult? = withContext(mIOScope.coroutineContext) {
+				handleFacebook(token)
+			}
 			if (res != null) {
 				Log.d("FACEBOOK", "signInWithCredential:success")
 				mView?.loginSuccess()
-
 			} else {
 				mAuth.signOut()
 				mView?.loginError()
+				showError(mError)
 			}
+		}
+	}
+
+	private fun showError(err: String?) {
+		err?.let {
+			if (err == EMPTY_ERROR) {
+				mView?.showError(mResourceManager.getStringInvalidError())
+			} else {
+				mView?.showError(it)
+//				mView?.showError(mResourceProvider.getStrings().getInvalid())
+			}
+			mError = null
+		} ?: run {
+			mView?.showError(STANDARD_ERROR_MSG)
 		}
 	}
 
@@ -136,23 +163,27 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 
 	private suspend fun loginEmail(login: String, password: String): AuthResult? {
 		Log.d("PRESENTER", "login")
-		return try {
-			mAuth
-				.signInWithEmailAndPassword(login, password)
-				.await()
-		} catch (e: Exception) {
-			mView?.showError(e.localizedMessage ?: "Some error occurred")
-			null
+		return withContext(mIOScope.coroutineContext) {
+			try {
+				mAuth
+					.signInWithEmailAndPassword(login, password)
+					.await()
+			} catch (e: Exception) {
+				mError = e.localizedMessage
+				null
+			}
 		}
 	}
 
 	private suspend fun registerEmail(login: String, password: String): AuthResult? {
-		return try {
-			mAuth.createUserWithEmailAndPassword(login, password)
-				.await()
-		} catch (e: Exception) {
-			mView?.showError(e.localizedMessage ?: "Some error occurred")
-			null
+		return withContext(mIOScope.coroutineContext) {
+			try {
+				mAuth.createUserWithEmailAndPassword(login, password)
+					.await()
+			} catch (e: Exception) {
+				mError = e.localizedMessage
+				null
+			}
 		}
 	}
 
@@ -162,5 +193,10 @@ class AuthPresenterImpl : AuthPresenter, BasePresenterImpl<AuthView>() {
 		} else {
 			mView?.isLogin(false)
 		}
+	}
+
+	companion object {
+		const val STANDARD_ERROR_MSG = "Some error occurred"
+		const val EMPTY_ERROR = "Invalid login or password"
 	}
 }
