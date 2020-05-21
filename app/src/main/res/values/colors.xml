@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4CAF50</color>
-    <color name="colorPrimaryDark">#388E3C</color>
-    <color name="colorPrimaryLight">#C8E6C9</color>
-    <color name="colorAccent">#FF5722</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#BDBDBD</color>
-
-    <color name="white">#ffffff</color>
-    <color name="grey">#505253</color>
-    <color name="lightGrey">#C8C8C8</color>
-    <color name="lighterGrey">#DDDDDD</color>
-
-    <color name="black">#000000</color>
-    <color name="greyDarker">#2C2C2C</color>
+	<color name="colorPrimary">#004d40</color>
+	<color name="colorPrimaryVariant">#009688</color>
+	<color name="colorOnPrimary">@color/white</color>
+	<color name="colorSecondary">#00796b</color>
+	<color name="colorSecondaryVariant">#00695c</color>
+	<color name="colorOnSecondary">#fff</color>
+	<color name="colorError">#f00</color>
+	<color name="colorOnError">@color/white</color>
+	<color name="colorSurface">#4db6ac</color>
+	<color name="colorOnSurface">#00897b</color>
+	<color name="colorOnBackground">#aaa</color>
+	<color name="icons">@color/white</color>
+	<color name="divider">#bdbdbd</color>
+	<color name="white">#fff</color>
+	<color name="grey">#505253</color>
+	<color name="lighterGrey">#ddd</color>
+	<color name="darkGray">#2c2c2c</color>
+	<color name="black">#000</color>
 </resources>
