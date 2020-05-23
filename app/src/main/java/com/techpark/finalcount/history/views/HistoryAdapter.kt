@@ -16,6 +16,7 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryHolder>() {
     constructor(context: Context?, list: ArrayList<ListElement>) : this() {
         this.context = context
         this.list = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryHolder {

@@ -13,8 +13,6 @@ import com.techpark.finalcount.adding.views.AddingView
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityAddingBinding
 import com.techpark.finalcount.utils.Utils
-import dagger.android.AndroidInjection
-import javax.inject.Inject
 
 
 class AddingActivity : BaseActivity(), AddingView {
@@ -24,11 +22,11 @@ class AddingActivity : BaseActivity(), AddingView {
 	private lateinit var currencies: Array<String>
 	private lateinit var currency: String
 
-	@Inject
+//	@Inject
 	lateinit var mAddingPresenter: AddingPresenterImpl
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		AndroidInjection.inject(this)
+//		AndroidInjection.inject(this)
 		super.onCreate(savedInstanceState)
 		mAddingBinding = ActivityAddingBinding.inflate(layoutInflater)
 		setContentView(mAddingBinding.root)
@@ -74,10 +72,6 @@ class AddingActivity : BaseActivity(), AddingView {
 	private fun areInputFieldsFilled(): Boolean =
 		mAddingBinding.name.text.isNotEmpty() &&
 				mAddingBinding.price.text.isNotEmpty()
-
-	override fun addDebugText(string: String) {
-		s.append(string)
-	}
 
 	override fun showError(error: String) {
 		mAddingBinding.statusView.text = error

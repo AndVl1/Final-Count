@@ -16,4 +16,6 @@
 
     <color name="black">#000000</color>
     <color name="greyDarker">#2C2C2C</color>
+
+    <color name="error">#F00</color>
 </resources>

@@ -13,7 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
-import com.techpark.finalcount.adding.views.activity.AddingActivity
+import com.techpark.finalcount.adding.views.activity.AddingFragment
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
@@ -34,7 +34,7 @@ class MainActivity : BaseActivity(), MainView {
 	private val mScreens: Array<Fragment> = arrayOf(
 		HistoryFragment.newInstance(),
 		PlansFragment(), // TODO after creating make newInstance() method in companion object
-		ProfileFragment() // TODO after creating make newInstance() method in companion object
+		ProfileFragment() // TODO fter creating make newInstance() method in companion object
 	)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class MainActivity : BaseActivity(), MainView {
 		mMainBinding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 			when (item.itemId) {
 				R.id.navigation_home -> replaceScreen(0)
-				R.id.navigation_dashboard -> replaceScreen(1)
+				R.id.navigation_dashboard -> replaceScreen(1) // TODO hide fab
 				R.id.navigation_profile -> replaceScreen(2)
 			}
 			true
@@ -54,7 +54,10 @@ class MainActivity : BaseActivity(), MainView {
 		replaceScreen(0)
 
 		mMainBinding.fab.setOnClickListener {
-			startActivity(Intent(applicationContext, AddingActivity::class.java))
+			supportFragmentManager.beginTransaction()
+				.add(AddingFragment(), "adding")
+				.commit()
+//			startActivity(Intent(applicationContext, AddingActivity::class.java))
 		}
 	}
 
@@ -89,6 +92,10 @@ class MainActivity : BaseActivity(), MainView {
 			}
 			else -> true
 		}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+	}
 
 	override fun onRequestPermissionsResult(
 		requestCode: Int,

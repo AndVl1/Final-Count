@@ -8,4 +8,8 @@
 
     <dimen name="pin_code_number">48sp</dimen>
     <dimen name="pin_code_margin">48dp</dimen>
+
+    <dimen name="bottom_sheet_handle_width">30dp</dimen>
+    <dimen name="bottom_sheet_handle_height">5dp</dimen>
+    <dimen name="bottom_sheet_handle_top_margin">8dp</dimen>
 </resources>

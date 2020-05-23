@@ -1,7 +1,5 @@
 package com.techpark.finalcount.di
 
-import com.techpark.finalcount.adding.AddingModule
-import com.techpark.finalcount.adding.views.activity.AddingActivity
 import com.techpark.finalcount.auth.AuthModule
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
@@ -20,9 +18,9 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityModule {
 
-	@ActivityScope
-	@ContributesAndroidInjector(modules = [AddingModule::class])
-	internal abstract fun addingActivity(): AddingActivity
+//	@ActivityScope
+//	@ContributesAndroidInjector(modules = [AddingModule::class])
+//	internal abstract fun addingActivity(): AddingActivity
 
 	@ActivityScope
 	@ContributesAndroidInjector(modules = [PurchaseModule::class])

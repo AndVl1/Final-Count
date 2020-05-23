@@ -45,5 +45,9 @@
 
     <string name="save_csv">Сохранить всё в формате CSV</string>
 
-    <string name="adding_empty">Поля не должны быть пустыми</string>
+    <string name="adding_empty">Не должно быть пустым</string>
+    <string name="adding_new">Добавление новой покупки</string>
+    <string name="purchase_name">Название покупки</string>
+    <string name="purchase_price">Цена</string>
+    <string name="submit">Подтвердить</string>
 </resources>

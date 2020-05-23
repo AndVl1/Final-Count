@@ -21,19 +21,18 @@ class HistoryFragment : BaseFragment(), HistoryView {
 
 	private var mRoot: View? = null
 	private var mRecyclerView: RecyclerView? = null
-	var mLinearLayoutManager : LinearLayoutManager? = null
+	private var mLinearLayoutManager : LinearLayoutManager? = null
 
 	@Inject
 	lateinit var mHistoryPresenter: HistoryPresenterImpl
 
 
 	override fun onCreateView(
-
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		Log.d("FRAGMENT", "onCreateView")
+		Log.d(TAG, "onCreateView")
 		if (mRoot == null) {
 			mRoot = inflater.inflate(R.layout.fragment_history, container, false)
 			mRecyclerView = mRoot?.findViewById(R.id.purchasesList)
@@ -52,20 +51,25 @@ class HistoryFragment : BaseFragment(), HistoryView {
 
 	override fun onResume() {
 		super.onResume()
-		Log.d("FRAGMENT", "onResume")
+		Log.d(TAG, "onResume")
 		mHistoryPresenter.getPurchases()
 	}
 
 	override fun setupViewContent(list: ArrayList<ListElement>) {
-		Log.d("FRAGMENT", "setup adapter")
+		Log.d(TAG, "setup adapter")
 		val adapter = HistoryAdapter(activity?.applicationContext, list)
-		Log.d("FRAGMENT", "${adapter.itemCount}")
+		Log.d(TAG, "${adapter.itemCount}")
 		mRecyclerView?.adapter = adapter
+	}
+
+	override fun onPause() {
+		super.onPause()
+		Log.d(TAG, "onPause")
 	}
 
 	override fun onDestroy() {
 		super.onDestroy()
-		Log.d("FRAGMENT", "onDestroy")
+		Log.d(TAG, "onDestroy")
 
 		mHistoryPresenter.detachView()
 		mRecyclerView = null
@@ -73,5 +77,6 @@ class HistoryFragment : BaseFragment(), HistoryView {
 
 	companion object {
 		fun newInstance(): BaseFragment = HistoryFragment()
+		const val TAG = "HISTORY FRAGMENT"
 	}
 }

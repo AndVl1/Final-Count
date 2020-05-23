@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:layout_marginBottom="16dp"
+		android:paddingStart="14dp"
+		android:paddingEnd="14dp">
+
+		<com.github.heyalex.expandable_cardview.ExpandableCardView
+			android:id="@+id/expandble_profile"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="0dp"
+			android:background="@android:color/transparent"
+			app:animation_duration="250"
+			app:cardBackgroundColor="@android:color/transparent"
+			app:cardCornerRadius="0dp"
+			app:cardElevation="0dp"
+			app:content_view="@layout/adding_content"
+			app:expanded="false"
+			app:header_view="@layout/adding_header"
+			tools:expanded="true"/>
+	</FrameLayout>
+
+	<View style="@style/Divider.Horizontal" />
+
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="16dp"
+		android:paddingEnd="16dp">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:baselineAligned="false">
+
+			<TextView
+				android:id="@+id/status_view"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="gone"/>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/name_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/purchase_name"
+				app:errorEnabled="true"
+				app:errorTextAppearance="@style/ErrorText">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/name_textInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:maxLines="1"/>
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/price_layout"
+				android:hint="@string/purchase_price"
+				app:errorEnabled="true"
+				app:errorTextAppearance="@style/ErrorText">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/price_textInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="number"
+					android:maxLines="1"/>
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<View
+					android:layout_width="0dp"
+					android:layout_height="0dp"
+					android:layout_weight="1"/>
+
+				<Button
+					android:id="@+id/submit_adding_button"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/submit" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

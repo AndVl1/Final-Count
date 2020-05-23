@@ -68,5 +68,10 @@
 
     <string name="save_csv">Save all to csv</string>
 
-    <string name="adding_empty">Fields should not be empty</string>
+    <string name="adding_empty">Should not be empty</string>
+    <string name="adding_new">Add new purchase</string>
+    <string name="purchase_name">Purchase name</string>
+    <string name="purchase_price">Price</string>
+    <string name="submit">Submit</string>
+
 </resources>
