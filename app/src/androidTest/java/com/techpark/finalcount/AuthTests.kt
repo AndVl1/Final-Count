@@ -12,8 +12,9 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import com.google.common.truth.Truth
 import com.google.firebase.auth.FirebaseAuth
-import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
+import com.techpark.finalcount.auth.views.activity.AuthActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -35,7 +36,7 @@ class AuthTests {
 
 	@Rule
 	@JvmField
-	var mActivityTestRule = ActivityTestRule(AuthActivityTesting::class.java)
+	var mActivityTestRule = ActivityTestRule(AuthActivity::class.java)
 
 	@Before
 	fun setUp() {
@@ -43,7 +44,7 @@ class AuthTests {
 		if (mIdlingResource != null) {
 			mIdlingRegistry.unregister(mIdlingResource)
 		}
-		mIdlingResource = BaseActivityIdlingResource(mActivityTestRule.activity)
+		mIdlingResource = AuthActivityIdlingResource(mActivityTestRule.activity)
 		mIdlingRegistry.register(mIdlingResource)
 	}
 
@@ -85,7 +86,19 @@ class AuthTests {
 		setPassword("${Random.nextInt(100000, 999999)}")
 		clickAuthButton(R.string.register)
 
-		checkStatusText(mActivityTestRule.activity.getString(R.string.success))
+		Truth.assertThat(FirebaseAuth.getInstance().currentUser).isNotNull()
+		FirebaseAuth.getInstance().signOut()
+	}
+
+	@Test
+	fun loginTest() {
+		setEmail("aaa@bbb.cc")
+		setPassword("123456")
+		clickSwitch()
+		clickAuthButton(R.string.login)
+
+		Truth.assertThat(FirebaseAuth.getInstance().currentUser).isNotNull()
+		FirebaseAuth.getInstance().signOut()
 	}
 
 	private fun setEmail(email: String) {

@@ -13,7 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
-import com.techpark.finalcount.adding.views.activity.AddingFragment
+import com.techpark.finalcount.adding.views.fragment.AddingFragment
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
@@ -57,7 +57,6 @@ class MainActivity : BaseActivity(), MainView {
 			supportFragmentManager.beginTransaction()
 				.add(AddingFragment(), "adding")
 				.commit()
-//			startActivity(Intent(applicationContext, AddingActivity::class.java))
 		}
 	}
 
@@ -90,12 +89,12 @@ class MainActivity : BaseActivity(), MainView {
 				mMainPresenter.logOut()
 				true
 			}
+			R.id.clear_recycler -> {
+				mMainPresenter.clear()
+				true
+			}
 			else -> true
 		}
-
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		super.onActivityResult(requestCode, resultCode, data)
-	}
 
 	override fun onRequestPermissionsResult(
 		requestCode: Int,

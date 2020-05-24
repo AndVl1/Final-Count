@@ -2,7 +2,6 @@ package com.techpark.finalcount.di
 
 import com.techpark.finalcount.auth.AuthModule
 import com.techpark.finalcount.auth.views.activity.AuthActivity
-import com.techpark.finalcount.auth.views.activity.AuthActivityTesting
 import com.techpark.finalcount.main.MainModule
 import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.purchase.PurchaseModule
@@ -34,9 +33,6 @@ abstract class ActivityModule {
 	@ContributesAndroidInjector(modules = [AuthModule::class])
 	internal abstract fun authActivity(): AuthActivity
 
-	@ActivityScope
-	@ContributesAndroidInjector(modules = [AuthModule::class])
-	internal abstract fun authActivityTesting(): AuthActivityTesting
 
 	/**
 	 * To create new activity where you can inject:

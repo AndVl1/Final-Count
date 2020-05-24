@@ -33,6 +33,12 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource):
 		mView?.toAuthActivity()
 	}
 
+	override fun clear() {
+		mIOScope.launch {
+			dataSource.database.purchaseDao().clear()
+		}
+	}
+
 	companion object {
 		const val TAG = "MAIN PRESENTER"
 	}

@@ -7,9 +7,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth
 import com.techpark.finalcount.data.dbexpimp.JsonDbExportImportApiKt
-import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.data.room.PurchaseDao
 import com.techpark.finalcount.data.room.PurchaseDatabase
+import com.techpark.finalcount.data.room.model.Purchase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before

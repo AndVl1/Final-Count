@@ -21,7 +21,7 @@ object JsonDbExportImportApiKt {
 				.create()
 			ioScope.launch {
 				val jsonString = gson.toJson(
-					dao.loadAll()
+					dao.loadAllAsDataSource()
 				)
 				resultSet = JSONArray(jsonString)
 			}.join()

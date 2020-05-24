@@ -1,4 +1,4 @@
-package com.techpark.finalcount.adding.views.activity
+package com.techpark.finalcount.adding.views.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.presenters.AddingPresenterImpl
 import com.techpark.finalcount.adding.views.AddingView
-import com.techpark.finalcount.utils.Utils
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -58,7 +57,9 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 			}
 		}
 		mCancelButton.setOnClickListener {
+			activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.VISIBLE
 			dismissWithBehavior()
+			activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.GONE
 		}
 
 		mNameText.setOnFocusChangeListener { _, hasFocus ->
@@ -142,8 +143,9 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 	}
 
 	override fun addSuccess() {
-		Utils.showMessage(activity?.applicationContext, getString(R.string.success))
+		activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.VISIBLE
 		dismissWithBehavior()
+		activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.GONE
 	}
 
 	override fun addFailed() {

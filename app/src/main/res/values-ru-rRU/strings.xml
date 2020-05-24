@@ -50,4 +50,5 @@
     <string name="purchase_name">Название покупки</string>
     <string name="purchase_price">Цена</string>
     <string name="submit">Подтвердить</string>
+    <string name="clear">Очистить</string>
 </resources>

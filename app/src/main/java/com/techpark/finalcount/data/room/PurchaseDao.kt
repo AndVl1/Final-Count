@@ -7,7 +7,11 @@ import com.techpark.finalcount.data.room.model.Purchase
 @Dao
 interface PurchaseDao {
 	@Query("SELECT * FROM purchases ORDER BY date")
-	/*suspend ?*/fun loadAll(): DataSource.Factory<Int, Purchase>
+	/*suspend ?*/fun loadAllAsDataSource(): DataSource.Factory<Int, Purchase>
+
+	@Query("SELECT * FROM purchases ORDER BY date")
+	suspend fun loadAll(): List<Purchase>
+
 
 	@Query("SELECT * FROM purchases WHERE id = :id")
 	suspend fun getById(id: Long): Purchase
