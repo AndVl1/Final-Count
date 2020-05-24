@@ -2,45 +2,47 @@ package com.techpark.finalcount.history.views.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseFragment
-import com.techpark.finalcount.history.ListElement
-import com.techpark.finalcount.history.presenters.HistoryPresenterImpl
-import com.techpark.finalcount.history.views.HistoryAdapter
-import com.techpark.finalcount.history.views.HistoryView
+import com.techpark.finalcount.history.viewmodel.HistoryViewModel
+import com.techpark.finalcount.history.views.HistoryPagedAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class HistoryFragment : BaseFragment(), HistoryView {
+class HistoryFragmentMvvm: BaseFragment() {
 
 	private var mRoot: View? = null
 	private var mRecyclerView: RecyclerView? = null
 	private var mLinearLayoutManager : LinearLayoutManager? = null
 
 	@Inject
-	lateinit var mHistoryPresenter: HistoryPresenterImpl
-
+	lateinit var mViewModel: HistoryViewModel
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		Log.d(TAG, "onCreateView")
 		if (mRoot == null) {
 			mRoot = inflater.inflate(R.layout.fragment_history, container, false)
 			mRecyclerView = mRoot?.findViewById(R.id.purchasesList)
 			mLinearLayoutManager = LinearLayoutManager(this.context)
 			mRecyclerView?.layoutManager = mLinearLayoutManager
+
+			val adapter = HistoryPagedAdapter()
+			mViewModel.mPurchaseList.observe(viewLifecycleOwner, Observer {
+				adapter.submitList(it)
+			})
+			mRecyclerView?.adapter = adapter
 		}
-		mHistoryPresenter.attachView(this)
-//        mHistoryPresenter.getPurchases()
+
+
 		return mRoot
 	}
 
@@ -49,23 +51,7 @@ class HistoryFragment : BaseFragment(), HistoryView {
 		super.onAttach(context)
 	}
 
-	override fun setupViewContent(list: ArrayList<ListElement>) {
-		Log.d(TAG, "setup adapter")
-		val adapter = HistoryAdapter(activity?.applicationContext, list)
-		Log.d(TAG, "${adapter.itemCount}")
-		mRecyclerView?.adapter = adapter
-	}
-
-	override fun onDestroy() {
-		super.onDestroy()
-		Log.d(TAG, "onDestroy")
-
-		mHistoryPresenter.detachView()
-		mRecyclerView = null
-	}
-
 	companion object {
-		fun newInstance(): BaseFragment = HistoryFragment()
-		const val TAG = "HISTORY FRAGMENT"
+		fun newInstance(): BaseFragment = HistoryFragmentMvvm()
 	}
 }

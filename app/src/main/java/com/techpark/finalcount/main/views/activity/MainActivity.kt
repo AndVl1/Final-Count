@@ -17,7 +17,7 @@ import com.techpark.finalcount.adding.views.activity.AddingFragment
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
-import com.techpark.finalcount.history.views.fragment.HistoryFragment
+import com.techpark.finalcount.history.views.fragment.HistoryFragmentMvvm
 import com.techpark.finalcount.main.presenters.MainPresenterImpl
 import com.techpark.finalcount.main.ui.plans.PlansFragment
 import com.techpark.finalcount.main.ui.profile.ProfileFragment
@@ -32,9 +32,9 @@ class MainActivity : BaseActivity(), MainView {
 
 	private lateinit var mMainBinding: ActivityMainBinding
 	private val mScreens: Array<Fragment> = arrayOf(
-		HistoryFragment.newInstance(),
+		HistoryFragmentMvvm.newInstance(),
 		PlansFragment(), // TODO after creating make newInstance() method in companion object
-		ProfileFragment() // TODO fter creating make newInstance() method in companion object
+		ProfileFragment()
 	)
 
 	override fun onCreate(savedInstanceState: Bundle?) {

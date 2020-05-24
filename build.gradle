@@ -23,11 +23,13 @@ buildscript {
         def junit_version = '4.13'
         def lifecycle_version = '2.2.0'
         def material_version = '1.1.0'
+        def paging_version = '2.1.2'
         def play_auth = '18.0.0'
         def secure_prefs = '0.1.7'
         def truth_version = '1.0'
-        def room_version = '2.1.0-alpha04'
-        libraries = [
+        def room_version_cr = '2.1.0-alpha04'
+        def room_version = '2.2.5'
+        mainLibs = [
                 "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
                 "androidx.appcompat:appcompat:$appcompat_version",
                 "androidx.core:core-ktx:$core_ctx_version",
@@ -36,43 +38,57 @@ buildscript {
                 "androidx.annotation:annotation:$annotation_version",
                 "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
                 "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
-                //AUTH
+
+        ]
+        authLibs = [
                 "com.google.firebase:firebase-auth:$firebase_version",
                 "com.google.android.gms:play-services-auth:$play_auth",
                 "com.facebook.android:facebook-android-sdk:$facebook_sdk",
-                //COROUTINES
+
+        ]
+        coroutinesLibs = [
                 "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version",
                 "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version",
                 "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_android_version",
-                //https://stackoverflow.com/questions/52869672/call-kotlin-suspend-function-in-java-class (:)
-                "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.0.1",
-                //ROOM
+        ]
+        roomLibs = [
                 "android.arch.persistence.room:runtime:$room_version",
-                "androidx.room:room-coroutines:$room_version",
-                //DAGGER
+                "androidx.room:room-coroutines:$room_version_cr",
+        ]
+        daggerLibs = [
                 "com.google.dagger:dagger:$dagger_version",
                 "com.google.dagger:dagger-android:$dagger_version",
                 "com.google.dagger:dagger-android-support:$dagger_version",
-                //GSON
+        ]
+        gson = [
                 "com.google.code.gson:gson:$gson_version",
-                //FIREBASE
+        ]
+        firebaseLibs = [
                 "com.google.firebase:firebase-database:$firebase_version",
                 "com.google.firebase:firebase-storage:$firebase_storage",
-                //FRAGMENTS, NAVIGATION
+        ]
+        navAndFragmentsLibs = [
                 "androidx.navigation:navigation-fragment:$androidx_navigation",
                 "androidx.navigation:navigation-ui:$androidx_navigation",
                 "androidx.navigation:navigation-fragment-ktx:$androidx_navigation",
                 "androidx.navigation:navigation-ui-ktx:$androidx_navigation",
-                //BIOMETRIC
+        ]
+        biometricLibs = [
                 "androidx.biometric:biometric:$biometric_version",
-                // SECURE PREFERENCES
+        ]
+        securePrefs = [
                 "com.scottyab:secure-preferences-lib:$secure_prefs",
-                // BOTTOM DRAWER
+        ]
+        bottomDrawerLibs = [
                 "com.github.HeyAlex:BottomDrawer:$bottom_drawer_version",
-                "com.github.HeyAlex:ExapandableCardView:-SNAPSHOT"
+                "com.github.HeyAlex:ExapandableCardView:-SNAPSHOT",
+        ]
+        paging = [
+                "android.arch.paging:runtime:$paging_version",
+                "com.github.mirmilad:paging-coroutine:v1.0.0-alpha01"
         ]
         kaptLibraries = [
-                "androidx.room:room-compiler:$room_version",
+                "androidx.room:room-compiler:$room_version_cr",
 
                 "com.google.dagger:dagger-compiler:$dagger_version",
                 "com.google.dagger:dagger-android-processor:$dagger_version",

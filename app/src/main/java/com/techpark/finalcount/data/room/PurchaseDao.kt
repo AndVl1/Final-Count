@@ -1,13 +1,13 @@
 package com.techpark.finalcount.data.room
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.techpark.finalcount.data.room.model.Purchase
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PurchaseDao {
 	@Query("SELECT * FROM purchases ORDER BY date")
-	fun loadAll(): Flow<List<Purchase>>
+	/*suspend ?*/fun loadAll(): DataSource.Factory<Int, Purchase>
 
 	@Query("SELECT * FROM purchases WHERE id = :id")
 	suspend fun getById(id: Long): Purchase
