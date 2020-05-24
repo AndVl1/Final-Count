@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/greyDarker"
+    android:background="@color/darkGray"
     tools:context=".pincode.views.activity.PincodeActivity">
 
 
@@ -13,7 +13,7 @@
         android:layout_marginTop="64dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/greyDarker"
+        android:background="@color/darkGray"
         android:orientation="vertical">
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:text="@string/enter_pin"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:background="@color/greyDarker" />
+        android:background="@color/darkGray" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numPad"
@@ -90,7 +90,7 @@
             android:gravity="center"
             android:text="@string/one"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -105,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/two"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -120,7 +120,7 @@
             android:gravity="center"
             android:text="@string/three"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -137,7 +137,7 @@
             android:gravity="center"
             android:text="@string/four"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -152,7 +152,7 @@
             app:layout_constraintEnd_toEndOf="@id/pin_two"
             android:text="@string/five"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -167,7 +167,7 @@
             android:gravity="center"
             android:text="@string/six"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -184,7 +184,7 @@
             android:gravity="center"
             android:text="@string/seven"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -199,7 +199,7 @@
             app:layout_constraintEnd_toEndOf="@id/pin_five"
             android:text="@string/eight"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -214,7 +214,7 @@
             android:gravity="center"
             android:text="@string/six"
             android:textSize="@dimen/pin_code_number"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
@@ -243,7 +243,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/pin_eight"
             app:layout_constraintEnd_toEndOf="@id/pin_eight"
-            android:textColor="@color/colorSecondaryText"
+            android:textColor="@color/colorOnSecondary"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true" />
