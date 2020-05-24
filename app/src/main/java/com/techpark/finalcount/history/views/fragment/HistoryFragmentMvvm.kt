@@ -15,6 +15,12 @@ import com.techpark.finalcount.history.views.HistoryPagedAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
+/**
+ * Couldn't find how to
+ * observe database from presenter
+ * so did this fragment with ViewModel
+ * */
+
 class HistoryFragmentMvvm: BaseFragment() {
 
 	private var mRoot: View? = null

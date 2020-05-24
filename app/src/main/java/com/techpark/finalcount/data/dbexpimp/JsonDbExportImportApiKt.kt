@@ -3,7 +3,10 @@ package com.techpark.finalcount.data.dbexpimp
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.techpark.finalcount.data.room.PurchaseDao
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -21,7 +24,7 @@ object JsonDbExportImportApiKt {
 				.create()
 			ioScope.launch {
 				val jsonString = gson.toJson(
-					dao.loadAllAsDataSource()
+					dao.loadAll()
 				)
 				resultSet = JSONArray(jsonString)
 			}.join()
