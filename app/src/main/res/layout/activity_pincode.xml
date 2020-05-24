@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:textColor="@color/colorOnPrimary"
             android:text="@string/enter_pin"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -229,7 +230,7 @@
             android:layout_marginEnd="@dimen/pin_code_margin"
             app:layout_constraintEnd_toStartOf="@id/pin_zero"
             app:layout_constraintTop_toTopOf="@id/pin_zero"
-            android:background="@drawable/ic_fingerprint_light"
+            android:background="@drawable/ic_fingerprint"
             android:contentDescription="@string/finger_unlock"
             android:gravity="center" />
 
@@ -256,7 +257,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@id/pin_zero"
             app:layout_constraintTop_toTopOf="@id/pin_zero"
-            android:background="@drawable/ic_cancel_light"
+            android:background="@drawable/ic_cancel"
             android:contentDescription="@string/finger_unlock"
             android:gravity="center" />
 
