@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	tools:context=".FragmentPlans">
+	
+	<TextView
+		android:id="@+id/plans_TextView_month"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="@string/plans_month"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<TextView
+		android:id="@+id/plans_TextView_amount"
+		android:labelFor="@id/plans_EditText_amount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/plans_amount"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/plans_TextView_month" />
+	
+	<EditText
+		android:autofillHints="100"
+		android:id="@+id/plans_EditText_amount"
+		android:inputType="number"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/plans_amount"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/plans_TextView_month" />
+	
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/plans_submit"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/plans_TextView_amount" />
+	
+</androidx.constraintlayout.widget.ConstraintLayout>
