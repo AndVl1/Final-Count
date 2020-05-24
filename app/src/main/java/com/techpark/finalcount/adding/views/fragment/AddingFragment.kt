@@ -57,9 +57,7 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 			}
 		}
 		mCancelButton.setOnClickListener {
-			activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.VISIBLE
 			dismissWithBehavior()
-			activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.GONE
 		}
 
 		mNameText.setOnFocusChangeListener { _, hasFocus ->
@@ -143,9 +141,8 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 	}
 
 	override fun addSuccess() {
-		activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.VISIBLE
 		dismissWithBehavior()
-		activity?.findViewById<ProgressBar>(R.id.progress_bar_main)?.visibility = View.GONE
+
 	}
 
 	override fun addFailed() {
