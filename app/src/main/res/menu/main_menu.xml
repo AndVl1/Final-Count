@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/save_csv"
-        android:title="@string/save_csv" />
+	<item
+		android:id="@+id/save_csv"
+		android:title="@string/save_csv" />
 
-    <item
-        android:id="@+id/logout"
-        android:title="@string/logout"/>
+	<item
+		android:id="@+id/add_pin"
+		android:title="@string/add_pin"/>
 
-    <item
-        android:id="@+id/clear_recycler"
-        android:title="@string/clear"/>
+	<item
+		android:id="@+id/cancel_pin"
+		android:title="@string/cancel_pin" />
+
+	<item
+		android:id="@+id/clear_recycler"
+		android:title="@string/clear"/>
+
+	<item
+		android:id="@+id/logout"
+		android:title="@string/logout"/>
 </menu>

@@ -43,7 +43,9 @@
 	<string name="enter_pin">Enter Pin Code</string>
 	<string name="repeat_pin">Enter your pin again</string>
 	<string name="scanner_ask">Do you want to use biometric auth?</string>
-	
+	<string name="add_pin">Add pin</string>
+	<string name="cancel_pin">Cancel pin</string>
+
 	<string name="pin_attr" translatable="false">Image showing how many symbols are entered</string>
 	
 	<string name="one" translatable="false">1</string>

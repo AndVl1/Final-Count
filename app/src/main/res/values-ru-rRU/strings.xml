@@ -33,6 +33,8 @@
 	<string name="enter_pin">Введите пин-код</string>
 	<string name="repeat_pin">Повторите введённый пин-код</string>
 	<string name="scanner_ask">Хотите входить по биометрическому сканеру?</string>
+	<string name="add_pin">Добавить пин-код</string>
+	<string name="cancel_pin">Удалить пин-код</string>
 
 	<string name="yes">Да</string>
 	<string name="no">No</string>

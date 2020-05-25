@@ -17,11 +17,13 @@ import com.techpark.finalcount.adding.plan.views.fragment.AddingPlanningFragment
 import com.techpark.finalcount.adding.purchase.views.fragment.AddingPurchaseFragment
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
+import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.databinding.ActivityMainBinding
 import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import com.techpark.finalcount.main.presenters.MainPresenterImpl
 import com.techpark.finalcount.main.ui.profile.ProfileFragment
 import com.techpark.finalcount.main.views.MainView
+import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 import com.techpark.finalcount.plans.views.fragment.PlansFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -103,6 +105,16 @@ class MainActivity : BaseActivity(), MainView {
 			}
 			R.id.logout -> {
 				mMainPresenter.logOut()
+				true
+			}
+			R.id.add_pin -> {
+				val intent = Intent(applicationContext, PincodeActivity::class.java)
+				intent.putExtra("login", false)
+				startActivity(intent)
+				true
+			}
+			R.id.cancel_pin -> {
+				PinPreferences(this).removePin()
 				true
 			}
 			R.id.clear_recycler -> {

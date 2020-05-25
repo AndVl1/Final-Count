@@ -22,7 +22,7 @@ import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.databinding.ActivityPincodeBinding
-import com.techpark.finalcount.main.MainActivityDebug
+import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.pincode.BiometricUtils
 import com.techpark.finalcount.pincode.presenter.PincodeAddingPresenterImpl
 import com.techpark.finalcount.pincode.presenter.PincodePresenter
@@ -111,7 +111,7 @@ class PincodeActivity : BaseActivity(), PincodeView {
 	override fun pinSuccess(login: Boolean) {
 		Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
 		if (login) {
-			startActivity(Intent(applicationContext, MainActivityDebug::class.java))
+			startActivity(Intent(applicationContext, MainActivity::class.java))
 			finish()
 			return
 		} else {
