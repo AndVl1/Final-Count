@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "2416467229",
+    "firebase_url": "https://final-count.firebaseio.com",
+    "project_id": "final-count",
+    "storage_bucket": "final-count.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2416467229:android:033eb79d19d481faaf15f4",
+        "android_client_info": {
+          "package_name": "com.techpark.finalcount"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2416467229-schunjf2lv6etto784nsm1smqq7gmvuc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techpark.finalcount",
+            "certificate_hash": "86dcccad854beaac2542895cd8f63a618a96e17c"
+          }
+        },
+        {
+          "client_id": "2416467229-3e5lp1d61r0gcock2fh3abrn5g992sc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techpark.finalcount",
+            "certificate_hash": "02873a3066cf539e9cb90a32cc9c25536ca5bd20"
+          }
+        },
+        {
+          "client_id": "2416467229-tirfhssu5n6j438fl6brqirlsfn09bp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOdWzdJpQLYhvoHTlWOwvAOt8cLA3RiOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2416467229-tirfhssu5n6j438fl6brqirlsfn09bp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

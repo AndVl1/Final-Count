@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/adding_container"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:layout_marginBottom="16dp"
+		android:paddingStart="14dp"
+		android:paddingEnd="14dp">
+
+		<com.github.heyalex.expandable_cardview.ExpandableCardView
+			android:id="@+id/expandble_profile"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="0dp"
+			android:background="@android:color/transparent"
+			app:animation_duration="250"
+			app:cardBackgroundColor="@android:color/transparent"
+			app:cardCornerRadius="0dp"
+			app:cardElevation="0dp"
+			app:content_view="@layout/adding_content"
+			app:expanded="false"
+			app:header_view="@layout/adding_plan_header"
+			tools:expanded="true"/>
+	</FrameLayout>
+
+	<View style="@style/Divider.Horizontal" />
+
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="16dp"
+		android:paddingEnd="16dp">
+
+		<LinearLayout
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:baselineAligned="false">
+
+
+			<TextView
+				android:id="@+id/plans_TextView_month"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="@string/plans_date_range" />
+
+			<Button
+				android:id="@+id/select_range"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/plans_date_range"
+				android:textColor="@color/colorOnSecondary"/>
+
+			<LinearLayout
+				android:id="@+id/chosen_range_begin"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:visibility="gone">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/plans_beginDate"
+					android:textSize="20sp"
+					android:layout_weight="1"/>
+
+				<TextView
+					android:id="@+id/plans_starting"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="20sp"
+					android:layout_weight="1.5"/>
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/chosen_range_end"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:visibility="gone">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/plans_endDate"
+					android:textSize="20sp"
+					android:layout_weight="1"/>
+
+				<TextView
+					android:id="@+id/plans_ending"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="20sp"
+					android:layout_weight="1.5"/>
+			</LinearLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/plans_textInputLayout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/plans_amount"
+				app:errorEnabled="true"
+				android:theme="@style/Widget.Design.TextInputLayout">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/plans_textInputEditText"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:inputType="number"/>
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<Button
+				android:id="@+id/submit_plan"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/plans_submit"
+				android:textColor="@color/colorOnSecondary" />
+
+		</LinearLayout>
+
+	</androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

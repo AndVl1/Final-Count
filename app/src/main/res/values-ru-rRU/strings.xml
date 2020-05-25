@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Final Count</string>
+	<!--  auth  -->
+	<string name="register">Регистрация</string>
+	<string name="password_hint">Пароль</string>
+	<string name="choose_oauth">Или используйте предоставленные ниже методы</string>
+	<string name="login">Вход</string>
+	<string name="invalid">Неправильный логин или пароль</string>
+	<string name="verification">Ссылка на верификацию отправлена на вашу почту</string>
+	<string name="set_name">Установить имя пользователя</string>
+	<string name="send_verify">Отправить письмо с ссылкой на подтверждение аккаунта</string>
+	<string name="login_google">Войти с помощью Google</string>
+	<string name="login_vk">Войти с помощью VK</string>
+	<string name="login_github">Войти с помощью Github</string>
+	<string name="login_facebook">Войти с помощью Facebook</string>
+	<string name="logout">Выйти</string>
+	<string name="login_error">Ошибка авторизации</string>
+	<string name="success">Успех</string>
+
+	<!--  adding  -->
+	<string name="choose_currency">Выбрать валюту</string>
+
+	<string name="title_history">История</string>
+	<string name="title_plans">Планирование</string>
+	<string name="title_profile">Профиль</string>
+
+	<string name="delete">Удалить</string>
+	<string name="redact">Редарктировать</string>
+	<string name="new_name">Новое имя</string>
+	<string name="new_price">Новая стоимость</string>
+
+	<string name="enter_pin">Введите пин-код</string>
+	<string name="repeat_pin">Повторите введённый пин-код</string>
+	<string name="scanner_ask">Хотите входить по биометрическому сканеру?</string>
+	<string name="add_pin">Добавить пин-код</string>
+	<string name="cancel_pin">Удалить пин-код</string>
+
+	<string name="yes">Да</string>
+	<string name="no">No</string>
+
+	<string name="cancel">Отмена</string>
+
+	<string name="use_biometric">Используйте биометрический сканер</string>
+	<string name="use_biometric_login">Для авторищации</string>
+	<string name="use_biometric_add">Чтобы подтвердите, что вы владелец</string>
+
+	<string name="save_csv">Сохранить всё в формате CSV</string>
+
+	<string name="adding_empty">Не должно быть пустым</string>
+	<string name="adding_new_purchase">Добавление новой покупки</string>
+	<string name="purchase_name">Название покупки</string>
+	<string name="purchase_price">Цена</string>
+	<string name="submit">Подтвердить</string>
+	<string name="clear">Очистить</string>
+	<string name="adding_new_plan">Добавление нового плана</string>
+
+	<string name="plans_date_range">Выбер</string>
+	<string name="plans_amount">Amount:</string>
+	<string name="plans_submit">@string/submit</string>
+	<string name="plans_beginDate">Дата начала:</string>
+	<string name="plans_endDate">Дата конца:</string>
+	<string name="plans_dateError">Вы должны ввести ограничение по датам</string>
+</resources>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:background="@color/darkGray"
+	tools:context=".pincode.views.activity.PincodeActivity">
+	
+	<LinearLayout
+		android:layout_marginTop="64dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/darkGray"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/pin_main_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_margin="10dp"
+			android:text="@string/enter_pin"
+			android:textColor="@color/colorOnSecondary"
+			android:textSize="18sp"
+			android:textStyle="bold" />
+		
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:orientation="horizontal">
+			
+			<ImageView
+				
+				android:id="@+id/imageview_circle1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="6dp"
+				android:src="@drawable/circle_border_green"
+				android:contentDescription="@string/pin_attr" />
+			
+			<ImageView
+				android:id="@+id/imageview_circle2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="6dp"
+				android:src="@drawable/circle_border_green"
+				android:contentDescription="@string/pin_attr"/>
+			
+			<ImageView
+				android:id="@+id/imageview_circle3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="6dp"
+				android:src="@drawable/circle_border_green"
+				android:contentDescription="@string/pin_attr"/>
+			
+			<ImageView
+				android:id="@+id/imageview_circle4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="6dp"
+				android:src="@drawable/circle_border_green"
+				android:contentDescription="@string/pin_attr"/>
+		</LinearLayout>
+	</LinearLayout>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="240dp"
+		android:background="@color/darkGray" />
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/numPad"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="bottom"
+		android:layout_marginBottom="48dp">
+		
+		<TextView
+			android:id="@+id/pin_one"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/pin_code_margin"
+			app:layout_constraintEnd_toStartOf="@id/pin_two"
+			app:layout_constraintTop_toTopOf="@id/pin_two"
+			android:gravity="center"
+			android:text="@string/one"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_two"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			app:layout_constraintBottom_toTopOf="@id/pin_five"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:text="@string/two"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_three"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/pin_code_margin"
+			app:layout_constraintStart_toEndOf="@id/pin_two"
+			app:layout_constraintTop_toTopOf="@id/pin_two"
+			android:gravity="center"
+			android:text="@string/three"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<!--   456     -->
+		
+		<TextView
+			android:id="@+id/pin_four"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/pin_code_margin"
+			app:layout_constraintEnd_toStartOf="@id/pin_five"
+			app:layout_constraintTop_toTopOf="@id/pin_five"
+			android:gravity="center"
+			android:text="@string/four"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_five"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			app:layout_constraintBottom_toTopOf="@id/pin_eight"
+			app:layout_constraintStart_toStartOf="@id/pin_two"
+			app:layout_constraintEnd_toEndOf="@id/pin_two"
+			android:text="@string/five"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_six"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/pin_code_margin"
+			app:layout_constraintStart_toEndOf="@id/pin_five"
+			app:layout_constraintTop_toTopOf="@id/pin_five"
+			android:gravity="center"
+			android:text="@string/six"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<!--    789    -->
+		
+		<TextView
+			android:id="@+id/pin_seven"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/pin_code_margin"
+			app:layout_constraintEnd_toStartOf="@id/pin_eight"
+			app:layout_constraintTop_toTopOf="@id/pin_eight"
+			android:gravity="center"
+			android:text="@string/seven"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_eight"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			app:layout_constraintBottom_toTopOf="@id/pin_zero"
+			app:layout_constraintStart_toStartOf="@id/pin_five"
+			app:layout_constraintEnd_toEndOf="@id/pin_five"
+			android:text="@string/eight"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<TextView
+			android:id="@+id/pin_nine"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/pin_code_margin"
+			app:layout_constraintStart_toEndOf="@id/pin_eight"
+			app:layout_constraintTop_toTopOf="@id/pin_eight"
+			android:gravity="center"
+			android:text="@string/six"
+			android:textSize="@dimen/pin_code_number"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<!--    f0c    -->
+		
+		<ImageButton
+			android:id="@+id/pin_finger"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginEnd="@dimen/pin_code_margin"
+			app:layout_constraintEnd_toStartOf="@id/pin_zero"
+			app:layout_constraintTop_toTopOf="@id/pin_zero"
+			android:background="@drawable/ic_fingerprint_light"
+			android:contentDescription="@string/finger_unlock"
+			android:gravity="center" />
+		
+		<TextView
+			android:id="@+id/pin_zero"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/zero"
+			android:textSize="@dimen/pin_code_number"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="@id/pin_eight"
+			app:layout_constraintEnd_toEndOf="@id/pin_eight"
+			android:textColor="@color/colorOnSecondary"
+			android:background="?android:attr/selectableItemBackground"
+			android:clickable="true"
+			android:focusable="true" />
+		
+		<ImageButton
+			android:id="@+id/pin_cancel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/pin_code_margin"
+			android:layout_marginTop="10dp"
+			app:layout_constraintStart_toEndOf="@id/pin_zero"
+			app:layout_constraintTop_toTopOf="@id/pin_zero"
+			android:background="@drawable/ic_cancel_light"
+			android:contentDescription="@string/finger_unlock"
+			android:gravity="center" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

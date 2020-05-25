@@ -1,3 +1,91 @@
 <resources>
-    <string name="app_name">Final Count</string>
+	<string name="app_name">Final Count</string>
+	<string name="register">Register</string>
+	<string name="login_hint" translatable="false">mail@example.com</string>
+	<string name="password_hint">Password</string>
+	<string name="choose_oauth">OR USE OTHER LOGIN METHODS</string>
+	<string name="login">Login</string>
+	<string name="invalid">Invalid login or password</string>
+	<string name="verification">Verification link sent to your email</string>
+	<string name="set_name">Set display name</string>
+	<string name="send_verify">Send verification email</string>
+	<string name="login_google">Login with Google</string>
+	<string name="login_vk">Login with VK</string>
+	<string name="login_github">Login with Github</string>
+	<string name="login_facebook">Login with Facebook</string>
+	<string name="logout">Logout</string>
+	<string name="login_error">Login error!</string>
+	<string name="success">Success</string>
+	
+	<string name="facebook_app_id" translatable="false">222181982176177</string>
+	<string name="fb_login_protocol_scheme" translatable="false">fb222181982176177</string>
+	
+	<string name="choose_currency" translatable="true">Choose currency</string>
+	<string name="title_activity_main" translatable="false">Final Count</string>
+	<string name="title_history">History</string>
+	<string name="title_plans">Plans</string>
+	<string name="title_profile">Profile</string>
+	
+	<string name="history_element_price" translatable="false"> %1$d %2$s </string>
+	
+	<string name="fab_description" translatable="false">open adding activity</string>
+	<string name="delete">Delete</string>
+	<string name="redact">Redact</string>
+	<string name="new_name">New name</string>
+	<string name="new_price">New price</string>
+	<string-array name="currencies">
+		<item>RUB</item>
+		<item>EUR</item>
+		<item>USD</item>
+	</string-array>
+	
+	<string name="finger_unlock" translatable="false">Fingerprint Unlock</string>
+	<string name="enter_pin">Enter Pin Code</string>
+	<string name="repeat_pin">Enter your pin again</string>
+	<string name="scanner_ask">Do you want to use biometric auth?</string>
+	<string name="add_pin">Add pin</string>
+	<string name="cancel_pin">Cancel pin</string>
+
+	<string name="pin_attr" translatable="false">Image showing how many symbols are entered</string>
+	
+	<string name="one" translatable="false">1</string>
+	<string name="two" translatable="false">2</string>
+	<string name="three" translatable="false">3</string>
+	<string name="four" translatable="false">4</string>
+	<string name="five" translatable="false">5</string>
+	<string name="six" translatable="false">6</string>
+	<string name="seven" translatable="false">7</string>
+	<string name="eight" translatable="false">8</string>
+	<string name="nine" translatable="false">9</string>
+	<string name="zero" translatable="false">0</string>
+	
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	
+	<string name="cancel">Cancel</string>
+	
+	<string name="use_biometric">Use biometric scanner</string>
+	<string name="use_biometric_login">To login</string>
+	<string name="use_biometric_add">To confirm your biometric</string>
+	
+	<string name="save_csv">Save all to csv</string>
+	
+	<string name="adding_empty">Should not be empty</string>
+	<string name="adding_new_purchase">Add new purchase</string>
+	<string name="purchase_name">Purchase name</string>
+	<string name="purchase_price">Price</string>
+	<string name="submit">Submit</string>
+	<string name="clear">Clear</string>
+	<string name="adding_new_plan">Add new plan</string>
+	
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="plans_date_range">Select dates range</string>
+	<string name="plans_amount">Amount:</string>
+	<string name="plans_submit">@string/submit</string>
+	<string name="plans_beginDate">Begin date:</string>
+	<string name="plans_endDate">Ending date:</string>
+	<string name="plans_dateError">You should enter date range</string>
+
+	<string name="test_string" translatable="false">ABC abc</string>
+	<string name="test_number" translatable="false">1234</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/navigation_home"
+		android:icon="@drawable/ic_access_time_black_24dp"
+		android:title="@string/title_history" />
+	<item
+		android:id="@+id/navigation_dashboard"
+		android:icon="@drawable/ic_event_available_black_24dp"
+		android:title="@string/title_plans" />
+	<item
+		android:id="@+id/navigation_profile"
+		android:icon="@drawable/ic_profile_black_24dp"
+		android:title="@string/title_profile" />
+</menu>
