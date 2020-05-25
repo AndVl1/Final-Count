@@ -114,7 +114,7 @@ class MainActivity : BaseActivity(), MainView {
 				true
 			}
 			R.id.cancel_pin -> {
-				PinPreferences(this).removePin()
+				PinPreferences(this).removePin() // TODO move to presenter
 				true
 			}
 			R.id.clear_recycler -> {
