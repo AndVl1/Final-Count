@@ -13,15 +13,16 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
-import com.techpark.finalcount.adding.views.fragment.AddingFragment
+import com.techpark.finalcount.adding.plan.views.fragment.AddingPlanningFragment
+import com.techpark.finalcount.adding.purchase.views.fragment.AddingPurchaseFragment
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.databinding.ActivityMainBinding
-import com.techpark.finalcount.history.views.fragment.HistoryFragmentMvvm
+import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import com.techpark.finalcount.main.presenters.MainPresenterImpl
-import com.techpark.finalcount.main.ui.plans.PlansFragment
 import com.techpark.finalcount.main.ui.profile.ProfileFragment
 import com.techpark.finalcount.main.views.MainView
+import com.techpark.finalcount.plans.views.fragment.PlansFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -32,8 +33,8 @@ class MainActivity : BaseActivity(), MainView {
 
 	private lateinit var mMainBinding: ActivityMainBinding
 	private val mScreens: Array<Fragment> = arrayOf(
-		HistoryFragmentMvvm.newInstance(),
-		PlansFragment(), // TODO after creating make newInstance() method in companion object
+		HistoryFragment.newInstance(),
+		PlansFragment.newInstance(),
 		ProfileFragment()
 	)
 
@@ -45,8 +46,22 @@ class MainActivity : BaseActivity(), MainView {
 		setContentView(mMainBinding.root)
 		mMainBinding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 			when (item.itemId) {
-				R.id.navigation_home -> replaceScreen(0)
-				R.id.navigation_dashboard -> replaceScreen(1) // TODO hide fab
+				R.id.navigation_home -> {
+					replaceScreen(0)
+					mMainBinding.fab.setOnClickListener {
+						supportFragmentManager.beginTransaction()
+							.add(AddingPurchaseFragment(), "adding")
+							.commit()
+					}
+				}
+				R.id.navigation_dashboard -> {
+					replaceScreen(1)
+					mMainBinding.fab.setOnClickListener {
+						supportFragmentManager.beginTransaction()
+							.add(AddingPlanningFragment(), "adding")
+							.commit()
+					}
+				}
 				R.id.navigation_profile -> replaceScreen(2)
 			}
 			true
@@ -55,9 +70,10 @@ class MainActivity : BaseActivity(), MainView {
 
 		mMainBinding.fab.setOnClickListener {
 			supportFragmentManager.beginTransaction()
-				.add(AddingFragment(), "adding")
+				.add(AddingPurchaseFragment(), "adding")
 				.commit()
 		}
+
 	}
 
 	override fun onDestroy() {

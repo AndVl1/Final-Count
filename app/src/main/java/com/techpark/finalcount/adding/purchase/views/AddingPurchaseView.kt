@@ -1,8 +1,8 @@
-package com.techpark.finalcount.adding.views
+package com.techpark.finalcount.adding.purchase.views
 
 import com.techpark.finalcount.base.BaseView
 
-interface AddingView: BaseView {
+interface AddingPurchaseView: BaseView {
 	fun showError(error: String)
 	fun addSuccess()
 	fun addFailed()

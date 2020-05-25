@@ -1,5 +1,6 @@
 package com.techpark.finalcount.history.views
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -10,6 +11,7 @@ import com.techpark.finalcount.data.room.model.Purchase
 class HistoryPagedAdapter:
 	PagedListAdapter<Purchase, HistoryHolder>(DIFF_CALLBACK) {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryHolder {
+		Log.d(TAG, "onbindviewholder")
 		val view = LayoutInflater.from(parent.context).inflate(R.layout.history_list_elem, parent, false)
 		return HistoryHolder(view)
 	}
@@ -26,5 +28,7 @@ class HistoryPagedAdapter:
 			override fun areContentsTheSame(oldItem: Purchase, newItem: Purchase): Boolean =
 				oldItem == newItem
 		}
+
+		const val TAG = "HISTORY ADAPTER"
 	}
 }

@@ -40,8 +40,26 @@
 		<item name="bottom_sheet_extra_padding">0dp</item>
 		<item name="should_draw_under_status_bar">false</item>
 	</style>
-	<style name="ErrorText" parent="TextAppearance.AppCompat.Small">
-		<item name="android:textStyle">italic</item>
-		<item name="android:textColor">@color/colorError</item>
+
+	<style name="ErrorText" parent="TextAppearance.AppCompat">
+		<item name="android:textColor">@color/red</item>
+		<item name="android:textSize">16sp</item>
+	</style>
+	<style name="HintText" parent="TextAppearance.AppCompat">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">14sp</item>
+	</style>
+	<style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+		<!-- reference our hint & error styles -->
+		<item name="hintTextAppearance">@style/HintText</item>
+		<item name="errorTextAppearance">@style/ErrorText</item>
+		<item name="android:textColor">@color/colorOnPrimary</item>
+		<item name="android:textColorHint">@color/colorOnPrimary</item>
+		<item name="colorControlNormal">@color/white</item>
+		<item name="colorControlActivated">@color/blue</item>
+		<item name="colorControlHighlight">@color/green</item>
+	</style>
+	<style name="MyCustomEditTextStyle" parent="Widget.AppCompat.EditText">
+		<item name="android:textColor">@color/colorOnPrimary</item>
 	</style>
 </resources>

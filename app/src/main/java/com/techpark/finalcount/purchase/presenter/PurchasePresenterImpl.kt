@@ -3,14 +3,17 @@ package com.techpark.finalcount.purchase.presenter
 import android.util.Log
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.DataSource
+import com.techpark.finalcount.data.room.model.Planning
 import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.purchase.view.PurchaseView
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSource): PurchasePresenter, BasePresenterImpl<PurchaseView>() {
+class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): PurchasePresenter, BasePresenterImpl<PurchaseView>() {
 	private lateinit var mPurchase: Purchase
+	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
+	private val mPlanningDao = dataSource.planningDatabase.planningDao()
 
 	override fun getPurchase(id: Long){
 		Log.d(TAG, "init $id")
@@ -25,13 +28,22 @@ class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSour
 	}
 
 	private suspend fun getData(id: Long) {
-		mPurchase = dataSource.database.purchaseDao().getById(id)
+		mPurchase = mPurchaseDao.getById(id)
 		Log.d(TAG, mPurchase.name)
 	}
 
 	override fun delete() {
-		mIOScope.launch {
-			dataSource.database.purchaseDao().delete(mPurchase)
+		mMainScope.launch {
+			mIOScope.launch {
+				val plans = mPlanningDao.loadAllWhereHasDate(mPurchase.date)
+
+				mPurchaseDao.delete(mPurchase)
+				for (plan in plans) {
+					mPlanningDao.update(
+						Planning(plan.id, plan.begin, plan.end, plan.planned, plan.spent - mPurchase.cost)
+					)
+				}
+			}
 		}
 	}
 
@@ -43,7 +55,7 @@ class PurchasePresenterImpl @Inject constructor(private val dataSource: DataSour
 			mPurchase.date
 		)
 		mIOScope.launch {
-			dataSource.database.purchaseDao().update(mPurchase)
+			mPurchaseDao.update(mPurchase)
 		}
 	}
 

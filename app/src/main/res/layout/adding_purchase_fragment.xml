@@ -27,7 +27,7 @@
 			app:cardElevation="0dp"
 			app:content_view="@layout/adding_content"
 			app:expanded="false"
-			app:header_view="@layout/adding_header"
+			app:header_view="@layout/adding_purchase_header"
 			tools:expanded="true"/>
 	</FrameLayout>
 
@@ -57,7 +57,7 @@
 				android:layout_height="wrap_content"
 				android:hint="@string/purchase_name"
 				app:errorEnabled="true"
-				app:errorTextAppearance="@style/ErrorText">
+				android:theme="@style/Widget.Design.TextInputLayout">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/name_textInput"
@@ -72,7 +72,7 @@
 				android:id="@+id/price_layout"
 				android:hint="@string/purchase_price"
 				app:errorEnabled="true"
-				app:errorTextAppearance="@style/ErrorText">
+				android:theme="@style/Widget.Design.TextInputLayout">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/price_textInput"
@@ -94,7 +94,7 @@
 
 				<Button
 					android:id="@+id/submit_adding_button"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:text="@string/submit" />
 

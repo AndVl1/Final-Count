@@ -1,7 +1,8 @@
-package com.techpark.finalcount.adding.views.fragment
+package com.techpark.finalcount.adding.purchase.views.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +13,12 @@ import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PlainHandleView
 import com.google.android.material.textfield.TextInputLayout
 import com.techpark.finalcount.R
-import com.techpark.finalcount.adding.presenters.AddingPresenterImpl
-import com.techpark.finalcount.adding.views.AddingView
+import com.techpark.finalcount.adding.purchase.presenters.AddingPurchasePresenterImpl
+import com.techpark.finalcount.adding.purchase.views.AddingPurchaseView
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class AddingFragment: AddingView, BottomDrawerFragment() {
+class AddingPurchaseFragment: AddingPurchaseView, BottomDrawerFragment() {
 
 	private var mAlphaCancelButton = 0f
 	private lateinit var mCancelButton: ImageView
@@ -28,21 +29,21 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 	private lateinit var mPriceText: EditText
 
 	@Inject
-	lateinit var mAddingPresenter: AddingPresenterImpl
+	lateinit var mAddingPresenter: AddingPurchasePresenterImpl
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		val view = inflater.inflate(R.layout.adding_bottom_fragment, container, false)
-		mCancelButton = view.findViewById(R.id.cancel)
+		val mRoot = inflater.inflate(R.layout.adding_purchase_fragment, container, false)
+		mCancelButton = mRoot.findViewById(R.id.cancel)
 		val percent = 0.65f
 
-		mNameText = view.findViewById(R.id.name_textInput)
-		mPriceText = view.findViewById(R.id.price_textInput)
-		mNameTextLayout = view.findViewById(R.id.name_layout)
-		mPriceTextLayout = view.findViewById(R.id.price_layout)
+		mNameText = mRoot.findViewById(R.id.name_textInput)
+		mPriceText = mRoot.findViewById(R.id.price_textInput)
+		mNameTextLayout = mRoot.findViewById(R.id.name_layout)
+		mPriceTextLayout = mRoot.findViewById(R.id.price_layout)
 
 		addBottomSheetCallback {
 			onSlide { _, slideOffset ->
@@ -71,7 +72,7 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 				mPriceTextLayout.error = EMPTY_TEXT
 		}
 
-		view.findViewById<Button>(R.id.submit_adding_button)
+		mRoot.findViewById<Button>(R.id.submit_adding_button)
 			.setOnClickListener {
 				if (areInputFieldsFilled())
 					mAddingPresenter.add(mNameText.text.toString(), mPriceText.text.toString().toInt(), "RUB")
@@ -85,7 +86,7 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 				}
 			}
 
-		return view
+		return mRoot
 	}
 
 	private fun areInputFieldsFilled(): Boolean =
@@ -126,12 +127,14 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 	override fun onAttach(context: Context) {
 		AndroidSupportInjection.inject(this)
 		super.onAttach(context)
+		Log.d(TAG, "attach")
 		mAddingPresenter.attachView(this)
 	}
 
 	override fun onDestroy() {
-		super.onDestroy()
 		mAddingPresenter.detachView()
+		super.onDestroy()
+		Log.d(TAG, "destroy")
 	}
 
 	override fun showError(error: String) {
@@ -157,5 +160,6 @@ class AddingFragment: AddingView, BottomDrawerFragment() {
 
 	companion object {
 		const val EMPTY_TEXT = ""
+		const val TAG = "AD PUR FR"
 	}
 }

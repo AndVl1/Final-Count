@@ -69,14 +69,21 @@
 	<string name="save_csv">Save all to csv</string>
 	
 	<string name="adding_empty">Should not be empty</string>
-	<string name="adding_new">Add new purchase</string>
+	<string name="adding_new_purchase">Add new purchase</string>
 	<string name="purchase_name">Purchase name</string>
 	<string name="purchase_price">Price</string>
 	<string name="submit">Submit</string>
 	<string name="clear">Clear</string>
+	<string name="adding_new_plan">Add new plan</string>
 	
 	<!-- TODO: Remove or change this placeholder text -->
-	<string name="plans_month" translatable="false">Month:</string>
-	<string name="plans_amount" translatable="false">Amount:</string>
-	<string name="plans_submit" translatable="false">@string/submit</string>
+	<string name="plans_date_range">Select dates range</string>
+	<string name="plans_amount">Amount:</string>
+	<string name="plans_submit">@string/submit</string>
+	<string name="plans_beginDate">Begin date:</string>
+	<string name="plans_endDate">Ending date:</string>
+	<string name="plans_dateError">You should enter date range</string>
+
+	<string name="test_string" translatable="false">ABC abc</string>
+	<string name="test_number" translatable="false">1234</string>
 </resources>
