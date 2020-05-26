@@ -1,4 +1,5 @@
 <resources>
+
 	<style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorSecondaryVariant</item>
@@ -18,24 +19,30 @@
 		<item name="shapeAppearanceMediumComponent">@style/FCShapeAppearance.MediumComponent</item>
 		<item name="android:textViewStyle">@style/FCTextView</item>
 	</style>
+
 	<style name="FCShapeAppearance.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">8dp</item>
 	</style>
+
 	<style name="FCShapeAppearance.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
 		<item name="cornerFamily">rounded</item>
 		<item name="cornerSize">8dp</item>
 	</style>
+
 	<style name="FCTextView" parent="Widget.MaterialComponents.TextView">
 		<item name="android:textColor">@color/black</item>
 	</style>
+
 	<style name="Divider">
 		<item name="android:background">?android:attr/listDivider</item>
 	</style>
+
 	<style name="Divider.Horizontal" parent="Divider">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">1dp</item>
 	</style>
+
 	<style name="Plain" parent="BottomDialogTheme">
 		<item name="bottom_sheet_extra_padding">0dp</item>
 		<item name="should_draw_under_status_bar">false</item>
@@ -45,10 +52,12 @@
 		<item name="android:textColor">@color/red</item>
 		<item name="android:textSize">16sp</item>
 	</style>
+
 	<style name="HintText" parent="TextAppearance.AppCompat">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textSize">14sp</item>
 	</style>
+
 	<style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
 		<!-- reference our hint & error styles -->
 		<item name="hintTextAppearance">@style/HintText</item>
@@ -59,7 +68,25 @@
 		<item name="colorControlActivated">@color/blue</item>
 		<item name="colorControlHighlight">@color/green</item>
 	</style>
+
 	<style name="MyCustomEditTextStyle" parent="Widget.AppCompat.EditText">
 		<item name="android:textColor">@color/colorOnPrimary</item>
 	</style>
+
+	<style name="AppTheme.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
+	<style name="FacebookLoginButton">
+		<item name="android:textSize">@dimen/auth_textSize</item>
+		<item name="android:background">@drawable/ic_facebook</item>
+		<item name="android:layout_marginTop">10dp</item>
+		<item name="android:layout_marginBottom">10dp</item>
+		<item name="android:gravity">center_horizontal</item>
+	</style>
+
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

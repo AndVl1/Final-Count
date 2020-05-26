@@ -1,6 +1,7 @@
 package com.techpark.finalcount.auth.views.activity
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -83,6 +84,11 @@ class AuthActivity : BaseActivity(), AuthView {
 
 		}
 
+		mLoginActivityBinding.appNameTextView.typeface = Typeface.createFromAsset(assets, "fonts/indigo_daisy.ttf")
+
+		mLoginActivityBinding.facebookFrame.setOnClickListener {
+			mLoginActivityBinding.facebookLogin.performClick()
+		}
 		//FACEBOOK
 		mLoginActivityBinding.facebookLogin.setPermissions(listOf("email"))
 		Log.d("FACEBOOK", "permissions set")

@@ -13,7 +13,11 @@
 	<color name="colorOnBackground">#aaa</color>
 	<color name="icons">@color/white</color>
 	<color name="divider">#bdbdbd</color>
-	
+
+	<color name="customButtonColor">#26a69a</color>
+	<color name="customEtStrokeColor">#e0e0e0</color>
+	<color name="customEtSolidColor">#f5f5f5</color>
+
 	<color name="white">#fff</color>
 	<color name="red">#f00</color>
 	<color name="blue">#00f</color>

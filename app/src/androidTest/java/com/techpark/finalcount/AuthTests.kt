@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.auth.views.activity.AuthActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.After
@@ -105,13 +104,6 @@ class AuthTests {
 		val appCompatEditText = onView(
 			allOf(
 				withId(R.id.login_input),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					1
-				),
 				isDisplayed()
 			)
 		)
@@ -122,13 +114,6 @@ class AuthTests {
 		val appCompatEditText2 = onView(
 			allOf(
 				withId(R.id.password_input),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					2
-				),
 				isDisplayed()
 			)
 		)
@@ -140,13 +125,6 @@ class AuthTests {
 			allOf(
 				withId(R.id.status_view),
 				withText(text),
-				childAtPosition(
-					childAtPosition(
-						withId(android.R.id.content),
-						0
-					),
-					0
-				),
 				isDisplayed()
 			)
 		)
@@ -157,16 +135,6 @@ class AuthTests {
 		val switch = onView(
 			allOf(
 				withId(R.id.auth_type_switch),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					0
-				),
 				isDisplayed()
 			)
 		)
@@ -177,16 +145,6 @@ class AuthTests {
 		val appCompatButton = onView(
 			allOf(
 				withId(R.id.submit_button), withText(mActivityTestRule.activity.getString(id)),
-				childAtPosition(
-					allOf(
-						withId(R.id.auth_line),
-						childAtPosition(
-							withClassName(`is`("androidx.constraintlayout.widget.ConstraintLayout")),
-							3
-						)
-					),
-					2
-				),
 				isDisplayed()
 			)
 		)
