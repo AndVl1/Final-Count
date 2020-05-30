@@ -9,9 +9,8 @@ class MainActivityIdlingResource (activity: MainActivity) : IdlingResource {
 	private var mActivity: BaseActivity = activity
 	private var mCallback: IdlingResource.ResourceCallback? = null
 
-	override fun getName(): String {
-		return "BaseActivityIdlingResource:" + mActivity.localClassName
-	}
+	override fun getName(): String =
+		TAG + mActivity.localClassName
 
 	override fun isIdleNow(): Boolean {
 		val bar: View = mActivity.findViewById(R.id.fab)
@@ -25,5 +24,9 @@ class MainActivityIdlingResource (activity: MainActivity) : IdlingResource {
 
 	override fun registerIdleTransitionCallback(callback: IdlingResource.ResourceCallback) {
 		mCallback = callback
+	}
+
+	companion object {
+		const val TAG = "MainActivityIdlingResource"
 	}
 }

@@ -28,13 +28,11 @@ class RoomAndroidTest {
         var p1 = Purchase(1,
             "Test",
             1000,
-            "EUR",
             System.currentTimeMillis()
         )
         var p2 = Purchase(2,
             "Test2",
             3000,
-            "RUB",
             System.currentTimeMillis()
         )
         const val TAG = "TEST ROOM"
@@ -59,7 +57,7 @@ class RoomAndroidTest {
         Truth.assertThat(db.purchaseDao().loadAll()).isNotEmpty()
         dao.insert(p2)
         Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
-        p1 = Purchase(1, "change", 200, "EUR", System.currentTimeMillis())
+        p1 = Purchase(1, "change", 200, System.currentTimeMillis())
         dao.update(p1)
         Truth.assertThat(db.purchaseDao().loadAll()).isEqualTo(listOf(p1, p2).sortedBy { it.date })
         dao.delete(p2)
@@ -81,8 +79,8 @@ class RoomAndroidTest {
         val json = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dao)
         Log.d(TAG, json.toString())
         Truth.assertThat(json.toString())
-            .isEqualTo("[{\"cost\":${p1.cost},\"currency\":\"${p1.currency}\",\"date\":${p1.date},\"id\":${p1.id},\"name\":\"${p1.name}\"}," +
-                "{\"cost\":${p2.cost},\"currency\":\"${p2.currency}\",\"date\":${p2.date},\"id\":${p2.id},\"name\":\"${p2.name}\"}]")
+            .isEqualTo("[{\"cost\":${p1.cost},\"date\":${p1.date},\"id\":${p1.id},\"name\":\"${p1.name}\"}," +
+                "{\"cost\":${p2.cost},\"date\":${p2.date},\"id\":${p2.id},\"name\":\"${p2.name}\"}]")
 
         dao.clear()
         Truth.assertThat(db.purchaseDao().loadAll()).isEmpty()

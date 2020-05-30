@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.techpark.finalcount.main.views.activity.MainActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.After
@@ -75,13 +74,6 @@ class MainTests {
 		val appCompatTextView = onView(
 			allOf(
 				withId(R.id.title), withText("Clear"),
-				childAtPosition(
-					childAtPosition(
-						withId(R.id.content),
-						0
-					),
-					0
-				),
 				isDisplayed()
 			)
 		)
@@ -102,13 +94,6 @@ class MainTests {
 		val textInputEditText = onView(
 			allOf(
 				withId(R.id.name_textInput),
-				childAtPosition(
-					childAtPosition(
-						withId(R.id.name_layout),
-						0
-					),
-					0
-				),
 				isDisplayed()
 			)
 		)
@@ -116,37 +101,23 @@ class MainTests {
 	}
 
 	private fun typePrice(price: String) {
-		val textInputEditText2 = onView(
+		val editText = onView(
 			allOf(
 				withId(R.id.price_textInput),
-				childAtPosition(
-					childAtPosition(
-						withId(R.id.price_layout),
-						0
-					),
-					0
-				),
 				isDisplayed()
 			)
 		)
-		textInputEditText2.perform(replaceText(price), closeSoftKeyboard())
+		editText.perform(replaceText(price), closeSoftKeyboard())
 	}
 
 	private fun clickSubmitButton() {
-		val appCompatButton = onView(
+		val button = onView(
 			allOf(
 				withId(R.id.submit_adding_button), withText("Submit"),
-				childAtPosition(
-					childAtPosition(
-						withClassName(`is`("android.widget.LinearLayout")),
-						3
-					),
-					1
-				),
 				isDisplayed()
 			)
 		)
-		appCompatButton.perform(click())
+		button.perform(click())
 	}
 
 	private fun textMatches(pos: Int, name: String) {
@@ -158,7 +129,7 @@ class MainTests {
 						withId(R.id.history_list_element),
 						childAtPosition(
 							withId(R.id.purchasesList),
-							pos
+							0
 						)
 					),
 					pos
@@ -176,11 +147,12 @@ class MainTests {
 		val res = TreeMap<Int, String>()
 		for (i in 0..n) {
 			clickFAB()
-			val name = "abc${Random.nextInt(0, 100)}"
+			val name = "abc${Random.nextInt(0, 200)}"
 			typeName(name)
 			typePrice(Random.nextInt(0, 1000).toString())
 			clickSubmitButton()
 			res[i] = name
+			Thread.sleep(150)
 		}
 		for ((i, name) in res) {
 			textMatches(i, name)

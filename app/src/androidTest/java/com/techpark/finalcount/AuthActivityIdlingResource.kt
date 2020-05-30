@@ -13,7 +13,7 @@ class AuthActivityIdlingResource(activity: AuthActivity) : IdlingResource {
 	private var mCallback: ResourceCallback? = null
 
 	override fun getName(): String {
-		return "BaseActivityIdlingResource:" + mActivity.localClassName
+		return TAG + mActivity.localClassName
 	}
 
 	override fun isIdleNow(): Boolean {
@@ -28,5 +28,9 @@ class AuthActivityIdlingResource(activity: AuthActivity) : IdlingResource {
 
 	override fun registerIdleTransitionCallback(callback: ResourceCallback) {
 		mCallback = callback
+	}
+
+	companion object{
+		const val TAG = "AuthActivityIdlingResource:"
 	}
 }
