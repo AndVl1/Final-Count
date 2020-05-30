@@ -7,7 +7,10 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.TextView
 import com.github.heyalex.bottomdrawer.BottomDrawerDialog
 import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PlainHandleView
@@ -21,7 +24,6 @@ import javax.inject.Inject
 class AddingPurchaseFragment: AddingPurchaseView, BottomDrawerFragment() {
 
 	private var mAlphaCancelButton = 0f
-	private lateinit var mCancelButton: ImageView
 	private lateinit var mNameTextLayout: TextInputLayout
 	private lateinit var mNameText: EditText
 
@@ -37,7 +39,6 @@ class AddingPurchaseFragment: AddingPurchaseView, BottomDrawerFragment() {
 		savedInstanceState: Bundle?
 	): View? {
 		val mRoot = inflater.inflate(R.layout.adding_purchase_fragment, container, false)
-		mCancelButton = mRoot.findViewById(R.id.cancel)
 		val percent = 0.65f
 
 		mNameText = mRoot.findViewById(R.id.name_textInput)
@@ -53,12 +54,7 @@ class AddingPurchaseFragment: AddingPurchaseView, BottomDrawerFragment() {
 				} else {
 					0f
 				}
-				mCancelButton.alpha = mAlphaCancelButton
-				mCancelButton.isEnabled = mAlphaCancelButton > 0
 			}
-		}
-		mCancelButton.setOnClickListener {
-			dismissWithBehavior()
 		}
 
 		mNameText.setOnFocusChangeListener { _, hasFocus ->
@@ -120,8 +116,6 @@ class AddingPurchaseFragment: AddingPurchaseView, BottomDrawerFragment() {
 	override fun onViewStateRestored(savedInstanceState: Bundle?) {
 		super.onViewStateRestored(savedInstanceState)
 		mAlphaCancelButton = savedInstanceState?.getFloat("alphaCancelButton") ?: 0f
-		mCancelButton.alpha = mAlphaCancelButton
-		mCancelButton.isEnabled = mAlphaCancelButton > 0
 	}
 
 	override fun onAttach(context: Context) {

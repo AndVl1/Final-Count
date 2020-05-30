@@ -14,8 +14,6 @@ data class Purchase (
 	val name: String,
 	@ColumnInfo(name = "cost")
 	val cost: Int,
-	@ColumnInfo(name = "currency")
-	val currency: String,
 	@ColumnInfo(name = "date")
 	val date: Long
 )

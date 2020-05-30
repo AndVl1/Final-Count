@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/adding_container"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
@@ -15,20 +14,13 @@
 		android:paddingStart="14dp"
 		android:paddingEnd="14dp">
 
-		<com.github.heyalex.expandable_cardview.ExpandableCardView
-			android:id="@+id/expandble_profile"
+		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="0dp"
-			android:background="@android:color/transparent"
-			app:animation_duration="250"
-			app:cardBackgroundColor="@android:color/transparent"
-			app:cardCornerRadius="0dp"
-			app:cardElevation="0dp"
-			app:content_view="@layout/adding_content"
-			app:expanded="false"
-			app:header_view="@layout/adding_purchase_header"
-			tools:expanded="true"/>
+			android:text="@string/adding_new_purchase"
+			android:gravity="center"
+			android:textSize="32sp"/>
+
 	</FrameLayout>
 
 	<View style="@style/Divider.Horizontal" />

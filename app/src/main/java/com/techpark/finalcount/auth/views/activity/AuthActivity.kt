@@ -86,9 +86,6 @@ class AuthActivity : BaseActivity(), AuthView {
 
 		mLoginActivityBinding.appNameTextView.typeface = Typeface.createFromAsset(assets, "fonts/indigo_daisy.ttf")
 
-		mLoginActivityBinding.facebookFrame.setOnClickListener {
-			mLoginActivityBinding.facebookLogin.performClick()
-		}
 		//FACEBOOK
 		mLoginActivityBinding.facebookLogin.setPermissions(listOf("email"))
 		Log.d("FACEBOOK", "permissions set")
@@ -113,6 +110,9 @@ class AuthActivity : BaseActivity(), AuthView {
 			}
 		})
 		Log.d("FACEBOOK", "onCreate final")
+		mLoginActivityBinding.facebookFrame.setOnClickListener {
+			mLoginActivityBinding.facebookLogin.performClick()
+		}
 		//------------------
 	}
 

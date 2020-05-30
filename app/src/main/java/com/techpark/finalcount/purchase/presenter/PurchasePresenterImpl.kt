@@ -51,7 +51,6 @@ class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): Purchas
 		mPurchase = Purchase(mPurchase.id,
 			if (name.isNotEmpty()) name else mPurchase.name,
 			if (price != -1) price else mPurchase.cost,
-			currency,
 			mPurchase.date
 		)
 		mIOScope.launch {

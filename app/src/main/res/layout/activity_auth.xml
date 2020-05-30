@@ -141,12 +141,15 @@
 			android:id="@+id/facebook_frame"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_toEndOf="@id/github_log">
+			android:layout_toEndOf="@id/github_log"
+			android:clickable="true"
+			android:focusable="true">
 
 			<ImageButton
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="10dp"
+				android:clickable="false"
 				android:contentDescription="@string/login_facebook"
 				android:src="@drawable/ic_facebook" />
 
@@ -155,7 +158,9 @@
 				android:id="@+id/facebook_login"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				style="@style/FacebookLoginButton" />
+				android:clickable="true"
+				style="@style/FacebookLoginButton"
+				android:focusable="true" />
 		</FrameLayout>
 
 	</RelativeLayout>

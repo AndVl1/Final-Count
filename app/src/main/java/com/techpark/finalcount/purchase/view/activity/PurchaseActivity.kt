@@ -77,7 +77,6 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 	override fun setParams(purchase: Purchase) {
 		mPurchaseBinding.name.text = purchase.name
 		mPurchaseBinding.price.text = purchase.cost.toString()
-		mPurchaseBinding.currency.text = purchase.currency
 		mPurchaseBinding.date.text = Date(purchase.date).toString()
 	}
 }

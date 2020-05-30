@@ -6,7 +6,10 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.github.heyalex.bottomdrawer.BottomDrawerDialog
 import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PlainHandleView
@@ -24,7 +27,6 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 	lateinit var mPlanningPresenter: AddingPlanningPresenterImpl
 
 	private var mAlphaCancelButton = 0f
-	private lateinit var mCancelButton: ImageView
 
 	private lateinit var mLayoutStart: LinearLayout
 	private lateinit var mTextViewStart: TextView
@@ -40,7 +42,6 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 		val percent = 0.65f
 		mRoot = inflater.inflate(R.layout.addng_plan_fragment, container, false)
 
-		mCancelButton = mRoot.findViewById(R.id.cancel)!!
 		val select: Button? = mRoot.findViewById(R.id.select_range)
 		select?.setOnClickListener {
 			val builder = MaterialDatePicker.Builder.dateRangePicker()
@@ -66,12 +67,7 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 				} else {
 					0f
 				}
-				mCancelButton.alpha = mAlphaCancelButton
-				mCancelButton.isEnabled = mAlphaCancelButton > 0
 			}
-		}
-		mCancelButton.setOnClickListener {
-			dismissWithBehavior()
 		}
 		mSubmitButton.setOnClickListener {
 			val amount = mRoot.findViewById<TextInputEditText>(R.id.plans_textInputEditText)
@@ -132,8 +128,6 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 	override fun onViewStateRestored(savedInstanceState: Bundle?) {
 		super.onViewStateRestored(savedInstanceState)
 		mAlphaCancelButton = savedInstanceState?.getFloat("alphaCancelButton") ?: 0f
-		mCancelButton.alpha = mAlphaCancelButton
-		mCancelButton.isEnabled = mAlphaCancelButton > 0
 	}
 
 	companion object {

@@ -8,15 +8,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.AndroidResourceManager
+import com.techpark.finalcount.data.DataSource
+import com.techpark.finalcount.data.room.GlobalPreferences
+import com.techpark.finalcount.data.room.model.Purchase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AuthPresenterImpl @Inject constructor(private val mResourceManager: AndroidResourceManager) : AuthPresenter, BasePresenterImpl<AuthView>() {
+class AuthPresenterImpl @Inject constructor(private val mResourceManager: AndroidResourceManager,
+                                            private val mPrefs: GlobalPreferences,
+                                            dataSource: DataSource)
+	: AuthPresenter, BasePresenterImpl<AuthView>() {
+	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
+	private val mPlanningDao = dataSource.planningDatabase.planningDao()
 	private val mAuth = FirebaseAuth.getInstance()
 	private var mError : String? = null
 
@@ -34,6 +44,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 					registerEmail(login, password)
 				}
 				if (res != null) {
+					checkFirebase()
 					mView?.loginSuccess()
 				} else {
 					showError(mError)
@@ -54,6 +65,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 			}
 			if (e != null) {
 				Log.d("SIGN IN", "signInWithCredential:success")
+				checkFirebase()
 				mView?.loginSuccess()
 			} else {
 				mView?.setLoadingVisibility(false)
@@ -80,6 +92,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 		mMainScope.launch {
 			val result = handleGithub(activity)
 			if (result != null) {
+				checkFirebase()
 				mView?.loginSuccess()
 			} else {
 				mAuth.signOut()
@@ -92,7 +105,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 	private suspend fun handleGithub(activity: Activity): AuthResult? {
 		val provider = OAuthProvider.newBuilder("github.com")
 		val scopes = arrayListOf("user:email")
-		provider.setScopes(scopes)
+		provider.scopes = scopes
 		val pendingResultTask = mAuth.pendingAuthResult
 		mView?.setLoadingVisibility(true)
 		// There's something already here! Finish the sign-in for your user.
@@ -135,11 +148,41 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 			}
 			if (res != null) {
 				Log.d("FACEBOOK", "signInWithCredential:success")
+				checkFirebase()
 				mView?.loginSuccess()
 			} else {
 				mAuth.signOut()
 				mView?.loginError()
 				showError(mError)
+			}
+		}
+	}
+
+	private fun checkFirebase() {
+		mMainScope.launch {
+			FirebaseMessaging.getInstance().subscribeToTopic(mAuth.currentUser!!.uid)
+			val store = FirebaseFirestore.getInstance()
+			mAuth.currentUser?.let {
+				val purchaseList = withContext(mIOScope.coroutineContext) {
+					store.collection("purchases")
+						.whereEqualTo("uid", it.uid)
+						.get()
+						.await()
+				}
+				Log.d(TAG, "purchases list size ${purchaseList.size()}")
+				for (elem in purchaseList) {
+					Log.d(TAG, elem["purchase"].toString())
+					val hashMap = elem["purchase"] as HashMap<*, *>
+					val purchase = Purchase(
+						hashMap["id"] as Long,
+						hashMap["name"] as String,
+						(hashMap["cost"] as Long).toInt(),
+						hashMap["date"] as Long
+					)
+					mIOScope.launch {
+						mPurchaseDao.insert(purchase)
+					}.join()
+				}
 			}
 		}
 	}
@@ -196,6 +239,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 	}
 
 	companion object {
+		const val TAG = "Auth Presenter"
 		const val STANDARD_ERROR_MSG = "Some error occurred"
 		const val EMPTY_ERROR = "Invalid login or password"
 	}
