@@ -87,7 +87,6 @@ buildscript {
         ]
         paging = [
                 "android.arch.paging:runtime:$paging_version",
-                "com.github.mirmilad:paging-coroutine:$android_test_rules"
         ]
         crashaliticsLibs = [
                 "com.google.firebase:firebase-analytics:$analytics_version",
@@ -110,7 +109,7 @@ buildscript {
         androidTestLibraries = [
                 "androidx.test.ext:junit:$android_junit_version",
                 "androidx.test.espresso:espresso-core:$espresso_version",
-                "androidx.test:rules:1.3.0-beta02",
+                "androidx.test:rules:$android_test_rules",
 
                 "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_android_version"
         ]
