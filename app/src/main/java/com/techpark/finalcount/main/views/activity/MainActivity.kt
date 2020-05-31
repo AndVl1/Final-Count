@@ -21,7 +21,6 @@ import com.techpark.finalcount.data.PinPreferences
 import com.techpark.finalcount.databinding.ActivityMainBinding
 import com.techpark.finalcount.history.views.fragment.HistoryFragment
 import com.techpark.finalcount.main.presenters.MainPresenterImpl
-import com.techpark.finalcount.main.ui.profile.ProfileFragment
 import com.techpark.finalcount.main.views.MainView
 import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 import com.techpark.finalcount.plans.views.fragment.PlansFragment
@@ -36,8 +35,7 @@ class MainActivity : BaseActivity(), MainView {
 	private lateinit var mMainBinding: ActivityMainBinding
 	private val mScreens: Array<Fragment> = arrayOf(
 		HistoryFragment.newInstance(),
-		PlansFragment.newInstance(),
-		ProfileFragment()
+		PlansFragment.newInstance()
 	)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +62,6 @@ class MainActivity : BaseActivity(), MainView {
 							.commit()
 					}
 				}
-				R.id.navigation_profile -> replaceScreen(2)
 			}
 			true
 		}

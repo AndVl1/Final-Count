@@ -40,6 +40,7 @@ object JsonDbExportImportApiKt {
 		val month = calendar.get(Calendar.MONTH)
 		val year = calendar.get(Calendar.YEAR)
 		val second = calendar.get(Calendar.SECOND)
+		Log.d(TAG, root)
 		val file = File(root, "$day-$month-$year-$second.csv")
 		file.createNewFile()
 
