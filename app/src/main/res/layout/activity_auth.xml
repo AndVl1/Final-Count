@@ -5,12 +5,8 @@
 	android:layout_height="match_parent"
 	android:layout_gravity="center"
 	android:gravity="center"
-	android:layout_marginTop="@dimen/activity_vertical_margin"
-	android:layout_marginBottom="@dimen/activity_vertical_margin"
-	android:layout_marginStart="@dimen/activity_horizontal_margin"
-	android:layout_marginEnd="@dimen/activity_horizontal_margin"
+	android:layout_margin="@dimen/activity_margin"
 	android:orientation="vertical">
-
 	<TextView
 		android:id="@+id/appName_textView"
 		android:layout_width="wrap_content"
@@ -20,7 +16,6 @@
 		android:layout_marginStart="25dp"
 		android:layout_marginBottom="10dp"
 		android:layout_above="@id/login_input"/>
-
 	<TextView
 		android:id="@+id/status_view"
 		android:layout_width="match_parent"
@@ -28,7 +23,6 @@
 		android:gravity="center"
 		android:visibility="gone"
 		android:layout_above="@id/appName_textView"/>
-
 	<EditText
 		android:id="@+id/login_input"
 		android:layout_width="match_parent"
@@ -36,13 +30,12 @@
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
 		android:padding="15dp"
-		android:textSize="@dimen/auth_textSize"
+		android:textSize="@dimen/textSize_medium"
 		android:autofillHints=""
 		android:hint="@string/login_hint"
 		android:inputType="textEmailAddress"
 		android:background="@drawable/et_custom"
 		android:layout_above="@id/password_input" />
-
 	<EditText
 		android:id="@+id/password_input"
 		android:layout_width="match_parent"
@@ -51,14 +44,13 @@
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
 		android:padding="15dp"
-		android:textSize="@dimen/auth_textSize"
+		android:textSize="@dimen/textSize_medium"
 		android:layout_centerInParent="true"
 		android:autofillHints=""
 		android:hint="@string/password_hint"
 		android:inputType="textPassword"
 		android:background="@drawable/et_custom"
 		app:layout_constraintBottom_toTopOf="@id/auth_line" />
-
 	<Button
 		android:id="@+id/submit_button"
 		android:layout_below="@id/password_input"
@@ -67,11 +59,10 @@
 		android:layout_marginTop="10dp"
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
-		android:textSize="@dimen/auth_textSize"
+		android:textSize="@dimen/textSize_medium"
 		android:layout_alignParentEnd="true"
 		android:layout_margin="10dp"
 		android:text="@string/register" />
-
 	<RelativeLayout
 		android:id="@+id/auth_line"
 		android:layout_width="match_parent"
@@ -81,7 +72,6 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/password_input"
 		app:layout_constraintTop_toTopOf="parent">
-
 		<Switch
 			android:id="@+id/auth_type_switch"
 			android:layout_width="wrap_content"
@@ -89,7 +79,6 @@
 			android:layout_alignParentStart="true"
 			android:layout_centerVertical="true"
 			android:layout_margin="10dp" />
-
 		<ProgressBar
 			android:id="@+id/progress_bar"
 			android:layout_width="wrap_content"
@@ -97,8 +86,6 @@
 			android:layout_alignParentEnd="true"
 			android:visibility="gone" />
 	</RelativeLayout>
-
-
 	<TextView
 		android:id="@+id/other_methods_text"
 		android:layout_width="match_parent"
@@ -110,14 +97,12 @@
 		android:textSize="23sp"
 		app:layout_constraintTop_toBottomOf="@id/auth_line"
 		android:layout_below="@id/auth_line"/>
-
 	<RelativeLayout
 		android:id="@+id/github_google_btns"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
 		android:layout_below="@id/other_methods_text">
-
 		<ImageButton
 			android:id="@+id/google_log"
 			android:layout_width="wrap_content"
@@ -126,7 +111,6 @@
 			android:contentDescription="@string/login_google"
 			android:onClick="loginWithGoogle"
 			android:src="@drawable/ic_google" />
-
 		<ImageButton
 			android:id="@+id/github_log"
 			android:layout_width="wrap_content"
@@ -136,7 +120,6 @@
 			android:contentDescription="@string/login_github"
 			android:onClick="loginWithGithub"
 			android:src="@drawable/ic_github" />
-
 		<FrameLayout
 			android:id="@+id/facebook_frame"
 			android:layout_width="wrap_content"
@@ -144,7 +127,6 @@
 			android:layout_toEndOf="@id/github_log"
 			android:clickable="true"
 			android:focusable="true">
-
 			<ImageButton
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -152,7 +134,6 @@
 				android:clickable="false"
 				android:contentDescription="@string/login_facebook"
 				android:src="@drawable/ic_facebook" />
-
 			<com.facebook.login.widget.LoginButton
 				android:visibility="gone"
 				android:id="@+id/facebook_login"
@@ -162,7 +143,5 @@
 				style="@style/FacebookLoginButton"
 				android:focusable="true" />
 		</FrameLayout>
-
 	</RelativeLayout>
-
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
 import com.techpark.finalcount.data.room.model.Purchase
@@ -11,7 +12,7 @@ import com.techpark.finalcount.purchase.view.activity.PurchaseActivity
 import kotlinx.android.synthetic.main.history_list_elem.view.*
 
 class HistoryHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-	var element: RelativeLayout = itemView.findViewById(R.id.history_list_element)
+	var element: CardView = itemView.findViewById(R.id.history_list_element)
 	var id: Long = 0
 
 	init {

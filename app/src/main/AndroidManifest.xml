@@ -40,7 +40,9 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".purchase.view.activity.PurchaseActivity" />
+		<activity
+			android:name=".purchase.view.activity.PurchaseActivity"
+			android:label="@string/purchase" />
 		<activity
 			android:name=".main.views.activity.MainActivity"
 			android:label="@string/title_activity_main">

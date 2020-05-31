@@ -68,7 +68,7 @@
 	<string name="use_biometric_login">To login</string>
 	<string name="use_biometric_add">To confirm your biometric</string>
 
-	<string name="save_csv">Save all to csv</string>
+	<string name="save_csv">Save as csv</string>
 
 	<string name="adding_empty">Should not be empty</string>
 	<string name="adding_new_purchase">Add new purchase</string>
@@ -85,6 +85,8 @@
 	<string name="plans_beginDate">Begin date:</string>
 	<string name="plans_endDate">Ending date:</string>
 	<string name="plans_dateError">You should enter date range</string>
+	
+	<string name="purchase">Purchase</string>
 
 	<string name="test_string" translatable="false">ABC abc</string>
 	<string name="test_number" translatable="false">1234</string>

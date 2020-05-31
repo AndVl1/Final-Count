@@ -1,7 +1,7 @@
 package com.techpark.finalcount.plans.views
 
 import android.view.View
-import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
 import com.techpark.finalcount.data.room.model.Planning
@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.planning_list_elem.view.*
 import java.util.*
 
 class PlansHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-	var element: RelativeLayout = itemView.findViewById(R.id.planning_list_element)
+	var element: CardView = itemView.findViewById(R.id.planning_list_element)
 	var id: Long = 0
 
 	fun bind(planning: Planning) {

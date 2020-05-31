@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/save_csv"
-		android:title="@string/save_csv" />
-
+		android:icon="@drawable/ic_baseline_save_24"
+		android:orderInCategory="0"
+		android:title="@string/save_csv"
+		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/add_pin"
-		android:title="@string/add_pin"/>
-
+		android:title="@string/add_pin"
+		android:orderInCategory="1"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/cancel_pin"
-		android:title="@string/cancel_pin" />
-
+		android:orderInCategory="2"
+		android:title="@string/cancel_pin"
+		app:showAsAction="never" />
 	<item
 		android:id="@+id/clear_recycler"
-		android:title="@string/clear"/>
-
+		android:icon="@drawable/ic_baseline_restore_from_trash_24"
+		android:orderInCategory="3"
+		android:title="@string/clear"
+		app:showAsAction="ifRoom" />
 	<item
 		android:id="@+id/logout"
-		android:title="@string/logout"/>
+		android:icon="@drawable/ic_baseline_exit_to_app_24"
+		android:orderInCategory="4"
+		android:title="@string/logout"
+		app:showAsAction="ifRoom" />
 </menu>
