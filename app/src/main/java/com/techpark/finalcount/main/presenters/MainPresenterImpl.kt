@@ -2,6 +2,7 @@ package com.techpark.finalcount.main.presenters
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.DataSource
@@ -10,6 +11,7 @@ import com.techpark.finalcount.data.room.GlobalPreferences
 import com.techpark.finalcount.data.room.model.Planning
 import com.techpark.finalcount.main.views.MainView
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -54,6 +56,14 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource, 
 				mPlanningDao.update(Planning
 					(elem.id, elem.begin, elem.end, elem.planned, 0)
 				)
+			}
+			val list = FirebaseFirestore.getInstance()
+				.collection("purchases")
+				.whereEqualTo("uid", FirebaseAuth.getInstance().currentUser!!.uid)
+				.get()
+				.await()
+			for (elem in list) {
+				elem.reference.delete()
 			}
 		}
 	}
