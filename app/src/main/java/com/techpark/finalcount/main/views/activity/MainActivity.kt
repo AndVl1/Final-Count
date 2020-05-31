@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.plan.views.fragment.AddingPlanningFragment
@@ -25,6 +27,7 @@ import com.techpark.finalcount.main.views.MainView
 import com.techpark.finalcount.pincode.views.activity.PincodeActivity
 import com.techpark.finalcount.plans.views.fragment.PlansFragment
 import dagger.android.AndroidInjection
+import java.io.File
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainView {
@@ -155,6 +158,19 @@ class MainActivity : BaseActivity(), MainView {
 	override fun toAuthActivity() {
 		startActivity(Intent(applicationContext, AuthActivity::class.java))
 		finish()
+	}
+
+	override fun startShareIntent(file: File) {
+		MediaStore.getMediaScannerUri().authority
+		val uri = FileProvider.getUriForFile(applicationContext, "${applicationContext.packageName}.fileprovider", file)
+		val shareIntent = Intent().apply {
+			action = Intent.ACTION_SEND
+			type = "text/csv"
+			putExtra(Intent.EXTRA_SUBJECT, "purchases")
+			addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+			putExtra(Intent.EXTRA_STREAM, uri)
+		}
+		startActivity(Intent.createChooser(shareIntent, getString(R.string.save_csv)))
 	}
 
 	companion object {

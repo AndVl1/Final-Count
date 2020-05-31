@@ -13,6 +13,7 @@ import com.techpark.finalcount.main.views.MainView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 class MainPresenterImpl @Inject constructor(private val dataSource: DataSource, private val mPrefs: GlobalPreferences)
@@ -21,14 +22,16 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource, 
 	private val mPlanningDao = dataSource.planningDatabase.planningDao()
 	override fun saveAll(root: String) {
 		mMainScope.launch {
-			val path: String
+			var file: File?
 			val jsonArray = JsonDbExportImportApiKt.exportPurchaseDbToJsonArray(dataSource.purchaseDatabase.purchaseDao())
 			if (jsonArray != null) {
-				path = withContext(mIOScope.coroutineContext) {
+				file = withContext(mIOScope.coroutineContext) {
 					JsonDbExportImportApiKt.saveCsv(root, jsonArray)
 				}
 				Log.d(TAG, jsonArray.toString())
-				mView?.showMsg("saved at $path")
+				if (file.exists()) {
+					mView?.startShareIntent(file)
+				}
 			} else {
 				mView?.showMsg("error occurred while saving")
 			}

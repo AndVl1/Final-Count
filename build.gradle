@@ -41,7 +41,6 @@ buildscript {
                 "androidx.annotation:annotation:$annotation_version",
                 "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
                 "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
-
         ]
         authLibs = [
                 "com.google.firebase:firebase-auth:$firebase_version",

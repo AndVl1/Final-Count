@@ -34,7 +34,7 @@ object JsonDbExportImportApiKt {
 		return resultSet
 	}
 
-	fun saveCsv(root: String, jsonArray: JSONArray): String {
+	fun saveCsv(root: String, jsonArray: JSONArray): File {
 		val calendar = Calendar.getInstance()
 		val day = calendar.get(Calendar.DAY_OF_WEEK)
 		val month = calendar.get(Calendar.MONTH)
@@ -56,7 +56,7 @@ object JsonDbExportImportApiKt {
 		}
 		fileWriter.flush()
 		fileWriter.close()
-		return file.absolutePath
+		return file
 	}
 
 
