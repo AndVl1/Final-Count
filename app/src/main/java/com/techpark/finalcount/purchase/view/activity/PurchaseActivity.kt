@@ -1,22 +1,20 @@
 package com.techpark.finalcount.purchase.view.activity
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.databinding.ActivityPurchaseBinding
-import com.techpark.finalcount.main.views.activity.MainActivity
 import com.techpark.finalcount.purchase.presenter.PurchasePresenterImpl
 import com.techpark.finalcount.purchase.view.PurchaseView
 import dagger.android.AndroidInjection
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -24,6 +22,7 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 	private lateinit var mPurchaseBinding: ActivityPurchaseBinding
 	private lateinit var currencies: Array<String>
 	private lateinit var currency: String
+	val format = SimpleDateFormat("dd.mm.YYYY HH:mm", Locale.getDefault())
 	
 	@Inject
 	lateinit var mPurchasePresenter: PurchasePresenterImpl
@@ -85,7 +84,7 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 	override fun setParams(purchase: Purchase) {
 		mPurchaseBinding.name.text = purchase.name
 		mPurchaseBinding.price.text = purchase.cost.toString()
-		mPurchaseBinding.date.text = Date(purchase.date).toString()
+		mPurchaseBinding.date.text = format.format(purchase.date)
 	}
 	
 	override fun onOptionsItemSelected(item: MenuItem): Boolean =
