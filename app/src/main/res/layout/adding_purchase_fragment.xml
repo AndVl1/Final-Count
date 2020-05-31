@@ -1,99 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/adding_container"
-	android:orientation="vertical"
+	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
+	android:orientation="vertical">
 	<FrameLayout
-		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="6dp"
-		android:layout_marginBottom="16dp"
-		android:paddingStart="14dp"
-		android:paddingEnd="14dp">
-
+		android:layout_marginBottom="@dimen/activity_margin"
+		android:layout_marginTop="@dimen/frame_top"
+		android:layout_width="match_parent"
+		android:paddingEnd="@dimen/frame_top"
+		android:paddingStart="@dimen/frame_top">
 		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/adding_new_purchase"
 			android:gravity="center"
-			android:textSize="32sp"/>
-
-	</FrameLayout>
-
-	<View style="@style/Divider.Horizontal" />
-
-	<androidx.core.widget.NestedScrollView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:paddingStart="16dp"
-		android:paddingEnd="16dp">
-
-		<LinearLayout
+			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
+			android:text="@string/adding_new_purchase"
+			android:textSize="@dimen/textSize_xlarge" />
+	</FrameLayout>
+	<View
+		style="@style/Divider.Horizontal" />
+	<androidx.core.widget.NestedScrollView
+		android:paddingEnd="@dimen/activity_margin"
+		android:paddingStart="@dimen/activity_margin"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+		<LinearLayout
+			android:baselineAligned="false"
 			android:layout_height="match_parent"
-			android:orientation="vertical"
-			android:baselineAligned="false">
-
+			android:layout_width="match_parent"
+			android:orientation="vertical">
 			<TextView
 				android:id="@+id/status_view"
+				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:visibility="gone"/>
-
+				android:visibility="gone" />
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/name_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
 				android:hint="@string/purchase_name"
-				app:errorEnabled="true"
-				android:theme="@style/Widget.Design.TextInputLayout">
-
+				android:id="@+id/name_layout"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:theme="@style/Widget.Design.TextInputLayout"
+				app:errorEnabled="true">
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/name_textInput"
-					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:maxLines="1"/>
+					android:layout_width="match_parent"
+					android:maxLines="1" />
 			</com.google.android.material.textfield.TextInputLayout>
-
 			<com.google.android.material.textfield.TextInputLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/price_layout"
 				android:hint="@string/purchase_price"
-				app:errorEnabled="true"
-				android:theme="@style/Widget.Design.TextInputLayout">
-
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:id="@+id/price_layout"
+				android:theme="@style/Widget.Design.TextInputLayout"
+				app:errorEnabled="true">
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/price_textInput"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
 					android:inputType="number"
-					android:maxLines="1"/>
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:maxLines="1" />
 			</com.google.android.material.textfield.TextInputLayout>
-
 			<LinearLayout
-				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
 				android:orientation="horizontal">
-
 				<View
-					android:layout_width="0dp"
 					android:layout_height="0dp"
-					android:layout_weight="1"/>
-
+					android:layout_weight="1"
+					android:layout_width="0dp"/>
 				<Button
 					android:id="@+id/submit_adding_button"
-					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
 					android:text="@string/submit" />
-
 			</LinearLayout>
-
 		</LinearLayout>
-
 	</androidx.core.widget.NestedScrollView>
-
 </LinearLayout>

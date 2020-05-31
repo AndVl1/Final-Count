@@ -6,6 +6,7 @@ import com.techpark.finalcount.data.DataSource
 import com.techpark.finalcount.data.room.model.Planning
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -15,13 +16,14 @@ class AddingPlanningPresenterImpl @Inject constructor(dataSource: DataSource): B
 	private var mEndingDate : Long = -1
 	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
 	private val mPlanningDao = dataSource.planningDatabase.planningDao()
+	val format = SimpleDateFormat("dd.mm.YYYY", Locale.getDefault())
 
 	override fun addPlannedDates(start: Long, end: Long) {
 		mBeginningDate = start
 		mEndingDate = end
 		val dateStart = Date(start)
 		val dateEnd = Date(end)
-		mView?.showDates(dateStart.toString(), dateEnd.toString())
+		mView?.showDates(format.format(dateStart), format.format(dateEnd))
 	}
 
 	override fun submit(amount: Int) {

@@ -37,7 +37,7 @@
 	<string name="cancel_pin">Удалить пин-код</string>
 
 	<string name="yes">Да</string>
-	<string name="no">No</string>
+	<string name="no">Нет</string>
 
 	<string name="cancel">Отмена</string>
 
@@ -45,7 +45,7 @@
 	<string name="use_biometric_login">Для авторищации</string>
 	<string name="use_biometric_add">Чтобы подтвердите, что вы владелец</string>
 
-	<string name="save_csv">Сохранить всё в формате CSV</string>
+	<string name="save_csv">Сохранить в CSV</string>
 
 	<string name="adding_empty">Не должно быть пустым</string>
 	<string name="adding_new_purchase">Добавление новой покупки</string>
@@ -54,9 +54,11 @@
 	<string name="submit">Подтвердить</string>
 	<string name="clear">Очистить</string>
 	<string name="adding_new_plan">Добавление нового плана</string>
+	
+	<string name="purchase">Покупка</string>
 
-	<string name="plans_date_range">Выбер</string>
-	<string name="plans_amount">Amount:</string>
+	<string name="plans_date_range">Выбор</string>
+	<string name="plans_amount">Сумма:</string>
 	<string name="plans_submit">@string/submit</string>
 	<string name="plans_beginDate">Дата начала:</string>
 	<string name="plans_endDate">Дата конца:</string>

@@ -1,123 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/adding_container"
-	android:orientation="vertical"
+	android:layout_height="match_parent"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
+	android:orientation="vertical">
 	<FrameLayout
-		android:layout_width="match_parent"
+		android:layout_marginBottom="@dimen/activity_margin"
+		android:layout_marginTop="@dimen/frame_top"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="6dp"
-		android:layout_marginBottom="16dp"
-		android:paddingStart="14dp"
-		android:paddingEnd="14dp">
-
+		android:layout_width="match_parent"
+		android:paddingEnd="@dimen/activity_margin"
+		android:paddingStart="@dimen/activity_margin">
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:text="@string/adding_new_plan"
 			android:gravity="center"
-			android:textSize="32sp"/>
-
+			android:textSize="@dimen/textSize_xlarge" />
 	</FrameLayout>
-
-	<View style="@style/Divider.Horizontal" />
-
+	<View
+		style="@style/Divider.Horizontal" />
 	<androidx.core.widget.NestedScrollView
-		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingStart="16dp"
-		android:paddingEnd="16dp">
-
+		android:layout_width="match_parent"
+		android:paddingEnd="@dimen/activity_margin"
+		android:paddingStart="@dimen/activity_margin">
 		<LinearLayout
+			android:baselineAligned="false"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:orientation="vertical"
-			android:baselineAligned="false">
-
-
+			android:orientation="vertical">
 			<TextView
 				android:id="@+id/plans_TextView_month"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="@string/plans_date_range" />
-
 			<Button
 				android:id="@+id/select_range"
-				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
 				android:text="@string/plans_date_range"
-				android:textColor="@color/colorOnSecondary"/>
-
+				android:textColor="@color/colorOnSecondary"
+				android:textStyle="bold" />
 			<LinearLayout
 				android:id="@+id/chosen_range_begin"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="horizontal"
 				android:visibility="gone">
 				<TextView
-					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:layout_width="wrap_content"
 					android:text="@string/plans_beginDate"
-					android:textSize="20sp"
-					android:layout_weight="1"/>
-
+					android:textSize="@dimen/textSize_large" />
 				<TextView
 					android:id="@+id/plans_starting"
-					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textSize="20sp"
-					android:layout_weight="1.5"/>
+					android:layout_weight="3"
+					android:layout_width="match_parent"
+					android:textSize="@dimen/textSize_large" />
 			</LinearLayout>
-
 			<LinearLayout
 				android:id="@+id/chosen_range_end"
-				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
 				android:orientation="horizontal"
 				android:visibility="gone">
 				<TextView
-					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_weight="2"
+					android:layout_width="match_parent"
 					android:text="@string/plans_endDate"
-					android:textSize="20sp"
-					android:layout_weight="1"/>
-
+					android:textSize="@dimen/textSize_large" />
 				<TextView
 					android:id="@+id/plans_ending"
-					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textSize="20sp"
-					android:layout_weight="1.5"/>
+					android:layout_weight="3"
+					android:layout_width="match_parent"
+					android:textSize="@dimen/textSize_large" />
 			</LinearLayout>
-
 			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/plans_textInputLayout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
 				android:hint="@string/plans_amount"
-				app:errorEnabled="true"
-				android:theme="@style/Widget.Design.TextInputLayout">
-
+				android:id="@+id/plans_textInputLayout"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:theme="@style/Widget.Design.TextInputLayout"
+				app:errorEnabled="true">
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/plans_textInputEditText"
-					android:layout_width="match_parent"
+					android:inputType="number"
 					android:layout_height="wrap_content"
-					android:inputType="number"/>
-
+					android:layout_width="match_parent" />
 			</com.google.android.material.textfield.TextInputLayout>
-
 			<Button
 				android:id="@+id/submit_plan"
-				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
 				android:text="@string/plans_submit"
 				android:textColor="@color/colorOnSecondary" />
-
 		</LinearLayout>
-
 	</androidx.core.widget.NestedScrollView>
-
 </LinearLayout>
