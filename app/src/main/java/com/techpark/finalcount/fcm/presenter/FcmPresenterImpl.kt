@@ -1,6 +1,5 @@
 package com.techpark.finalcount.fcm.presenter
 
-import android.app.Service
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -9,6 +8,7 @@ import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.data.DataSource
 import com.techpark.finalcount.data.room.GlobalPreferences
 import com.techpark.finalcount.data.room.model.Purchase
+import com.techpark.finalcount.fcm.MessagingService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class FcmPresenterImpl @Inject constructor(private val mPreferences: GlobalPrefe
 	private val mAuth = FirebaseAuth.getInstance()
 	private val mStorage = FirebaseFirestore.getInstance()
 	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
-	private var mService: Service? = null
+	private var mService: MessagingService? = null
 
 	override fun saveRegistrationToken(token: String) {
 		mPreferences.putToken(token)
@@ -38,7 +38,7 @@ class FcmPresenterImpl @Inject constructor(private val mPreferences: GlobalPrefe
 		}
 	}
 
-	override fun attachService(service: Service) {
+	override fun attachService(service: MessagingService) {
 		mService = service
 	}
 
@@ -48,6 +48,7 @@ class FcmPresenterImpl @Inject constructor(private val mPreferences: GlobalPrefe
 
 	private fun handleNewPurchase(date: String) {
 		mMainScope.launch {
+			mService?.showDeletableNotification("Purchase")
 			val dateLong = date.toLong()
 			val purchases = withContext(mIOScope.coroutineContext) {
 				mPurchaseDao.getByDate(dateLong)
