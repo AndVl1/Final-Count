@@ -13,24 +13,39 @@
 			android:id="@+id/start_date"
 			android:layout_height="wrap_content"
 			android:layout_weight="0"
+			android:text="abcbc"
 			android:layout_width="wrap_content"
 			android:textSize="@dimen/textSize_large" />
 		<TextView
 			android:id="@+id/end_date"
 			android:layout_height="wrap_content"
 			android:layout_weight="0"
+			android:text="abcbc"
 			android:layout_width="wrap_content"
 			android:textSize="@dimen/textSize_large" />
 		<View
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:layout_width="match_parent" />
-		<TextView
-			android:id="@+id/left_for_plan"
-			android:layout_height="wrap_content"
-			android:layout_weight="0"
+		<LinearLayout
 			android:layout_width="wrap_content"
-			android:textSize="@dimen/textSize_medium" />
+			android:layout_height="wrap_content"
+			android:weightSum="2"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/left_for_plan"
+				android:layout_height="wrap_content"
+				android:layout_weight="0"
+				android:layout_width="wrap_content"
+				android:textSize="@dimen/textSize_medium" />
+
+			<TextView
+				android:id="@+id/total_spent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
+				android:textSize="@dimen/textSize_medium" />
+		</LinearLayout>
 	</LinearLayout>
 </androidx.cardview.widget.CardView>
 	
