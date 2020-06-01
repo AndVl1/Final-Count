@@ -6,5 +6,5 @@ import com.techpark.finalcount.purchase.view.PurchaseView
 interface PurchasePresenter: BasePresenter<PurchaseView> {
     fun getPurchase(date: Long)
     fun delete()
-    fun update(name: String, price: Int, currency: String)
+    fun update(nameTview: String?, priceStr: String?)
 }

@@ -12,23 +12,23 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PlansHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-	var element: CardView = itemView.findViewById(R.id.planning_list_element)
-	var date: Long = 0
-	private val format = SimpleDateFormat("dd.mm.YYYY", Locale.getDefault())
+	private var mElement: CardView = itemView.findViewById(R.id.planning_list_element)
+	private var mDate: Long = 0
+	private val mFormat = SimpleDateFormat("dd.mm.YYYY", Locale.getDefault())
 
 	@SuppressLint("SetTextI18n")
 	fun bind(planning: Planning) {
-		date = planning.id
-		element.start_date.text = format.format(planning.begin)
-		element.end_date.text = " - " + format.format(planning.end)
+		mDate = planning.id
+		mElement.start_date.text = mFormat.format(planning.begin)
+		mElement.end_date.text = " - " + mFormat.format(planning.end)
 		val left = planning.planned - planning.spent
-		element.left_for_plan.text = left.toString()
-		element.total_spent.text = planning.spent.toString()
+		mElement.left_for_plan.text = left.toString()
+		mElement.total_spent.text = planning.spent.toString()
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			if (left > 0) {
-				element.left_for_plan.setTextColor(itemView.context.getColor(R.color.green))
+				mElement.left_for_plan.setTextColor(itemView.context.getColor(R.color.green))
 			} else {
-				element.left_for_plan.setTextColor(itemView.context.getColor(R.color.red))
+				mElement.left_for_plan.setTextColor(itemView.context.getColor(R.color.red))
 			}
 		}
 	}

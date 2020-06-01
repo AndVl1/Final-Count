@@ -74,13 +74,5 @@
             app:layout_constraintTop_toBottomOf="@id/newPrice"
             app:layout_constraintEnd_toEndOf="@id/newPrice"
             android:text="@string/submit" />
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="329dp"
-            app:layout_constraintTop_toBottomOf="@id/newPrice"
-            app:layout_constraintStart_toStartOf="@id/newPrice" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,12 +47,19 @@ class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): Purchas
 		}
 	}
 
-	override fun update(name: String, price: Int, currency: String) {
+	override fun update(nameTview: String?, priceStr: String?) {
+		val price = if (priceStr.isNullOrEmpty()) mPurchase.cost else priceStr.toInt()
+		val name = if (nameTview.isNullOrEmpty()) mPurchase.name else nameTview
 		mPurchase = Purchase(
-			if (name.isNotEmpty()) name else mPurchase.name,
-			if (price != -1) price else mPurchase.cost,
+			name,
+			price,
 			mPurchase.date
 		)
+		mView?.setParams(Purchase(
+			name,
+			price,
+			mPurchase.date
+		))
 		mIOScope.launch {
 			mPurchaseDao.update(mPurchase)
 		}

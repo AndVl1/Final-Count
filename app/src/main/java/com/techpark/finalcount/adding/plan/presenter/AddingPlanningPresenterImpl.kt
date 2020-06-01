@@ -16,14 +16,14 @@ class AddingPlanningPresenterImpl @Inject constructor(dataSource: DataSource): B
 	private var mEndingDate : Long = -1
 	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
 	private val mPlanningDao = dataSource.planningDatabase.planningDao()
-	val format = SimpleDateFormat("dd.mm.YYYY", Locale.getDefault())
+	private val mFormat = SimpleDateFormat("dd.mm.YYYY", Locale.getDefault())
 
 	override fun addPlannedDates(start: Long, end: Long) {
 		mBeginningDate = start
 		mEndingDate = end
 		val dateStart = Date(start)
 		val dateEnd = Date(end)
-		mView?.showDates(format.format(dateStart), format.format(dateEnd))
+		mView?.showDates(mFormat.format(dateStart), mFormat.format(dateEnd))
 	}
 
 	override fun submit(amount: Int) {

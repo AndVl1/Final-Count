@@ -15,6 +15,7 @@ import com.github.heyalex.bottomdrawer.BottomDrawerFragment
 import com.github.heyalex.handle.PlainHandleView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.techpark.finalcount.R
 import com.techpark.finalcount.adding.plan.presenter.AddingPlanningPresenterImpl
 import com.techpark.finalcount.adding.plan.views.AddingPlanningView
@@ -69,11 +70,20 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 				}
 			}
 		}
+		val amount = mRoot.findViewById<TextInputEditText>(R.id.plans_textInputEditText)
+		val amountBox = mRoot.findViewById<TextInputLayout>(R.id.plans_textInputLayout)
 		mSubmitButton.setOnClickListener {
-			val amount = mRoot.findViewById<TextInputEditText>(R.id.plans_textInputEditText)
-			mPlanningPresenter.submit(amount.text.toString().toInt())
+			if (amount.text.isNullOrEmpty())
+				amountBox.error = getString(R.string.adding_empty)
+			 else
+				mPlanningPresenter.submit(amount.text.toString().toInt())
 		}
 
+		amount.setOnFocusChangeListener { _, hasFocus ->
+			if (hasFocus) {
+				amountBox.error = ""
+			}
+		}
 
 		return mRoot
 	}

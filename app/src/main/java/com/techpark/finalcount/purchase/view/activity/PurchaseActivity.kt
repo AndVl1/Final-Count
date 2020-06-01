@@ -3,10 +3,6 @@ package com.techpark.finalcount.purchase.view.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import com.techpark.finalcount.R
 import com.techpark.finalcount.base.BaseActivity
 import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.databinding.ActivityPurchaseBinding
@@ -19,9 +15,7 @@ import javax.inject.Inject
 
 class PurchaseActivity: BaseActivity(), PurchaseView {
 	private lateinit var mPurchaseBinding: ActivityPurchaseBinding
-	private lateinit var currencies: Array<String>
-	private lateinit var currency: String
-	val format = SimpleDateFormat("dd.mm.YYYY HH:mm", Locale.getDefault())
+	private val mFormat = SimpleDateFormat("dd.mm.YYYY HH:mm", Locale.getDefault())
 	
 	@Inject
 	lateinit var mPurchasePresenter: PurchasePresenterImpl
@@ -36,8 +30,7 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 		val intent = intent
 		val date = intent.getLongExtra("date", 0)
 		mPurchasePresenter.getPurchase(date)
-		
-		currencies = resources.getStringArray(R.array.currencies)
+
 		
 		mPurchaseBinding.delete.setOnClickListener {
 			mPurchasePresenter.delete()
@@ -51,39 +44,20 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 		mPurchaseBinding.updateBtn.setOnClickListener {
 			mPurchasePresenter.update(
 				mPurchaseBinding.newName.text.toString(),
-				mPurchaseBinding.newPrice.text.toString().toInt(), currency
+				mPurchaseBinding.newPrice.text.toString()
 			)
 			mPurchasePresenter.getPurchase(date)
 			mPurchaseBinding.redactLayout.visibility = View.GONE
 			mPurchaseBinding.newName.text.clear()
 			mPurchaseBinding.newPrice.text.clear()
 		}
-		
-		
-		val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, currencies)
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-		mPurchaseBinding.spinner.adapter = adapter
-		mPurchaseBinding.spinner.prompt = getString(R.string.choose_currency)
-		mPurchaseBinding.spinner.setSelection(1)
-		mPurchaseBinding.spinner.onItemSelectedListener = object :
-			AdapterView.OnItemSelectedListener {
-			override fun onItemSelected(
-				parent: AdapterView<*>?, view: View,
-				position: Int, id: Long
-			) { // показываем позиция нажатого элемента
-				Toast.makeText(baseContext, "Position = $position", Toast.LENGTH_SHORT)
-					.show()
-				currency = currencies[position]
-			}
-			
-			override fun onNothingSelected(arg0: AdapterView<*>?) {}
-		}
 	}
 	
 	override fun setParams(purchase: Purchase) {
 		mPurchaseBinding.name.text = purchase.name
 		mPurchaseBinding.price.text = purchase.cost.toString()
-		mPurchaseBinding.date.text = format.format(purchase.date)
+		mPurchaseBinding.date.text = mFormat.format(purchase.date)
+		mPurchaseBinding.redactLayout.visibility = View.GONE
 	}
 	
 	override fun onOptionsItemSelected(item: MenuItem): Boolean =
