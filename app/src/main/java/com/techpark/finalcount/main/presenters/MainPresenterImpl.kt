@@ -7,7 +7,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.DataSource
 import com.techpark.finalcount.data.dbexpimp.JsonDbExportImportApiKt
-import com.techpark.finalcount.data.room.GlobalPreferences
+import com.techpark.finalcount.data.GlobalPreferences
 import com.techpark.finalcount.data.room.model.Planning
 import com.techpark.finalcount.main.views.MainView
 import kotlinx.coroutines.launch

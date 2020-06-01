@@ -14,7 +14,7 @@ import com.techpark.finalcount.auth.views.AuthView
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.AndroidResourceManager
 import com.techpark.finalcount.data.DataSource
-import com.techpark.finalcount.data.room.GlobalPreferences
+import com.techpark.finalcount.data.GlobalPreferences
 import com.techpark.finalcount.data.room.model.Purchase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await

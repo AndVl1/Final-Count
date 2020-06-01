@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.RemoteMessage
 import com.techpark.finalcount.auth.presenters.AuthPresenterImpl
 import com.techpark.finalcount.data.DataSource
-import com.techpark.finalcount.data.room.GlobalPreferences
+import com.techpark.finalcount.data.GlobalPreferences
 import com.techpark.finalcount.data.room.model.Purchase
 import com.techpark.finalcount.fcm.MessagingService
 import kotlinx.coroutines.CoroutineScope

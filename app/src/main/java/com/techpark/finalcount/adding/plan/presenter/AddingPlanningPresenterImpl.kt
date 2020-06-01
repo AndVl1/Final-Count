@@ -37,8 +37,12 @@ class AddingPlanningPresenterImpl @Inject constructor(dataSource: DataSource): B
 			}
 			mIOScope.launch {
 				mPlanningDao.insert(Planning(0, mBeginningDate, mEndingDate, amount, sum))
-			}
+			}.join()
 			mView?.planSuccess()
 		}
+	}
+
+	companion object {
+		const val TAG = "ADDING PLAN PRESENTER"
 	}
 }

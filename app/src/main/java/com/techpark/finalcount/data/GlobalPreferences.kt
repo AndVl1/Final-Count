@@ -1,4 +1,4 @@
-package com.techpark.finalcount.data.room
+package com.techpark.finalcount.data
 
 import android.content.Context
 import android.content.SharedPreferences
