@@ -104,6 +104,7 @@ class MainActivity : BaseActivity(), MainView {
 				true
 			}
 			R.id.logout -> {
+				PinPreferences(this).removePin()
 				mMainPresenter.logOut()
 				true
 			}
