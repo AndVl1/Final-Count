@@ -109,7 +109,6 @@ class PincodeActivity : BaseActivity(), PincodeView {
 	}
 
 	override fun pinSuccess(login: Boolean) {
-		Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
 		if (login) {
 			startActivity(Intent(applicationContext, MainActivity::class.java))
 			finish()
@@ -131,25 +130,11 @@ class PincodeActivity : BaseActivity(), PincodeView {
 
 		biometricPrompt = BiometricPrompt(this, executor,
 			object : BiometricPrompt.AuthenticationCallback() {
-				override fun onAuthenticationError(
-					errorCode: Int,
-					errString: CharSequence
-				) {
-					super.onAuthenticationError(errorCode, errString)
-					Toast.makeText(
-						applicationContext,
-						"Authentication error: $errString", Toast.LENGTH_SHORT
-					).show()
-				}
 
 				override fun onAuthenticationSucceeded(
 					result: BiometricPrompt.AuthenticationResult
 				) {
 					super.onAuthenticationSucceeded(result)
-					Toast.makeText(
-						applicationContext,
-						"Authentication succeeded!", Toast.LENGTH_SHORT
-					).show()
 					if (login) {
 						mPincodePresenter.handleScanner(true)
 						Log.d(TAG, "biometric login")
