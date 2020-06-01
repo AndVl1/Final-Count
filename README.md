@@ -26,7 +26,7 @@ Android-приложение для учёта расходов:
 
 #### Скриншоты
 
-[![Авторизация](screenshots/auth.png?raw=true "Авторизация")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/auth.png "Скриншоты")
+[![Авторизация](screenshots/auth.png | width=100"Авторизация")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/auth.png "Скриншоты")
 [![Список покупок](screenshots/purchaseslist.png?raw=true "Список покупок")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/purchaseslist.png "Список покупок")
 [![Добавление новой покупки](screenshots/new_purchase.png?raw=true "Добавление новой покупки")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/new_purchase.png "Добавление новой покупки")
 [![Добавление нового плана](screenshots/new_plan.png?raw=true "Добавление нового плана")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/new_purchase.png "Добавление нового плана")
