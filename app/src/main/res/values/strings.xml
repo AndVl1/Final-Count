@@ -87,4 +87,6 @@
 	<string name="plans_dateError">You should enter date range</string>
 	
 	<string name="purchase">Purchase</string>
+
+	<string name="update_channel">Purchase update</string>
 </resources>

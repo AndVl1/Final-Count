@@ -45,7 +45,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 				}
 				if (res != null) {
 					checkFirebase()
-					mView?.loginSuccess()
+
 				} else {
 					showError(mError)
 					mView?.loginError()
@@ -66,7 +66,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 			if (e != null) {
 				Log.d("SIGN IN", "signInWithCredential:success")
 				checkFirebase()
-				mView?.loginSuccess()
+
 			} else {
 				mView?.setLoadingVisibility(false)
 				mView?.loginError()
@@ -93,7 +93,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 			val result = handleGithub(activity)
 			if (result != null) {
 				checkFirebase()
-				mView?.loginSuccess()
+
 			} else {
 				mAuth.signOut()
 				mView?.loginError()
@@ -149,7 +149,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 			if (res != null) {
 				Log.d("FACEBOOK", "signInWithCredential:success")
 				checkFirebase()
-				mView?.loginSuccess()
+
 			} else {
 				mAuth.signOut()
 				mView?.loginError()
@@ -162,28 +162,29 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 		mMainScope.launch {
 			FirebaseMessaging.getInstance().subscribeToTopic(mAuth.currentUser!!.uid)
 			val store = FirebaseFirestore.getInstance()
+			Log.d(TAG, "checkFirebase")
 			mAuth.currentUser?.let {
-				val purchaseList = withContext(mIOScope.coroutineContext) {
-					store.collection("purchases")
+				mIOScope.launch {
+					val purchaseList = store.collection("purchases")
 						.whereEqualTo("uid", it.uid)
 						.get()
 						.await()
-				}
-				Log.d(TAG, "purchases list size ${purchaseList.size()}")
-				for (elem in purchaseList) {
-					Log.d(TAG, elem["purchase"].toString())
-					val hashMap = elem["purchase"] as HashMap<*, *>
-					val purchase = Purchase(
-						hashMap["id"] as Long,
-						hashMap["name"] as String,
-						(hashMap["cost"] as Long).toInt(),
-						hashMap["date"] as Long
-					)
-					mIOScope.launch {
-						mPurchaseDao.insert(purchase)
-					}.join()
-				}
+					Log.d(TAG, "purchases list size ${purchaseList.size()}")
+					for (elem in purchaseList) {
+						Log.d(TAG, elem["purchase"].toString())
+						val hashMap = elem["purchase"] as HashMap<*, *>
+						val purchase = Purchase(
+							hashMap["name"] as String,
+							(hashMap["cost"] as Long).toInt(),
+							hashMap["date"] as Long
+						)
+						mIOScope.launch {
+							mPurchaseDao.insert(purchase)
+						}.join()
+					}
+				}.join()
 			}
+			mView?.loginSuccess()
 		}
 	}
 
@@ -239,7 +240,7 @@ class AuthPresenterImpl @Inject constructor(private val mResourceManager: Androi
 	}
 
 	companion object {
-		const val TAG = "Auth Presenter"
+		const val TAG = "AUTH PRESENTER"
 		const val STANDARD_ERROR_MSG = "Some error occurred"
 		const val EMPTY_ERROR = "Invalid login or password"
 	}

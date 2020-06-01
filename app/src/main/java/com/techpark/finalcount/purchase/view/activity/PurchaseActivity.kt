@@ -1,6 +1,5 @@
 package com.techpark.finalcount.purchase.view.activity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -35,8 +34,8 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 		setContentView(mPurchaseBinding.root)
 		mPurchasePresenter.attachView(this)
 		val intent = intent
-		val id = intent.getLongExtra("id", 0)
-		mPurchasePresenter.getPurchase(id)
+		val date = intent.getLongExtra("date", 0)
+		mPurchasePresenter.getPurchase(date)
 		
 		currencies = resources.getStringArray(R.array.currencies)
 		
@@ -54,7 +53,7 @@ class PurchaseActivity: BaseActivity(), PurchaseView {
 				mPurchaseBinding.newName.text.toString(),
 				mPurchaseBinding.newPrice.text.toString().toInt(), currency
 			)
-			mPurchasePresenter.getPurchase(id)
+			mPurchasePresenter.getPurchase(date)
 			mPurchaseBinding.redactLayout.visibility = View.GONE
 			mPurchaseBinding.newName.text.clear()
 			mPurchaseBinding.newPrice.text.clear()

@@ -3,7 +3,6 @@ package com.techpark.finalcount.history.views
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.techpark.finalcount.R
@@ -13,19 +12,19 @@ import kotlinx.android.synthetic.main.history_list_elem.view.*
 
 class HistoryHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 	var element: CardView = itemView.findViewById(R.id.history_list_element)
-	var id: Long = 0
+	var date: Long = 0
 
 	init {
 		element.setOnClickListener { v ->
 			Log.d("HOLDER", "click")
 			val intent = Intent(v.context, PurchaseActivity::class.java)
-			intent.putExtra("id", id)
+			intent.putExtra("date", date)
 			v.context.startActivity(intent)
 		}
 	}
 
 	fun bind(purchase: Purchase) {
-		id = purchase.id
+		date = purchase.date
 		element.purchase_name.text = purchase.name
 		element.purchase_cost.text = purchase.cost.toString()
 	}

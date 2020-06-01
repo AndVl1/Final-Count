@@ -4,7 +4,7 @@ import com.techpark.finalcount.base.BasePresenter
 import com.techpark.finalcount.purchase.view.PurchaseView
 
 interface PurchasePresenter: BasePresenter<PurchaseView> {
-    fun getPurchase(id: Long)
+    fun getPurchase(date: Long)
     fun delete()
     fun update(name: String, price: Int, currency: String)
 }

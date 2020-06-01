@@ -21,7 +21,7 @@ class AddingPurchasePresenterImpl @Inject constructor(dataSource: DataSource): A
 	override fun add(name: String, cost: Int, currency: String) {
 		mView?.setLoadingVisibility(true)
 		val now = System.currentTimeMillis()
-		val purchase = Purchase(0, name, cost, now)
+		val purchase = Purchase(name, cost, now)
 		mMainScope.launch {
 			try {
 				val plans = withContext(mIOScope.coroutineContext) {

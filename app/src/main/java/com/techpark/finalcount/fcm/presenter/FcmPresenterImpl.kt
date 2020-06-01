@@ -64,7 +64,6 @@ class FcmPresenterImpl @Inject constructor(private val mPreferences: GlobalPrefe
 						Log.d(AuthPresenterImpl.TAG, elem["purchase"].toString())
 						val hashMap = elem["purchase"] as HashMap<*, *>
 						val purchase = Purchase(
-							hashMap["id"] as Long,
 							hashMap["name"] as String,
 							(hashMap["cost"] as Long).toInt(),
 							hashMap["date"] as Long

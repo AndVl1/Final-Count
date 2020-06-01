@@ -16,10 +16,7 @@
 	<FrameLayout
 		android:id="@+id/container"
 		android:layout_height="match_parent"
-		android:layout_marginTop="@dimen/activity_margin"
-		android:layout_marginBottom="@dimen/activity_navbar_margin"
-		android:layout_marginStart="@dimen/activity_margin"
-		android:layout_marginEnd="@dimen/activity_margin"
+		android:layout_marginBottom="@dimen/navbar_height"
 		android:layout_width="match_parent" />
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:background="@color/colorSecondary"

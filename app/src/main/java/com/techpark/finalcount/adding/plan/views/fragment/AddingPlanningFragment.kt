@@ -40,7 +40,7 @@ class AddingPlanningFragment : BottomDrawerFragment(), AddingPlanningView {
 		savedInstanceState: Bundle?
 	): View? {
 		val percent = 0.65f
-		mRoot = inflater.inflate(R.layout.addng_plan_fragment, container, false)
+		mRoot = inflater.inflate(R.layout.adding_plan_fragment, container, false)
 
 		val select: Button? = mRoot.findViewById(R.id.select_range)
 		select?.setOnClickListener {

@@ -1,7 +1,9 @@
 package com.techpark.finalcount.fcm
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -42,6 +44,12 @@ class MessagingService : FirebaseMessagingService() {
 		val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 			?: return
 		val builder = NotificationCompat.Builder(this, CHANNEL_UPDATE)
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			val updateChannel = NotificationChannel(CHANNEL_UPDATE,
+				getString(R.string.update_channel), NotificationManager.IMPORTANCE_NONE)
+			manager.createNotificationChannel(updateChannel)
+		}
 
 		builder.setContentTitle(title)
 			.setSmallIcon(R.drawable.circle_entered)

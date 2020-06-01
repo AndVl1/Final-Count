@@ -15,12 +15,12 @@ class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): Purchas
 	private val mPurchaseDao = dataSource.purchaseDatabase.purchaseDao()
 	private val mPlanningDao = dataSource.planningDatabase.planningDao()
 
-	override fun getPurchase(id: Long){
-		Log.d(TAG, "init $id")
+	override fun getPurchase(date: Long){
+		Log.d(TAG, "init $date")
 		mMainScope.launch {
 			Log.d(TAG, "Main")
 			mIOScope.launch {
-				getData(id)
+				getData(date)
 			}.join()
 			Log.d(TAG, mPurchase.name)
 			mView?.setParams(mPurchase)
@@ -28,7 +28,7 @@ class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): Purchas
 	}
 
 	private suspend fun getData(id: Long) {
-		mPurchase = mPurchaseDao.getById(id)
+		mPurchase = mPurchaseDao.getByDate(id)!!
 		Log.d(TAG, mPurchase.name)
 	}
 
@@ -48,7 +48,7 @@ class PurchasePresenterImpl @Inject constructor(dataSource: DataSource): Purchas
 	}
 
 	override fun update(name: String, price: Int, currency: String) {
-		mPurchase = Purchase(mPurchase.id,
+		mPurchase = Purchase(
 			if (name.isNotEmpty()) name else mPurchase.name,
 			if (price != -1) price else mPurchase.cost,
 			mPurchase.date

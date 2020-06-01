@@ -23,7 +23,7 @@ class HistoryPagedAdapter:
 	companion object{
 		private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Purchase>() {
 			override fun areItemsTheSame(oldItem: Purchase, newItem: Purchase): Boolean =
-				oldItem.id == newItem.id
+				oldItem.date == newItem.date
 
 			override fun areContentsTheSame(oldItem: Purchase, newItem: Purchase): Boolean =
 				oldItem == newItem

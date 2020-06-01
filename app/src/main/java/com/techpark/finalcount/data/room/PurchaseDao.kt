@@ -12,9 +12,6 @@ interface PurchaseDao {
 	@Query("SELECT * FROM purchases ORDER BY date")
 	suspend fun loadAll(): List<Purchase>
 
-	@Query("SELECT * FROM purchases WHERE id = :id")
-	suspend fun getById(id: Long): Purchase
-
 	@Query("SELECT * FROM purchases WHERE date = :date")
 	suspend fun getByDate(date: Long): Purchase?
 

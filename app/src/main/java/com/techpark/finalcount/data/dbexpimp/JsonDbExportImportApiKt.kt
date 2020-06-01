@@ -51,7 +51,7 @@ object JsonDbExportImportApiKt {
 		for (i in 0 until jsonArray.length()) {
 			val obj = jsonArray[i] as JSONObject
 			next =
-				"\"${obj["id"]}\", \"${obj["name"]}\", \"${obj["cost"]}\", \"${Date(obj["date"] as Long)}\"\n"
+				"\"${i+1}\", \"${obj["name"]}\", \"${obj["cost"]}\", \"${Date(obj["date"] as Long)}\"\n"
 			fileWriter.write(next)
 		}
 		fileWriter.flush()

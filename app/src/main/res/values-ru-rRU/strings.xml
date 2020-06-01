@@ -63,4 +63,6 @@
 	<string name="plans_beginDate">Дата начала:</string>
 	<string name="plans_endDate">Дата конца:</string>
 	<string name="plans_dateError">Вы должны ввести ограничение по датам</string>
+
+	<string name="update_channel">Обновление покупок</string>
 </resources>
