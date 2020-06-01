@@ -6,8 +6,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.techpark.finalcount.base.BasePresenterImpl
 import com.techpark.finalcount.data.DataSource
-import com.techpark.finalcount.data.dbexpimp.JsonDbExportImportApiKt
 import com.techpark.finalcount.data.GlobalPreferences
+import com.techpark.finalcount.data.dbexpimp.JsonDbExportImportApiKt
 import com.techpark.finalcount.data.room.model.Planning
 import com.techpark.finalcount.main.views.MainView
 import kotlinx.coroutines.launch
@@ -45,7 +45,9 @@ class MainPresenterImpl @Inject constructor(private val dataSource: DataSource, 
 			mIOScope.launch {
 				mPlanningDao.clear()
 				mPurchaseDao.clear()
-				FirebaseMessaging.getInstance().unsubscribeFromTopic(auth.currentUser!!.uid)
+				try {
+					FirebaseMessaging.getInstance().unsubscribeFromTopic(auth.currentUser!!.uid)
+				}catch (e: Exception){}
 			}.join()
 			auth.signOut()
 			mView?.toAuthActivity()
