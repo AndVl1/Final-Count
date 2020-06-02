@@ -28,12 +28,12 @@ Android-приложение для учёта расходов:
 
 #### Скриншоты
 
-[![Авторизация](screenshots/auth.png?raw=true "Авторизация")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/auth.png "Скриншоты")
-[![Список покупок](screenshots/purchaseslist.png?raw=true "Список покупок")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/purchaseslist.png "Список покупок")
-[![Добавление новой покупки](screenshots/new_purchase.png?raw=true "Добавление новой покупки")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/new_purchase.png "Добавление новой покупки")
-[![Добавление нового плана](screenshots/new_plan.png?raw=true "Добавление нового плана")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/new_purchase.png "Добавление нового плана")
-[![Пинкод](screenshots/new_purchase.png?raw=true "Пинкод")](https://github.com/AndVl1/Final-Count/blob/exam/screenshots/pincode-screenshot.png "пинкод")
+[![Авторизация](screenshots/auth.png?raw=true "Авторизация")](https://github.com/AndVl1/Final-Count/blob/master/screenshots/auth.png "Скриншоты")
+[![Список покупок](screenshots/purchaseslist.png?raw=true "Список покупок")](https://github.com/AndVl1/Final-Count/blob/master/screenshots/purchaseslist.png "Список покупок")
+[![Добавление новой покупки](screenshots/new_purchase.png?raw=true "Добавление новой покупки")](https://github.com/AndVl1/Final-Count/blob/master/screenshots/new_purchase.png "Добавление новой покупки")
+[![Добавление нового плана](screenshots/new_plan.png?raw=true "Добавление нового плана")](https://github.com/AndVl1/Final-Count/blob/master/screenshots/new_purchase.png "Добавление нового плана")
+[![Пинкод](screenshots/new_purchase.png?raw=true "Пинкод")](https://github.com/AndVl1/Final-Count/blob/master/screenshots/pincode-screenshot.png "пинкод")
 ---
 #### Примеры работы приложения
 
-[Примеры работы приложения](https://github.com/AndVl1/Final-Count/blob/exam/samples)
+[Примеры работы приложения](https://github.com/AndVl1/Final-Count/blob/master/samples)
